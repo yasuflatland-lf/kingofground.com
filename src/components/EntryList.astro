@@ -17,16 +17,27 @@ interface Props {
 const { locale, items } = Astro.props;
 ---
 
-<ul class="divide-y divide-soft">
+<ul class="mx-auto mt-16 grid max-w-4xl gap-16">
   {
     items.map((item) => (
-      <li class="py-6">
-        <a href={item.href} class="group block">
-          <time datetime={item.date.toISOString()} class="font-ui text-sm text-medium">
-            {formatDate(item.date, locale)}
-          </time>
-          <h3 class="text-h6 mt-1 group-hover:underline">{item.title}</h3>
-          {item.description && <p class="mt-2">{item.description}</p>}
+      <li>
+        <a href={item.href} class="group grid items-center gap-5 md:grid-cols-2 md:gap-10">
+          {/* スキーマに画像が無いあいだのプレースホルダー面。画像を足したらここを <Image> にする */}
+          <div
+            class="flex aspect-video w-full items-center justify-center rounded-md bg-off-white"
+            aria-hidden="true"
+          >
+            <span lang="en" class="text-h3 font-bold text-soft">
+              KOG
+            </span>
+          </div>
+          <div>
+            <h3 class="text-h3 group-hover:underline">{item.title}</h3>
+            {item.description && <p class="mt-2 text-medium">{item.description}</p>}
+            <time datetime={item.date.toISOString()} class="mt-3 block text-sm text-medium">
+              {formatDate(item.date, locale)}
+            </time>
+          </div>
         </a>
       </li>
     ))
