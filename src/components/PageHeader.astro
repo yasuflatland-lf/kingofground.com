@@ -7,22 +7,31 @@ interface Props {
   title: string;
   description?: string;
   date?: Date;
-  size?: 'h1' | 'h2';
+  /** タイトルの上に置く小さなラベル（Astroship のブログのカテゴリ表示に相当）。親セクションへのリンクを兼ねる */
+  kicker?: { label: string; href: string };
   titleLang?: 'en';
 }
 
-const { locale, title, description, date, size = 'h1', titleLang } = Astro.props;
-const sizeClass = size === 'h2' ? 'text-h2' : 'text-h1';
+const { locale, title, description, date, kicker, titleLang } = Astro.props;
 ---
 
-<header class="container-site pt-16 pb-10">
+<header class="container-site mt-16 text-center">
+  {
+    kicker && (
+      <p class="kicker">
+        <a href={kicker.href} class="inline-flex min-h-11 items-center hover:underline">
+          {kicker.label}
+        </a>
+      </p>
+    )
+  }
+  <h1 class:list={['text-h2', kicker && 'mt-2']} lang={titleLang}>{title}</h1>
+  {description && <p class="mx-auto mt-4 max-w-2xl text-lg text-balance text-body">{description}</p>}
   {
     date && (
-      <time datetime={date.toISOString()} class="font-ui text-sm text-medium">
+      <time datetime={date.toISOString()} class="mt-3 block text-sm text-medium">
         {formatDate(date, locale)}
       </time>
     )
   }
-  <h1 class:list={[sizeClass, 'mt-2']} lang={titleLang}>{title}</h1>
-  {description && <p class="mt-4 max-w-prose text-lg">{description}</p>}
 </header>

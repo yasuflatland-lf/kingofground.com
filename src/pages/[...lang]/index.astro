@@ -1,6 +1,9 @@
 ---
 import type { InferGetStaticPropsType } from 'astro';
+import CtaBox from '../../components/CtaBox.astro';
 import EntryList from '../../components/EntryList.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import Hero from '../../components/Hero.astro';
 import { locales } from '../../i18n/config';
 import { t } from '../../i18n/ui';
 import { localePath, localePaths, localeStaticPaths } from '../../i18n/utils';
@@ -23,17 +26,13 @@ const results = (await getResults(locale)).slice(0, 3);
   description={t(locale, 'site.tagline')}
   translations={localePaths(locales, '/')}
 >
-  <section class="bg-black text-white">
-    <div class="container-site py-16 lg:py-24">
-      <h1 class="text-display text-white" lang="en">KING OF GROUND</h1>
-      <p class="mt-6 font-ui text-lg text-silver">{t(locale, 'site.tagline')}</p>
-    </div>
-  </section>
+  <Hero locale={locale} />
+  <FeatureGrid locale={locale} />
 
-  <section class="container-site py-16">
-    <div class="flex items-baseline justify-between gap-4">
-      <h2 class="text-h3">{t(locale, 'home.latestBlogs')}</h2>
-      <a href={localePath(locale, '/blogs/')} class="text-btn">{t(locale, 'home.viewAll')}</a>
+  <section class="container-site mt-20">
+    <div class="mx-auto flex max-w-4xl items-baseline justify-between gap-4">
+      <h2 class="text-h2">{t(locale, 'home.latestBlogs')}</h2>
+      <a href={localePath(locale, '/blogs/')} class="text-link inline-flex min-h-11 items-center">{t(locale, 'home.viewAll')}</a>
     </div>
     <EntryList
       locale={locale}
@@ -46,10 +45,10 @@ const results = (await getResults(locale)).slice(0, 3);
     />
   </section>
 
-  <section class="container-site pb-16">
-    <div class="flex items-baseline justify-between gap-4">
-      <h2 class="text-h3">{t(locale, 'home.latestResults')}</h2>
-      <a href={localePath(locale, '/results/')} class="text-btn">{t(locale, 'home.viewAll')}</a>
+  <section class="container-site mt-20">
+    <div class="mx-auto flex max-w-4xl items-baseline justify-between gap-4">
+      <h2 class="text-h2">{t(locale, 'home.latestResults')}</h2>
+      <a href={localePath(locale, '/results/')} class="text-link inline-flex min-h-11 items-center">{t(locale, 'home.viewAll')}</a>
     </div>
     <EntryList
       locale={locale}
@@ -58,12 +57,10 @@ const results = (await getResults(locale)).slice(0, 3);
         date: entry.data.date,
         description: entry.data.venue,
         href: localePath(locale, `/results/${splitId(entry.id).slug}/`),
+        lang: 'en',
       }))}
     />
   </section>
 
-  <section class="container-site grid gap-4 pb-16 md:grid-cols-2">
-    <a href={localePath(locale, '/101/')} class="btn">{t(locale, 'home.guidesLead')}</a>
-    <a href={localePath(locale, '/history/')} class="btn">{t(locale, 'home.historyLead')}</a>
-  </section>
+  <CtaBox locale={locale} />
 </BaseLayout>

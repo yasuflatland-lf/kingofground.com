@@ -29,14 +29,16 @@ const results = await getResults(locale);
     title={t(locale, 'results.title')}
     description={t(locale, 'results.description')}
   />
-  <div class="container-site pb-16">
+  <div class="container-site">
     <EntryList
       locale={locale}
+      headingLevel="h2"
       items={results.map((entry) => ({
         title: entry.data.title,
         date: entry.data.date,
         description: entry.data.venue,
         href: localePath(locale, `/results/${splitId(entry.id).slug}/`),
+        lang: 'en',
       }))}
     />
   </div>

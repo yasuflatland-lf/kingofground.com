@@ -29,9 +29,10 @@ const blogs = await getBlogs(locale);
     title={t(locale, 'blogs.title')}
     description={t(locale, 'blogs.description')}
   />
-  <div class="container-site pb-16">
+  <div class="container-site">
     <EntryList
       locale={locale}
+      headingLevel="h2"
       items={blogs.map((entry) => ({
         title: entry.data.title,
         date: entry.data.pubDate,

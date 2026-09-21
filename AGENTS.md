@@ -35,7 +35,8 @@ src/
   lib/validate.ts     ビルドを失敗させる整合性チェック（Astro 非依存）
   lib/collections.ts  getCollection を呼ぶ唯一の層（ページは本文描画用の render だけを astro:content から import する）
   layouts/            BaseLayout
-  components/         Header, Footer, LanguageSwitcher, EntryList, PageHeader, ResultsTable
+  assets/             ヒーローの線画（hero.svg）
+  components/         Header, Footer, LanguageSwitcher, EntryList, PageHeader, ResultsTable, Hero, FeatureGrid, CtaBox
   pages/[...lang]/    全ページ（lang: undefined = ja、'en' = en）
   pages/404.astro
   styles/global.css   デザイントークン（DESIGN.md を参照）
@@ -76,9 +77,10 @@ classes:
 ## スタイル
 
 - `DESIGN.md` のトークンと utility だけを使う。任意値（`text-[13px]`）や `global.css` に無い色を書かない。
-- 見出しは `h1`〜`h6` 要素と `text-h*` で指定する。行間・字間・大文字変換は `:lang()` で決まる。
+- 見出しは `h1`〜`h6` 要素と `text-h*` で指定する。ウェイトは要素で、行間・字間は `text-h*` が言語ごとに決める。
 - 日本語ページでも欧文だけの見出し（wordmark、大会名）には `lang="en"` を付ける。
-- 黒面（ヘッダー、フッター、ヒーロー）以外は白面。影と角丸は使わない。
+- 白面が基本。黒面はホームの CTA ボックスとボタンだけ。影は使わない。角丸は `rounded-sm` / `rounded-md` / `rounded-lg` / `rounded-full` だけ。
+- ページタイトルは `PageHeader`、一覧は `EntryList` に任せる。
 
 ## テスト
 
