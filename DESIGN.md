@@ -102,7 +102,7 @@ line-break: strict;
 overflow-wrap: break-word;
 ```
 
-`text-h1`〜`text-h3` の和文は `word-break: auto-phrase`（対応ブラウザのみ）で文節ごとに折る。未対応ブラウザは `normal`。
+`text-h1`〜`text-h3` と `text-balance` の和文は `word-break: auto-phrase`（対応ブラウザのみ）で文節ごとに折る。未対応ブラウザは `normal`。
 
 ### 3.7 OpenType 機能
 

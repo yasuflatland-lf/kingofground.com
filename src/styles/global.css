@@ -242,7 +242,7 @@
 
 /* 和文見出しは文節で折る（Chrome 119+ の BudouX）。未対応ブラウザは :lang(ja) の word-break: normal のまま */
 @supports (word-break: auto-phrase) {
-  :is(.text-h1, .text-h2, .text-h3):lang(ja) {
+  :is(.text-h1, .text-h2, .text-h3, .text-balance):lang(ja) {
     word-break: auto-phrase;
   }
 }
