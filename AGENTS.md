@@ -13,14 +13,14 @@ kingofground.com（KING OF GROUND — BMX フラットランドのコンテス�
 
 ## コマンド
 
-| コマンド | 内容 |
-|---|---|
-| `pnpm dev` | 開発サーバー |
-| `pnpm build` / `pnpm preview` | 本番ビルド / ビルド結果の確認 |
-| `pnpm check` | `astro check`（型と `.astro` の検査） |
-| `pnpm lint` / `pnpm lint:fix` | Biome |
-| `pnpm test` / `pnpm test:watch` | Vitest |
-| `pnpm verify` | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` |
+| コマンド                        | 内容                                                                      |
+| ------------------------------- | ------------------------------------------------------------------------- |
+| `pnpm dev`                      | 開発サーバー                                                              |
+| `pnpm build` / `pnpm preview`   | 本番ビルド / ビルド結果の確認                                             |
+| `pnpm check`                    | `astro check`（型と `.astro` の検査）                                     |
+| `pnpm lint` / `pnpm lint:fix`   | Biome                                                                     |
+| `pnpm test` / `pnpm test:watch` | Vitest                                                                    |
+| `pnpm verify`                   | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` |
 
 変更を終えたら `pnpm verify` を通してからコミットする。
 
@@ -35,7 +35,8 @@ src/
   lib/validate.ts     ビルドを失敗させる整合性チェック（Astro 非依存）
   lib/collections.ts  getCollection を呼ぶ唯一の層（ページは本文描画用の render だけを astro:content から import する）
   layouts/            BaseLayout
-  components/         Header, Footer, LanguageSwitcher, EntryList, PageHeader, ResultsTable
+  assets/             ヒーローの線画（hero.svg）
+  components/         Header, Footer, LanguageSwitcher, EntryList, PageHeader, ResultsTable, Hero, FeatureGrid, CtaBox
   pages/[...lang]/    全ページ（lang: undefined = ja、'en' = en）
   pages/404.astro
   styles/global.css   デザイントークン（DESIGN.md を参照）
@@ -52,13 +53,13 @@ tests/                Vitest
 
 ## コンテンツの追加
 
-| 種類 | 置き場所 | 必須 frontmatter |
-|---|---|---|
-| ブログ | `src/content/blogs/{ja,en}/<slug>.md` | `title`, `description`, `pubDate`（任意: `updatedDate`, `draft`） |
-| リザルト | `src/content/results/{ja,en}/<slug>.md` | `title`, `date`, `classes[]`（任意: `venue`） |
-| 101 の記事 | `src/content/guides/{ja,en}/<category>/<slug>.md` | `title`, `description`（任意: `order`） |
-| 101 のカテゴリ | `src/content/guide-categories/<category>.yaml` | `order`, `title.{ja,en}`, `description.{ja,en}` |
-| 単発ページ | `src/content/pages/{ja,en}/<slug>.md` | `title`, `description` |
+| 種類           | 置き場所                                          | 必須 frontmatter                                                  |
+| -------------- | ------------------------------------------------- | ----------------------------------------------------------------- |
+| ブログ         | `src/content/blogs/{ja,en}/<slug>.md`             | `title`, `description`, `pubDate`（任意: `updatedDate`, `draft`） |
+| リザルト       | `src/content/results/{ja,en}/<slug>.md`           | `title`, `date`, `classes[]`（任意: `venue`）                     |
+| 101 の記事     | `src/content/guides/{ja,en}/<category>/<slug>.md` | `title`, `description`（任意: `order`）                           |
+| 101 のカテゴリ | `src/content/guide-categories/<category>.yaml`    | `order`, `title.{ja,en}`, `description.{ja,en}`                   |
+| 単発ページ     | `src/content/pages/{ja,en}/<slug>.md`             | `title`, `description`                                            |
 
 - 翻訳ペアは「同じ相対パス」で決まる。frontmatter で紐付けない。
 - `draft: true` のブログは本番ビルドで除外される。
@@ -76,9 +77,10 @@ classes:
 ## スタイル
 
 - `DESIGN.md` のトークンと utility だけを使う。任意値（`text-[13px]`）や `global.css` に無い色を書かない。
-- 見出しは `h1`〜`h6` 要素と `text-h*` で指定する。行間・字間・大文字変換は `:lang()` で決まる。
+- 見出しは `h1`〜`h6` 要素と `text-h*` で指定する。ウェイトは要素で、行間・字間は `text-h*` が言語ごとに決める。
 - 日本語ページでも欧文だけの見出し（wordmark、大会名）には `lang="en"` を付ける。
-- 黒面（ヘッダー、フッター、ヒーロー）以外は白面。影と角丸は使わない。
+- 白面が基本。黒面はホームの CTA ボックスとボタンだけ。影は使わない。角丸は `rounded-sm` / `rounded-md` / `rounded-lg` / `rounded-full` だけ。
+- ページタイトルは `PageHeader`、一覧は `EntryList` に任せる。
 
 ## テスト
 
