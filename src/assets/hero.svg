@@ -1,0 +1,32 @@
+<!-- biome-ignore lint/a11y/noSvgWithoutTitle: decorative asset, always rendered with aria-hidden="true" -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 地面 -->
+  <path d="M30 392h460" />
+  <path d="M70 408h40M420 408h30" stroke-width="2" />
+  <!-- 後輪 -->
+  <circle cx="120" cy="300" r="90" />
+  <circle cx="120" cy="300" r="78" stroke-width="2" />
+  <path d="M120 222v64M120 314v64M42 300h64M134 300h64M65 245l45 45M130 310l45 45M175 245l-45 45M110 310l-45 45" stroke-width="1.5" />
+  <circle cx="120" cy="300" r="14" />
+  <circle cx="120" cy="300" r="4" fill="#000" />
+  <!-- 前輪 -->
+  <circle cx="400" cy="300" r="90" />
+  <circle cx="400" cy="300" r="78" stroke-width="2" />
+  <path d="M400 222v64M400 314v64M322 300h64M414 300h64M345 245l45 45M410 310l45 45M455 245l-45 45M390 310l-45 45" stroke-width="1.5" />
+  <circle cx="400" cy="300" r="14" />
+  <circle cx="400" cy="300" r="4" fill="#000" />
+  <!-- 駆動系 -->
+  <circle cx="238" cy="304" r="22" />
+  <circle cx="120" cy="300" r="9" stroke-width="2" />
+  <path d="M238 282l-118 9M238 326l-118-17" stroke-width="2" />
+  <path d="M238 304l18 28M238 304l-18-28" />
+  <path d="M246 332h20M210 276h20" stroke-width="5" />
+  <!-- フレームとフォーク -->
+  <path d="M238 304L120 300M238 304l26-116M264 188L120 300M264 188l94-30M238 304l136-100M358 158l16 46M374 204l26 96" />
+  <!-- サドル -->
+  <path d="M258 188l6-24" />
+  <path d="M246 164h36" stroke-width="6" />
+  <!-- ステムとハンドル -->
+  <path d="M358 158l-8-32M330 128h40M350 126l6-38M356 88l40-14M340 108l32-10" />
+  <path d="M320 130h12M394 76l10-4" stroke-width="7" />
+</svg>

@@ -1,0 +1,28 @@
+---
+import HeroArt from '../assets/hero.svg';
+import type { Locale } from '../i18n/config';
+import { t } from '../i18n/ui';
+import { localePath } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="container-site grid items-center gap-10 pt-16 pb-8 md:pt-12 md:pb-24 lg:grid-cols-2">
+  <div>
+    <h1 class="text-h1" lang="en">KING OF GROUND</h1>
+    <p class="mt-4 max-w-xl text-lg text-medium">{t(locale, 'home.heroLead')}</p>
+    <div class="mt-6 flex flex-col gap-3 md:flex-row">
+      <a href={localePath(locale, '/101/')} class="btn">{t(locale, 'home.heroPrimary')}</a>
+      <a href={localePath(locale, '/results/')} class="btn btn-outline">
+        {t(locale, 'home.heroSecondary')}
+      </a>
+    </div>
+  </div>
+  <div class="hidden justify-center md:flex">
+    <HeroArt class="h-auto w-full max-w-lg" aria-hidden="true" />
+  </div>
+</section>
