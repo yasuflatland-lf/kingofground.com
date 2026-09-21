@@ -12,33 +12,98 @@ interface Props {
 
 const { locale, translations, fallbackPath } = Astro.props;
 
+// 101 はナビではなく右端のボタン（Astroship の "Sign up" に相当）
 const nav: Array<{ key: UiKey; path: string }> = [
   { key: 'nav.home', path: '/' },
   { key: 'nav.history', path: '/history/' },
   { key: 'nav.blogs', path: '/blogs/' },
   { key: 'nav.results', path: '/results/' },
-  { key: 'nav.guides', path: '/101/' },
 ];
 ---
 
-<header class="bg-black text-white">
-  <div class="container-site flex flex-wrap items-center justify-between gap-4 py-4">
-    <a href={localePath(locale, '/')} lang="en" class="font-display text-2xl uppercase">
-      {t(locale, 'site.title')}
-    </a>
-    <nav aria-label="main">
-      <ul class="flex flex-wrap gap-1">
-        {
-          nav.map(({ key, path }) => (
-            <li>
-              <a href={localePath(locale, path)} class="nav-link">
-                {t(locale, key)}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-    <LanguageSwitcher locale={locale} translations={translations} fallbackPath={fallbackPath} />
+<header class="container-site">
+  <div class="my-5 flex flex-col items-center lg:flex-row">
+    <div class="flex w-full items-center justify-between lg:w-auto">
+      <a href={localePath(locale, '/')} lang="en" class="text-lg text-black">
+        <span class="font-bold">KING</span><span class="text-medium"> OF GROUND</span>
+      </a>
+      <button
+        type="button"
+        data-nav-toggle
+        aria-label={t(locale, 'nav.toggle')}
+        aria-expanded="false"
+        aria-controls="site-nav"
+        class="flex size-11 items-center justify-center text-black lg:hidden"
+      >
+        <svg
+          data-icon="open"
+          class="size-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg
+          data-icon="close"
+          class="hidden size-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+    <div
+      id="site-nav"
+      class="mt-3 hidden w-full flex-col items-center gap-3 lg:mt-0 lg:flex lg:w-auto lg:flex-1 lg:flex-row lg:justify-end lg:gap-0"
+    >
+      <nav aria-label="main" class="w-full lg:mx-auto lg:w-auto">
+        <ul class="flex flex-col items-center lg:flex-row lg:gap-1">
+          {
+            nav.map(({ key, path }) => (
+              <li>
+                <a href={localePath(locale, path)} class="nav-link">
+                  {t(locale, key)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="flex items-center gap-2">
+        <LanguageSwitcher locale={locale} translations={translations} fallbackPath={fallbackPath} />
+        <a href={localePath(locale, '/101/')} class="btn btn-sm">{t(locale, 'nav.guides')}</a>
+      </div>
+    </div>
   </div>
+  <noscript>
+    <style is:inline>
+      #site-nav {
+        display: flex;
+      }
+    </style>
+  </noscript>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const nav = document.getElementById('site-nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.contains('hidden');
+      nav.classList.toggle('hidden', !open);
+      nav.classList.toggle('flex', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.querySelector('[data-icon="open"]')?.classList.toggle('hidden', open);
+      toggle.querySelector('[data-icon="close"]')?.classList.toggle('hidden', !open);
+    });
+  }
+</script>
