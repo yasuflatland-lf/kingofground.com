@@ -13,14 +13,14 @@ kingofground.com（KING OF GROUND — BMX フラットランドのコンテス�
 
 ## コマンド
 
-| コマンド                        | 内容                                                                      |
-| ------------------------------- | ------------------------------------------------------------------------- |
-| `pnpm dev`                      | 開発サーバー                                                              |
-| `pnpm build` / `pnpm preview`   | 本番ビルド / ビルド結果の確認                                             |
-| `pnpm check`                    | `astro check`（型と `.astro` の検査）                                     |
-| `pnpm lint` / `pnpm lint:fix`   | Biome                                                                     |
-| `pnpm test` / `pnpm test:watch` | Vitest                                                                    |
-| `pnpm verify`                   | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` |
+| コマンド | 内容 |
+|---|---|
+| `pnpm dev` | 開発サーバー |
+| `pnpm build` / `pnpm preview` | 本番ビルド / ビルド結果の確認 |
+| `pnpm check` | `astro check`（型と `.astro` の検査） |
+| `pnpm lint` / `pnpm lint:fix` | Biome |
+| `pnpm test` / `pnpm test:watch` | Vitest |
+| `pnpm verify` | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` |
 
 変更を終えたら `pnpm verify` を通してからコミットする。
 
@@ -53,13 +53,13 @@ tests/                Vitest
 
 ## コンテンツの追加
 
-| 種類           | 置き場所                                          | 必須 frontmatter                                                  |
-| -------------- | ------------------------------------------------- | ----------------------------------------------------------------- |
-| ブログ         | `src/content/blogs/{ja,en}/<slug>.md`             | `title`, `description`, `pubDate`（任意: `updatedDate`, `draft`） |
-| リザルト       | `src/content/results/{ja,en}/<slug>.md`           | `title`, `date`, `classes[]`（任意: `venue`）                     |
-| 101 の記事     | `src/content/guides/{ja,en}/<category>/<slug>.md` | `title`, `description`（任意: `order`）                           |
-| 101 のカテゴリ | `src/content/guide-categories/<category>.yaml`    | `order`, `title.{ja,en}`, `description.{ja,en}`                   |
-| 単発ページ     | `src/content/pages/{ja,en}/<slug>.md`             | `title`, `description`                                            |
+| 種類 | 置き場所 | 必須 frontmatter |
+|---|---|---|
+| ブログ | `src/content/blogs/{ja,en}/<slug>.md` | `title`, `description`, `pubDate`（任意: `updatedDate`, `draft`） |
+| リザルト | `src/content/results/{ja,en}/<slug>.md` | `title`, `date`, `classes[]`（任意: `venue`） |
+| 101 の記事 | `src/content/guides/{ja,en}/<category>/<slug>.md` | `title`, `description`（任意: `order`） |
+| 101 のカテゴリ | `src/content/guide-categories/<category>.yaml` | `order`, `title.{ja,en}`, `description.{ja,en}` |
+| 単発ページ | `src/content/pages/{ja,en}/<slug>.md` | `title`, `description` |
 
 - 翻訳ペアは「同じ相対パス」で決まる。frontmatter で紐付けない。
 - `draft: true` のブログは本番ビルドで除外される。
