@@ -195,7 +195,6 @@
   &:lang(ja) {
     line-height: 1.25;
     letter-spacing: 0.02em;
-    word-break: keep-all;
   }
 }
 @utility text-h2 {
@@ -205,7 +204,6 @@
   &:lang(ja) {
     line-height: 1.25;
     letter-spacing: 0.02em;
-    word-break: keep-all;
   }
 }
 @utility text-h3 {
@@ -215,7 +213,6 @@
   &:lang(ja) {
     line-height: 1.4;
     letter-spacing: 0.02em;
-    word-break: keep-all;
   }
 }
 @utility text-h4 {
@@ -240,6 +237,13 @@
   letter-spacing: 0;
   &:lang(ja) {
     letter-spacing: 0.02em;
+  }
+}
+
+/* 和文見出しは文節で折る（Chrome 119+ の BudouX）。未対応ブラウザは :lang(ja) の word-break: normal のまま */
+@supports (word-break: auto-phrase) {
+  :is(.text-h1, .text-h2, .text-h3):lang(ja) {
+    word-break: auto-phrase;
   }
 }
 

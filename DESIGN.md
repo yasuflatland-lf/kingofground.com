@@ -23,8 +23,8 @@
 | 背景                                             | `white`     | `#ffffff` |
 | 見出し、ボタン、CTA ボックス                     | `black`     | `#000000` |
 | 黒ボタンのホバー                                 | `ink`       | `#262626` |
-| 本文、リード文                                   | `body`      | `#475569` |
-| メタ情報、ナビ、フッター                         | `medium`    | `#64748b` |
+| 本文、リード文、ナビ                             | `body`      | `#475569` |
+| メタ情報、フッター                               | `medium`    | `#64748b` |
 | 罫線、黒面の補足文                               | `soft`      | `#e2e8f0` |
 | プレースホルダー面、表の縞、輪郭線ボタンのホバー | `off-white` | `#f8fafc` |
 | キッカー                                         | `accent`    | `#2563eb` |
@@ -102,7 +102,7 @@ line-break: strict;
 overflow-wrap: break-word;
 ```
 
-`text-h1`〜`text-h3` の和文は `word-break: keep-all` で、欧文と和文の境の空白で折る。
+`text-h1`〜`text-h3` の和文は `word-break: auto-phrase`（対応ブラウザのみ）で文節ごとに折る。未対応ブラウザは `normal`。
 
 ### 3.7 OpenType 機能
 
@@ -131,7 +131,7 @@ font-feature-settings: normal; /* palt 未適用。字間は letter-spacing で�
 
 ### Navigation links（`.nav-link`）
 
-- Text: `#64748b`、Padding: 8px 12px、最小高さ 44px
+- Text: `#475569`、Padding: 8px 12px、最小高さ 44px
 - Hover: Text `#000000`
 
 ### Text links（`.text-link`）

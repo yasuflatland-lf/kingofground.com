@@ -34,7 +34,10 @@ const groups = await getGuideCategoriesFor(locale);
       groups.map(({ category, guides }) => (
         <section class="mx-auto mt-16 max-w-4xl">
           <h2 class="text-h3">
-            <a href={localePath(locale, `/101/${category.id}/`)} class="hover:underline">
+            <a
+              href={localePath(locale, `/101/${category.id}/`)}
+              class="inline-flex min-h-11 items-center hover:underline"
+            >
               {category.data.title[locale]}
             </a>
           </h2>
