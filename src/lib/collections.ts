@@ -1,11 +1,13 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
-import type { Locale } from '../i18n/config';
+import { type Locale, locales } from '../i18n/config';
 import {
   filterByLocale,
   findTranslations,
   groupGuidesByCategory,
+  guideCategoryOf,
   isPublished,
   sortByDateDesc,
+  splitId,
 } from './content';
 import { assertAllLocales, assertKnownCategories } from './validate';
 
@@ -71,4 +73,14 @@ export async function getPage(locale: Locale, slug: string): Promise<Page> {
   const page = findTranslations(all, slug)[locale];
   if (!page) throw new Error(`pages/${locale}/${slug} not found`);
   return page;
+}
+
+/** そのカテゴリに記事が 1 件以上あるロケール */
+export async function getGuideCategoryLocales(categoryId: string): Promise<Locale[]> {
+  const all = await getCollection('guides');
+  return locales.filter((locale) =>
+    all.some(
+      (guide) => splitId(guide.id).locale === locale && guideCategoryOf(guide.id) === categoryId,
+    ),
+  );
 }

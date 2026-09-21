@@ -1,0 +1,59 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import { locales } from '../../../i18n/config';
+import { t } from '../../../i18n/ui';
+import { localePath, localePaths, localeStaticPaths } from '../../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getGuideCategoriesFor } from '../../../lib/collections';
+import { splitId } from '../../../lib/content';
+
+export const getStaticPaths = () => localeStaticPaths();
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale } = Astro.props as Props;
+
+const groups = await getGuideCategoriesFor(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'guides.title')}
+  description={t(locale, 'guides.description')}
+  translations={localePaths(locales, '/101/')}
+  fallbackPath="/101/"
+>
+  <PageHeader
+    locale={locale}
+    title={t(locale, 'guides.title')}
+    description={t(locale, 'guides.description')}
+    titleLang="en"
+  />
+  <div class="container-site grid gap-12 pb-16">
+    {
+      groups.map(({ category, guides }) => (
+        <section>
+          <h2 class="text-h4">
+            <a href={localePath(locale, `/101/${category.id}/`)} class="hover:underline">
+              {category.data.title[locale]}
+            </a>
+          </h2>
+          <p class="mt-2">{category.data.description[locale]}</p>
+          <ul class="mt-4 divide-y divide-soft">
+            {guides.map((guide) => (
+              <li class="py-3">
+                <a
+                  href={localePath(locale, `/101/${splitId(guide.id).slug}/`)}
+                  class="text-black hover:underline"
+                >
+                  {guide.data.title}
+                </a>
+                <span class="text-medium"> — {guide.data.description}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

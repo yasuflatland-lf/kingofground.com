@@ -1,0 +1,75 @@
+---
+import { render } from 'astro:content';
+import type { InferGetStaticPropsType } from 'astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { t } from '../../../../i18n/ui';
+import { localePath, localePaths, localeStaticPaths } from '../../../../i18n/utils';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getGuideCategories, getGuides, getGuideTranslations } from '../../../../lib/collections';
+import { availableLocales, guideCategoryOf, guideSlugOf, splitId } from '../../../../lib/content';
+
+export async function getStaticPaths() {
+  const categories = await getGuideCategories();
+  const perLocale = await Promise.all(
+    localeStaticPaths().map(async ({ params, props }) => {
+      const guides = await getGuides(props.locale);
+      return Promise.all(
+        guides.map(async (entry) => {
+          const { slug } = splitId(entry.id); // "<category>/<slug>"
+          const categoryId = guideCategoryOf(entry.id);
+          const category = categories.find((c) => c.id === categoryId);
+          // getGuides がカテゴリの存在を検証済みなので、ここに来ることはない
+          if (!category) throw new Error(`Unknown guide category "${categoryId}" for ${entry.id}`);
+          const found = await getGuideTranslations(slug);
+          const translations = localePaths(availableLocales(found), `/101/${slug}/`);
+          return {
+            params: { ...params, category: categoryId, slug: guideSlugOf(entry.id) },
+            props: { locale: props.locale, entry, category, translations },
+          };
+        }),
+      );
+    }),
+  );
+  return perLocale.flat();
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale, entry, category, translations } = Astro.props as Props;
+
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  locale={locale}
+  title={entry.data.title}
+  description={entry.data.description}
+  translations={translations}
+  fallbackPath="/101/"
+>
+  <article>
+    <nav aria-label="breadcrumb" class="container-site pt-8">
+      <ol class="flex flex-wrap gap-2 font-ui text-sm text-medium">
+        <li><a href={localePath(locale, '/101/')} class="hover:underline">{t(locale, 'guides.breadcrumb')}</a></li>
+        <li aria-hidden="true">›</li>
+        <li>
+          <a href={localePath(locale, `/101/${category.id}/`)} class="hover:underline">
+            {category.data.title[locale]}
+          </a>
+        </li>
+        <li aria-hidden="true">›</li>
+        <li>{entry.data.title}</li>
+      </ol>
+    </nav>
+    <PageHeader
+      locale={locale}
+      title={entry.data.title}
+      description={entry.data.description}
+      size="h2"
+    />
+    <div class="container-site pb-16">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
