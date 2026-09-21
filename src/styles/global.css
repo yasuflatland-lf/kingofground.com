@@ -1,1 +1,248 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* 配色（Zinox）: モノクロのみ。Tailwind 既定のパレットは無効にする */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-ink: #0a0a0a;
+  --color-charcoal: #171717;
+  --color-graphite: #202020;
+  --color-slate: #404040;
+  --color-steel: #525252;
+  --color-medium: #737373;
+  --color-silver: #b1b2b0;
+  --color-light: #d4d4d4;
+  --color-soft: #e5e5e5;
+  --color-snow: #f5f5f5;
+  --color-off-white: #fafafa;
+  --color-body: rgb(0 0 0 / 0.7);
+
+  /* フォント: 欧文を先頭に置き、和文にフォールバックする（Toyota の考え方） */
+  --font-display: "Anton", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  --font-body: "Inter Tight Variable", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  --font-ui: "Space Grotesk Variable", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  --font-mono: SFMono-Regular, Consolas, Menlo, monospace;
+
+  /* ブレークポイント（Toyota）: ≤767 mobile / 768–1024 tablet / ≥1025 desktop */
+  --breakpoint-*: initial;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64.0625rem;
+}
+
+@layer base {
+  /* 見出しの段階（Zinox）: mobile / tablet / desktop */
+  :root {
+    --size-display: 3.75rem;
+    --size-h1: 2.5rem;
+    --size-h2: 2.25rem;
+    --size-h3: 2rem;
+    --size-h4: 1.625rem;
+    --size-h5: 1.25rem;
+    --size-h6: 1.125rem;
+  }
+  @media (width >= 48rem) {
+    :root {
+      --size-display: 5rem;
+      --size-h1: 3.25rem;
+      --size-h2: 2.625rem;
+      --size-h3: 2.25rem;
+      --size-h4: 1.875rem;
+      --size-h5: 1.5rem;
+      --size-h6: 1.125rem;
+    }
+  }
+  @media (width >= 64.0625rem) {
+    :root {
+      --size-display: 9.375rem;
+      --size-h1: 4.5rem;
+      --size-h2: 3.375rem;
+      --size-h3: 3rem;
+      --size-h4: 2.625rem;
+      --size-h5: 1.875rem;
+      --size-h6: 1.25rem;
+    }
+  }
+
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--color-body);
+    background-color: var(--color-white);
+    /* 和文見出しを 700 にしても Anton を合成ボールドにしない */
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--color-black);
+  }
+
+  /* en（Zinox） */
+  :lang(en) {
+    line-height: 1.4;
+    letter-spacing: 0;
+    overflow-wrap: break-word;
+  }
+  :is(h1, h2, h3, h4, h5, h6):lang(en) {
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  :is(h1, h2):lang(en) {
+    line-height: 1;
+  }
+  :is(h3, h4, h6):lang(en) {
+    line-height: 1.2;
+  }
+  h5:lang(en) {
+    line-height: 1.1;
+  }
+
+  /* ja（Toyota） */
+  :lang(ja) {
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    word-break: break-all;
+    line-break: strict;
+    overflow-wrap: break-word;
+    font-feature-settings: normal;
+  }
+  :is(h1, h2, h3, h4, h5, h6):lang(ja) {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+  :is(h1, h2, h3):lang(ja) {
+    line-height: 1.3;
+  }
+  :is(h4, h5, h6):lang(ja) {
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: 75rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.75rem 2.5rem;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn:hover {
+    background-color: var(--color-slate);
+  }
+  .btn-invert {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+  .btn-invert:hover {
+    background-color: var(--color-soft);
+  }
+
+  .text-btn {
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .text-btn:hover {
+    text-decoration: underline;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.125rem 0.625rem;
+    background-color: var(--color-graphite);
+    color: var(--color-white);
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+  }
+  .nav-link:hover {
+    background-color: var(--color-slate);
+  }
+
+  :is(.btn, .text-btn, .tag, .nav-link):lang(ja) {
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+}
+
+@utility text-display {
+  font-size: var(--size-display);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+@utility text-h1 {
+  font-size: var(--size-h1);
+}
+@utility text-h2 {
+  font-size: var(--size-h2);
+}
+@utility text-h3 {
+  font-size: var(--size-h3);
+}
+@utility text-h4 {
+  font-size: var(--size-h4);
+}
+@utility text-h5 {
+  font-size: var(--size-h5);
+}
+@utility text-h6 {
+  font-size: var(--size-h6);
+}
+
+/* Markdown 本文（@tailwindcss/typography）。レイヤー外に置いてプラグインの既定より優先させる */
+.prose {
+  --tw-prose-body: var(--color-body);
+  --tw-prose-headings: var(--color-black);
+  --tw-prose-links: var(--color-black);
+  --tw-prose-bold: var(--color-black);
+  --tw-prose-hr: var(--color-soft);
+  --tw-prose-th-borders: var(--color-soft);
+  --tw-prose-td-borders: var(--color-soft);
+  line-height: inherit;
+}
+.prose h2 {
+  font-size: var(--size-h4);
+}
+.prose h3 {
+  font-size: var(--size-h5);
+}
+.prose h4 {
+  font-size: var(--size-h6);
+}
+.prose tbody tr:nth-child(even) {
+  background-color: var(--color-off-white);
+}

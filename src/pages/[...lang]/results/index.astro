@@ -1,0 +1,43 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import EntryList from '../../../components/EntryList.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import { locales } from '../../../i18n/config';
+import { t } from '../../../i18n/ui';
+import { localePath, localePaths, localeStaticPaths } from '../../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getResults } from '../../../lib/collections';
+import { splitId } from '../../../lib/content';
+
+export const getStaticPaths = () => localeStaticPaths();
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale } = Astro.props as Props;
+
+const results = await getResults(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'results.title')}
+  description={t(locale, 'results.description')}
+  translations={localePaths(locales, '/results/')}
+  fallbackPath="/results/"
+>
+  <PageHeader
+    locale={locale}
+    title={t(locale, 'results.title')}
+    description={t(locale, 'results.description')}
+  />
+  <div class="container-site pb-16">
+    <EntryList
+      locale={locale}
+      items={results.map((entry) => ({
+        title: entry.data.title,
+        date: entry.data.date,
+        description: entry.data.venue,
+        href: localePath(locale, `/results/${splitId(entry.id).slug}/`),
+      }))}
+    />
+  </div>
+</BaseLayout>
