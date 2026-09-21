@@ -1,0 +1,44 @@
+---
+import type { Locale } from '../i18n/config';
+import { t, type UiKey } from '../i18n/ui';
+import { localePath } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  locale: Locale;
+  translations: Partial<Record<Locale, string>>;
+  fallbackPath: string;
+}
+
+const { locale, translations, fallbackPath } = Astro.props;
+
+const nav: Array<{ key: UiKey; path: string }> = [
+  { key: 'nav.home', path: '/' },
+  { key: 'nav.history', path: '/history/' },
+  { key: 'nav.blogs', path: '/blogs/' },
+  { key: 'nav.results', path: '/results/' },
+  { key: 'nav.guides', path: '/101/' },
+];
+---
+
+<header class="bg-black text-white">
+  <div class="container-site flex flex-wrap items-center justify-between gap-4 py-4">
+    <a href={localePath(locale, '/')} lang="en" class="font-display text-2xl uppercase">
+      {t(locale, 'site.title')}
+    </a>
+    <nav aria-label="main">
+      <ul class="flex flex-wrap gap-1">
+        {
+          nav.map(({ key, path }) => (
+            <li>
+              <a href={localePath(locale, path)} class="nav-link">
+                {t(locale, key)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <LanguageSwitcher locale={locale} translations={translations} fallbackPath={fallbackPath} />
+  </div>
+</header>

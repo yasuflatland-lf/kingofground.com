@@ -1,0 +1,58 @@
+---
+import '@fontsource/anton';
+import '@fontsource-variable/inter-tight';
+import '@fontsource-variable/space-grotesk';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { defaultLocale, type Locale } from '../i18n/config';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  translations: Partial<Record<Locale, string>>;
+  fallbackPath?: string;
+}
+
+const { locale, title, description, translations, fallbackPath = '/' } = Astro.props;
+
+const site = Astro.site ?? new URL('https://kingofground.com');
+const canonical = new URL(Astro.url.pathname, site).href;
+const siteTitle = t(locale, 'site.title');
+const pageTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}`;
+const ogLocale = locale === 'ja' ? 'ja_JP' : 'en_US';
+const xDefault = translations[defaultLocale];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {
+      Object.entries(translations).map(([hreflang, path]) => (
+        <link rel="alternate" hreflang={hreflang} href={new URL(path, site).href} />
+      ))
+    }
+    {xDefault && <link rel="alternate" hreflang="x-default" href={new URL(xDefault, site).href} />}
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white">
+    <Header locale={locale} translations={translations} fallbackPath={fallbackPath} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

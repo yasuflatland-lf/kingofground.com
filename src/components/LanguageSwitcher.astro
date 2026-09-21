@@ -1,0 +1,37 @@
+---
+import type { Locale } from '../i18n/config';
+import { t } from '../i18n/ui';
+import { localePath, otherLocales } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  translations: Partial<Record<Locale, string>>;
+  fallbackPath?: string;
+}
+
+const { locale, translations, fallbackPath = '/' } = Astro.props;
+
+const targets = otherLocales(locale).map((target) => ({
+  locale: target,
+  href: translations[target] ?? localePath(target, fallbackPath),
+  label: t(target, 'lang.name'),
+}));
+---
+
+<ul class="flex gap-1">
+  {
+    targets.map((target) => (
+      <li>
+        <a
+          href={target.href}
+          hreflang={target.locale}
+          lang={target.locale}
+          data-locale={target.locale}
+          class="nav-link"
+        >
+          {target.label}
+        </a>
+      </li>
+    ))
+  }
+</ul>

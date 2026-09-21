@@ -1,17 +1,23 @@
 ---
-import '../../styles/global.css';
+import type { InferGetStaticPropsType } from 'astro';
+import { locales } from '../../i18n/config';
+import { t } from '../../i18n/ui';
+import { localePaths, localeStaticPaths } from '../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-export function getStaticPaths() {
-  return [
-    { params: { lang: undefined }, props: { locale: 'ja' } },
-    { params: { lang: 'en' }, props: { locale: 'en' } },
-  ];
-}
+export const getStaticPaths = () => localeStaticPaths();
 
-const { locale } = Astro.props;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale } = Astro.props as Props;
 ---
 
-<html lang={locale}>
-  <head><meta charset="utf-8" /><title>probe {locale}</title></head>
-  <body><p>locale: {locale}</p></body>
-</html>
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'site.title')}
+  description={t(locale, 'site.tagline')}
+  translations={localePaths(locales, '/')}
+>
+  <section class="container-site py-16">
+    <h1 class="text-h1">{t(locale, 'site.tagline')}</h1>
+  </section>
+</BaseLayout>
