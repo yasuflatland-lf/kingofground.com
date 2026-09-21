@@ -15,7 +15,7 @@ const { locale, name, placements } = Astro.props;
   <h2 class="text-h5" lang="en">{name}</h2>
   <table class="mt-4 w-full border-collapse text-left">
     <thead>
-      <tr class="border-b border-soft font-ui text-sm text-medium uppercase">
+      <tr class="border-b border-soft text-sm text-medium">
         <th class="w-20 py-2 pr-4 font-normal">{t(locale, 'results.rank')}</th>
         <th class="py-2 font-normal">{t(locale, 'results.rider')}</th>
       </tr>
@@ -24,7 +24,7 @@ const { locale, name, placements } = Astro.props;
       {
         placements.map((placement) => (
           <tr class="border-b border-soft even:bg-off-white">
-            <td class="py-3 pr-4 font-display text-xl text-black">{placement.rank}</td>
+            <td class="py-3 pr-4 font-bold text-black">{placement.rank}</td>
             <td class="py-3 text-black">{placement.rider}</td>
           </tr>
         ))

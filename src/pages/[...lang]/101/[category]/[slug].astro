@@ -2,7 +2,6 @@
 import { render } from 'astro:content';
 import type { InferGetStaticPropsType } from 'astro';
 import PageHeader from '../../../../components/PageHeader.astro';
-import { t } from '../../../../i18n/ui';
 import { localePath, localePaths, localeStaticPaths } from '../../../../i18n/utils';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { getGuideCategories, getGuides, getGuideTranslations } from '../../../../lib/collections';
@@ -47,22 +46,17 @@ const { Content } = await render(entry);
   fallbackPath="/101/"
 >
   <article>
-    <nav aria-label="breadcrumb" class="container-site pt-8">
-      <ol class="flex flex-wrap gap-2 font-ui text-sm text-medium">
-        <li><a href={localePath(locale, '/101/')} class="hover:underline">{t(locale, 'guides.breadcrumb')}</a></li>
-        <li aria-hidden="true">›</li>
-        <li>
-          <a href={localePath(locale, `/101/${category.id}/`)} class="hover:underline">
-            {category.data.title[locale]}
-          </a>
-        </li>
-        <li aria-hidden="true">›</li>
-        <li>{entry.data.title}</li>
-      </ol>
-    </nav>
-    <PageHeader locale={locale} title={entry.data.title} description={entry.data.description} />
-    <div class="container-site pb-16">
-      <div class="prose">
+    <PageHeader
+      locale={locale}
+      title={entry.data.title}
+      description={entry.data.description}
+      kicker={{
+        label: category.data.title[locale],
+        href: localePath(locale, `/101/${category.id}/`),
+      }}
+    />
+    <div class="container-site">
+      <div class="prose mx-auto mt-14 max-w-3xl">
         <Content />
       </div>
     </div>

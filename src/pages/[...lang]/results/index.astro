@@ -29,7 +29,7 @@ const results = await getResults(locale);
     title={t(locale, 'results.title')}
     description={t(locale, 'results.description')}
   />
-  <div class="container-site pb-16">
+  <div class="container-site">
     <EntryList
       locale={locale}
       items={results.map((entry) => ({

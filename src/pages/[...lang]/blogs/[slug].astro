@@ -45,15 +45,15 @@ const { Content } = await render(entry);
 >
   <article>
     <PageHeader locale={locale} title={entry.data.title} date={entry.data.pubDate} />
-    <div class="container-site pb-16">
-      {
-        entry.data.updatedDate && (
-          <p class="mb-6 font-ui text-sm text-medium">
-            {t(locale, 'meta.updated')}: {formatDate(entry.data.updatedDate, locale)}
-          </p>
-        )
-      }
-      <div class="prose">
+    {
+      entry.data.updatedDate && (
+        <p class="container-site mt-2 text-center text-sm text-medium">
+          {t(locale, 'meta.updated')}: {formatDate(entry.data.updatedDate, locale)}
+        </p>
+      )
+    }
+    <div class="container-site">
+      <div class="prose mx-auto mt-14 max-w-3xl">
         <Content />
       </div>
     </div>

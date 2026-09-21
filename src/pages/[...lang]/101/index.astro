@@ -29,22 +29,22 @@ const groups = await getGuideCategoriesFor(locale);
     description={t(locale, 'guides.description')}
     titleLang="en"
   />
-  <div class="container-site grid gap-12 pb-16">
+  <div class="container-site">
     {
       groups.map(({ category, guides }) => (
-        <section>
-          <h2 class="text-h4">
+        <section class="mx-auto mt-16 max-w-4xl">
+          <h2 class="text-h3">
             <a href={localePath(locale, `/101/${category.id}/`)} class="hover:underline">
               {category.data.title[locale]}
             </a>
           </h2>
-          <p class="mt-2">{category.data.description[locale]}</p>
-          <ul class="mt-4 divide-y divide-soft">
+          <p class="mt-2 text-medium">{category.data.description[locale]}</p>
+          <ul class="mt-6 divide-y divide-soft">
             {guides.map((guide) => (
-              <li class="py-3">
+              <li class="py-4">
                 <a
                   href={localePath(locale, `/101/${splitId(guide.id).slug}/`)}
-                  class="text-black hover:underline"
+                  class="text-h6 font-semibold text-black hover:underline"
                 >
                   {guide.data.title}
                 </a>
