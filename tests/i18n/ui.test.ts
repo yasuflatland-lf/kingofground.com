@@ -28,4 +28,11 @@ describe('ui', () => {
     expect(t('ja', 'lang.name')).toBe('日本語');
     expect(t('en', 'lang.name')).toBe('English');
   });
+
+  it('ホームとヘッダーの新しい文言がある', () => {
+    expect(t('ja', 'nav.toggle')).toBe('メニュー');
+    expect(t('en', 'home.heroPrimary')).toBe('Read the 101');
+    expect(t('en', 'home.feature.guides.title')).toBe('101');
+    expect(t('ja', 'home.ctaTitle')).toBe('フラットランドをはじめよう。');
+  });
 });
