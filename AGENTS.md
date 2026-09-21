@@ -33,7 +33,7 @@ src/
   i18n/               ロケール定数、UI 文言、URL ヘルパー、日付表記（Astro 非依存）
   lib/content.ts      エントリ ID の分解、翻訳ペア検索、並べ替え（Astro 非依存）
   lib/validate.ts     ビルドを失敗させる整合性チェック（Astro 非依存）
-  lib/collections.ts  astro:content を呼ぶ唯一の層
+  lib/collections.ts  getCollection を呼ぶ唯一の層（ページは本文描画用の render だけを astro:content から import する）
   layouts/            BaseLayout
   components/         Header, Footer, LanguageSwitcher, EntryList, PageHeader, ResultsTable
   pages/[...lang]/    全ページ（lang: undefined = ja、'en' = en）
