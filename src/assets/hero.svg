@@ -1,5 +1,4 @@
-<!-- biome-ignore lint/a11y/noSvgWithoutTitle: decorative asset, always rendered with aria-hidden="true" -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
   <!-- 地面 -->
   <path d="M30 392h460" />
   <path d="M70 408h40M420 408h30" stroke-width="2" />
