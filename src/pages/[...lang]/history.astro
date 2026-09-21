@@ -1,0 +1,33 @@
+---
+import { render } from 'astro:content';
+import type { InferGetStaticPropsType } from 'astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { locales } from '../../i18n/config';
+import { localePaths, localeStaticPaths } from '../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPage } from '../../lib/collections';
+
+export const getStaticPaths = () => localeStaticPaths();
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale } = Astro.props as Props;
+
+// history は全ロケール必須（getPage が検証する）ので、翻訳は常に全ロケール
+const page = await getPage(locale, 'history');
+const { Content } = await render(page);
+---
+
+<BaseLayout
+  locale={locale}
+  title={page.data.title}
+  description={page.data.description}
+  translations={localePaths(locales, '/history/')}
+  fallbackPath="/history/"
+>
+  <PageHeader locale={locale} title={page.data.title} description={page.data.description} />
+  <div class="container-site pb-16">
+    <div class="prose">
+      <Content />
+    </div>
+  </div>
+</BaseLayout>
