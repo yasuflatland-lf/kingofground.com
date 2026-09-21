@@ -1,0 +1,36 @@
+{
+  "name": "kingofground.com",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.3",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify": "biome ci . && astro check && vitest run && astro build"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource-variable/inter-tight": "5.3.0",
+    "@fontsource-variable/space-grotesk": "5.3.0",
+    "@fontsource/anton": "5.3.0",
+    "@tailwindcss/typography": "0.5.20",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.3",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@biomejs/biome": "2.5.14",
+    "typescript": "6.0.3",
+    "vitest": "5.0.1"
+  }
+}
