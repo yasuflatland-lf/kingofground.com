@@ -44,7 +44,7 @@ const { Content } = await render(entry);
   fallbackPath="/blogs/"
 >
   <article>
-    <PageHeader locale={locale} title={entry.data.title} date={entry.data.pubDate} size="h2" />
+    <PageHeader locale={locale} title={entry.data.title} date={entry.data.pubDate} />
     <div class="container-site pb-16">
       {
         entry.data.updatedDate && (
