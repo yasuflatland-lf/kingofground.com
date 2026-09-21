@@ -23,11 +23,11 @@
 | 背景                                             | `white`     | `#ffffff` |
 | 見出し、ボタン、CTA ボックス                     | `black`     | `#000000` |
 | 黒ボタンのホバー                                 | `ink`       | `#262626` |
-| 本文                                             | `body`      | `#475569` |
-| リード文、メタ情報、ナビ、フッター               | `medium`    | `#64748b` |
+| 本文、リード文                                   | `body`      | `#475569` |
+| メタ情報、ナビ、フッター                         | `medium`    | `#64748b` |
 | 罫線、黒面の補足文                               | `soft`      | `#e2e8f0` |
 | プレースホルダー面、表の縞、輪郭線ボタンのホバー | `off-white` | `#f8fafc` |
-| キッカー                                         | `accent`    | `#3b82f6` |
+| キッカー                                         | `accent`    | `#2563eb` |
 
 Tailwind では `text-body`, `text-medium`, `bg-off-white`, `border-soft`, `divide-soft`, `text-accent` のように使う。Tailwind 既定のパレット（`gray-500` など）は無効にしてある。
 
@@ -74,7 +74,7 @@ Tailwind では `text-body`, `text-medium`, `bg-off-white`, `border-soft`, `divi
 | `text-h5` | 18px                      | 600    | 順位表のクラス名、本文中の h4                         |
 | `text-h6` | 16px                      | 600    | 101 の記事タイトル（一覧内）                          |
 | Body      | 16px                      | 400    | 本文                                                  |
-| Lead      | 18px（`text-lg`）         | 400    | ページタイトル下のリード文（`text-medium`）           |
+| Lead      | 18px（`text-lg`）         | 400    | ページタイトル下のリード文（`text-body`）             |
 | Meta      | 14px（`text-sm`）         | 400    | 日付、フッター、キッカー（600）                       |
 
 ### 3.5 行間・字間
@@ -94,13 +94,15 @@ Tailwind では `text-body`, `text-medium`, `bg-off-white`, `border-soft`, `divi
 
 ```css
 /* ja */
-word-break: break-all;
-overflow-wrap: break-word;
+word-break: normal;
+overflow-wrap: anywhere;
 line-break: strict;
 
 /* en */
 overflow-wrap: break-word;
 ```
+
+`text-h1`〜`text-h3` の和文は `word-break: keep-all` で、欧文と和文の境の空白で折る。
 
 ### 3.7 OpenType 機能
 
@@ -138,7 +140,7 @@ font-feature-settings: normal; /* palt 未適用。字間は letter-spacing で�
 
 ### Kicker（`.kicker`）
 
-- 14px / 600、uppercase、字間 0.05em、Text `#3b82f6`
+- 14px / 600、uppercase、字間 0.05em、Text `#2563eb`
 - ページタイトルの上に置く親セクションへのリンク（101 のカテゴリ名など）
 
 ### Tables（順位表、Markdown の表）
@@ -150,16 +152,16 @@ font-feature-settings: normal; /* palt 未適用。字間は letter-spacing で�
 
 ### Placeholder（一覧の画像面）
 
-- `aspect-video`、`rounded-md`、`bg-off-white`、中央に `text-soft` の "KOG"
+- `aspect-video`、`rounded-md`、`border border-soft`、`bg-off-white`、中央に `text-medium` の "KOG"
 - 装飾なので `aria-hidden="true"`。コンテンツに画像フィールドを足したら `<Image>` に置き換える
 
 ### Home sections
 
 | コンポーネント | 構成                                                                                                                                                    |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Hero`         | 2 列（`lg`）。左: `text-h1` wordmark、リード（`text-lg text-medium`）、`.btn` ＋ `.btn-outline`。右: `src/assets/hero.svg` の線画（`md` 未満は非表示）  |
+| `Hero`         | 2 列（`lg`）。左: `text-h1` wordmark、リード（`text-lg text-body`）、`.btn` ＋ `.btn-outline`。右: `src/assets/hero.svg` の線画（`md` 未満は非表示）    |
 | `FeatureGrid`  | `text-h2` ＋ リード、3 列（`md`）のリスト。各項目は黒丸（`size-8 rounded-full bg-black`）に白い 16px アイコン ＋ `text-h4` 見出し ＋ `text-medium` 本文 |
-| `CtaBox`       | `max-w-5xl`、`rounded-lg bg-black`、中央揃え。`text-h2 text-white` ＋ `text-soft` 本文 ＋ `.btn.btn-invert`                                             |
+| `CtaBox`       | `max-w-5xl`、`rounded-lg bg-black`、中央揃え。`text-h2 text-white`（見出しは `font-normal`） ＋ `text-soft` 本文 ＋ `.btn.btn-invert`                   |
 
 Cards は使わない。一覧は `EntryList`（2 列）か `divide-soft` の罫線で区切る。
 
@@ -190,7 +192,7 @@ Tailwind の既定スケールのうち、次を基本にする。
 
 - ページタイトル（`PageHeader`）: 上 64px、中央揃え
 - セクション間: 80px（`mt-20`）
-- 本文（`.prose`）: `max-w-3xl mx-auto mt-14`
+- 本文（`.prose`）: `prose prose-lg max-w-3xl mx-auto mt-14`
 - フッター: 上 80px、下 40px
 
 ### ホームの構成順
@@ -251,7 +253,7 @@ Tailwind の既定スケールのうち、次を基本にする。
 
 ### タッチターゲット
 
-- 最小サイズ: 44px × 44px（`.btn`, `.nav-link`, ハンバーガー）
+- 最小サイズ: 44px × 44px（`.btn`, `.nav-link`, ハンバーガー、一覧のリンク、「すべて見る」、キッカー）
 
 ### フォントサイズの調整
 

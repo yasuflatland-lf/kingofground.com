@@ -19,14 +19,14 @@ const { locale, title, description, date, kicker, titleLang } = Astro.props;
   {
     kicker && (
       <p class="kicker">
-        <a href={kicker.href} class="hover:underline">
+        <a href={kicker.href} class="inline-flex min-h-11 items-center hover:underline">
           {kicker.label}
         </a>
       </p>
     )
   }
   <h1 class:list={['text-h2', kicker && 'mt-2']} lang={titleLang}>{title}</h1>
-  {description && <p class="mx-auto mt-2 max-w-2xl text-lg text-medium">{description}</p>}
+  {description && <p class="mx-auto mt-4 max-w-2xl text-lg text-body">{description}</p>}
   {
     date && (
       <time datetime={date.toISOString()} class="mt-3 block text-sm text-medium">

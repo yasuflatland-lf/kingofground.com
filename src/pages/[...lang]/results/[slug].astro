@@ -53,7 +53,7 @@ const venue = entry.data.venue ? `${t(locale, 'results.venue')}: ${entry.data.ve
       titleLang="en"
     />
     <div class="container-site">
-      <div class="mx-auto max-w-3xl">
+      <div class="mx-auto mt-14 max-w-3xl">
         {
           entry.data.classes.map((cls) => (
             <ResultsTable locale={locale} name={cls.name} placements={cls.placements} />
@@ -61,7 +61,7 @@ const venue = entry.data.venue ? `${t(locale, 'results.venue')}: ${entry.data.ve
         }
         {
           entry.body && (
-            <div class="prose mt-10">
+            <div class="prose prose-lg mt-10">
               <Content />
             </div>
           )

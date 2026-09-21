@@ -12,9 +12,9 @@ const { locale } = Astro.props;
 
 <section class="container-site">
   <div
-    class="mx-auto mt-20 flex max-w-5xl flex-col items-center rounded-lg bg-black p-8 text-center md:px-20 md:py-20"
+    class="mx-auto mt-20 flex max-w-5xl flex-col items-center rounded-lg bg-black px-8 py-16 text-center md:px-20 md:py-20"
   >
-    <h2 class="text-h2 text-white">{t(locale, 'home.ctaTitle')}</h2>
+    <h2 class="text-h2 font-normal text-white">{t(locale, 'home.ctaTitle')}</h2>
     <p class="mt-4 text-lg text-soft">{t(locale, 'home.ctaBody')}</p>
     <a href={localePath(locale, '/101/')} class="btn btn-invert mt-8">{t(locale, 'home.ctaButton')}</a>
   </div>

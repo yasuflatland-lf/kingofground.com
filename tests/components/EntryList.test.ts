@@ -38,4 +38,23 @@ describe('EntryList', () => {
     expect(html).toContain('aria-hidden="true"');
     expect(html).toMatch(/lang="en"[^>]*>\s*KOG\s*</);
   });
+
+  it('headingLevel="h2" と item.lang="en" を渡すと h2 に lang="en" が付く', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(EntryList, {
+      props: {
+        locale: 'ja',
+        headingLevel: 'h2',
+        items: [
+          {
+            title: 'KING OF GROUND 2025',
+            date: new Date('2025-01-01'),
+            href: '/results/kog-2025/',
+            lang: 'en',
+          },
+        ],
+      },
+    });
+    expect(html).toMatch(/<h2[^>]*lang="en"[^>]*>KING OF GROUND 2025<\/h2>/);
+  });
 });

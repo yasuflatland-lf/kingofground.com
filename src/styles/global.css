@@ -11,7 +11,7 @@
   --color-medium: #64748b;
   --color-soft: #e2e8f0;
   --color-off-white: #f8fafc;
-  --color-accent: #3b82f6;
+  --color-accent: #2563eb;
 
   /* フォント: Bricolage Grotesque を先頭に置き、Inter → 和文にフォールバックする */
   --font-sans:
@@ -97,9 +97,9 @@
   :lang(ja) {
     line-height: 1.6;
     letter-spacing: 0.02em;
-    word-break: break-all;
+    word-break: normal;
     line-break: strict;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     font-feature-settings: normal;
   }
 }
@@ -162,7 +162,7 @@
     align-items: center;
     min-height: 2.75rem;
     padding: 0.5rem 0.75rem;
-    color: var(--color-medium);
+    color: var(--color-body);
     text-decoration: none;
   }
   .nav-link:hover {
@@ -195,6 +195,7 @@
   &:lang(ja) {
     line-height: 1.25;
     letter-spacing: 0.02em;
+    word-break: keep-all;
   }
 }
 @utility text-h2 {
@@ -204,6 +205,7 @@
   &:lang(ja) {
     line-height: 1.25;
     letter-spacing: 0.02em;
+    word-break: keep-all;
   }
 }
 @utility text-h3 {
@@ -213,6 +215,7 @@
   &:lang(ja) {
     line-height: 1.4;
     letter-spacing: 0.02em;
+    word-break: keep-all;
   }
 }
 @utility text-h4 {
