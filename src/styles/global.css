@@ -2,75 +2,67 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* 配色（Zinox）: モノクロのみ。Tailwind 既定のパレットは無効にする */
+  /* 配色（Astroship）: 白地に黒、補足は slate 系のグレー。Tailwind 既定のパレットは無効にする */
   --color-*: initial;
   --color-white: #ffffff;
   --color-black: #000000;
-  --color-ink: #0a0a0a;
-  --color-charcoal: #171717;
-  --color-graphite: #202020;
-  --color-slate: #404040;
-  --color-steel: #525252;
-  --color-medium: #737373;
-  --color-silver: #b1b2b0;
-  --color-light: #d4d4d4;
-  --color-soft: #e5e5e5;
-  --color-snow: #f5f5f5;
-  --color-off-white: #fafafa;
-  --color-body: rgb(0 0 0 / 0.7);
+  --color-ink: #262626;
+  --color-body: #475569;
+  --color-medium: #64748b;
+  --color-soft: #e2e8f0;
+  --color-off-white: #f8fafc;
+  --color-accent: #3b82f6;
 
-  /* フォント: 欧文を先頭に置き、和文にフォールバックする（Toyota の考え方） */
-  --font-display: "Anton", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  --font-body: "Inter Tight Variable", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  --font-ui: "Space Grotesk Variable", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  /* フォント: Bricolage Grotesque を先頭に置き、Inter → 和文にフォールバックする */
+  --font-sans:
+    "Bricolage Grotesque Variable", "Inter Variable", "Hiragino Kaku Gothic ProN", Meiryo,
+    sans-serif;
   --font-mono: SFMono-Regular, Consolas, Menlo, monospace;
 
-  /* ブレークポイント（Toyota）: ≤767 mobile / 768–1024 tablet / ≥1025 desktop */
+  /* 角丸: 3 段だけ（rounded-full は Tailwind の固定値なので残る） */
+  --radius-*: initial;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+
+  /* ブレークポイント: ≤767 mobile / 768–1024 tablet / ≥1025 desktop */
   --breakpoint-*: initial;
   --breakpoint-md: 48rem;
   --breakpoint-lg: 64.0625rem;
 }
 
 @layer base {
-  /* 見出しの段階（Zinox）: mobile / tablet / desktop */
+  /* 見出しの段階（Astroship 実測）: mobile / tablet / desktop */
   :root {
-    --size-display: 3.75rem;
     --size-h1: 2.5rem;
-    --size-h2: 2.25rem;
-    --size-h3: 2rem;
-    --size-h4: 1.625rem;
-    --size-h5: 1.25rem;
-    --size-h6: 1.125rem;
+    --size-h2: 2rem;
+    --size-h3: 1.5rem;
+    --size-h4: 1.125rem;
+    --size-h5: 1.125rem;
+    --size-h6: 1rem;
   }
   @media (width >= 48rem) {
     :root {
-      --size-display: 5rem;
-      --size-h1: 3.25rem;
-      --size-h2: 2.625rem;
-      --size-h3: 2.25rem;
-      --size-h4: 1.875rem;
-      --size-h5: 1.5rem;
-      --size-h6: 1.125rem;
+      --size-h1: 3.5rem;
+      --size-h2: 2.5rem;
+      --size-h3: 1.75rem;
+      --size-h4: 1.25rem;
     }
   }
   @media (width >= 64.0625rem) {
     :root {
-      --size-display: 9.375rem;
       --size-h1: 4.5rem;
-      --size-h2: 3.375rem;
-      --size-h3: 3rem;
-      --size-h4: 2.625rem;
-      --size-h5: 1.875rem;
-      --size-h6: 1.25rem;
+      --size-h2: 3rem;
+      --size-h3: 1.875rem;
     }
   }
 
   html {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     font-size: 16px;
     color: var(--color-body);
     background-color: var(--color-white);
-    /* 和文見出しを 700 にしても Anton を合成ボールドにしない */
+    /* 和文見出しを 700 にしても欧文フォントを合成ボールドにしない */
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
   }
@@ -81,57 +73,41 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-display);
-    font-weight: 400;
     color: var(--color-black);
   }
+  h1,
+  h2 {
+    font-weight: 700;
+  }
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
 
-  /* en（Zinox） */
+  /* en */
   :lang(en) {
-    line-height: 1.4;
+    line-height: 1.5;
     letter-spacing: 0;
     overflow-wrap: break-word;
   }
-  :is(h1, h2, h3, h4, h5, h6):lang(en) {
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-  }
-  :is(h1, h2):lang(en) {
-    line-height: 1;
-  }
-  :is(h3, h4, h6):lang(en) {
-    line-height: 1.2;
-  }
-  h5:lang(en) {
-    line-height: 1.1;
-  }
 
-  /* ja（Toyota） */
+  /* ja */
   :lang(ja) {
-    line-height: 1.5;
-    letter-spacing: 0.04em;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
     word-break: break-all;
     line-break: strict;
     overflow-wrap: break-word;
     font-feature-settings: normal;
-  }
-  :is(h1, h2, h3, h4, h5, h6):lang(ja) {
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: none;
-  }
-  :is(h1, h2, h3):lang(ja) {
-    line-height: 1.3;
-  }
-  :is(h4, h5, h6):lang(ja) {
-    line-height: 1.5;
   }
 }
 
 @layer components {
   .container-site {
     width: 100%;
-    max-width: 75rem;
+    max-width: 80rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
@@ -140,19 +116,32 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     min-height: 2.75rem;
-    padding: 0.75rem 2.5rem;
+    padding: 0.625rem 1.25rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
     background-color: var(--color-black);
     color: var(--color-white);
-    font-family: var(--font-ui);
     font-size: 1rem;
-    line-height: 1.2;
-    text-transform: uppercase;
+    line-height: 1.5;
     text-decoration: none;
-    white-space: nowrap;
+    transition: background-color 150ms;
   }
   .btn:hover {
-    background-color: var(--color-slate);
+    background-color: var(--color-ink);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+  }
+  .btn-outline {
+    border-color: var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+  .btn-outline:hover {
+    background-color: var(--color-off-white);
   }
   .btn-invert {
     background-color: var(--color-white);
@@ -161,23 +150,11 @@
   .btn-invert:hover {
     background-color: var(--color-soft);
   }
-
-  .text-btn {
-    font-family: var(--font-ui);
-    text-transform: uppercase;
-    text-decoration: none;
+  .btn-invert:focus-visible {
+    outline-color: var(--color-white);
   }
-  .text-btn:hover {
-    text-decoration: underline;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 0.125rem 0.625rem;
-    background-color: var(--color-graphite);
-    color: var(--color-white);
-    font-family: var(--font-ui);
-    text-transform: uppercase;
+  .btn-sm {
+    padding: 0.5rem 1rem;
   }
 
   .nav-link {
@@ -185,42 +162,82 @@
     align-items: center;
     min-height: 2.75rem;
     padding: 0.5rem 0.75rem;
-    font-family: var(--font-ui);
-    font-size: 0.875rem;
-    text-transform: uppercase;
+    color: var(--color-medium);
+    text-decoration: none;
   }
   .nav-link:hover {
-    background-color: var(--color-slate);
+    color: var(--color-black);
   }
 
-  :is(.btn, .text-btn, .tag, .nav-link):lang(ja) {
-    text-transform: none;
-    letter-spacing: 0.04em;
+  .text-link {
+    color: var(--color-medium);
+    text-decoration: none;
+  }
+  .text-link:hover {
+    color: var(--color-black);
+    text-decoration: underline;
+  }
+
+  .kicker {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-accent);
   }
 }
 
-@utility text-display {
-  font-size: var(--size-display);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
+/* 見出しの utility。行間と字間も持ち、ja では和文フォントに合う値に切り替える */
 @utility text-h1 {
   font-size: var(--size-h1);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  &:lang(ja) {
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+  }
 }
 @utility text-h2 {
   font-size: var(--size-h2);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  &:lang(ja) {
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+  }
 }
 @utility text-h3 {
   font-size: var(--size-h3);
+  line-height: 1.375;
+  letter-spacing: -0.025em;
+  &:lang(ja) {
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
 }
 @utility text-h4 {
   font-size: var(--size-h4);
+  line-height: 1.5;
+  letter-spacing: 0;
+  &:lang(ja) {
+    letter-spacing: 0.02em;
+  }
 }
 @utility text-h5 {
   font-size: var(--size-h5);
+  line-height: 1.5;
+  letter-spacing: 0;
+  &:lang(ja) {
+    letter-spacing: 0.02em;
+  }
 }
 @utility text-h6 {
   font-size: var(--size-h6);
+  line-height: 1.5;
+  letter-spacing: 0;
+  &:lang(ja) {
+    letter-spacing: 0.02em;
+  }
 }
 
 /* Markdown 本文（@tailwindcss/typography）。レイヤー外に置いてプラグインの既定より優先させる */
@@ -235,13 +252,13 @@
   line-height: inherit;
 }
 .prose h2 {
-  font-size: var(--size-h4);
+  font-size: var(--size-h3);
 }
 .prose h3 {
-  font-size: var(--size-h5);
+  font-size: var(--size-h4);
 }
 .prose h4 {
-  font-size: var(--size-h6);
+  font-size: var(--size-h5);
 }
 .prose tbody tr:nth-child(even) {
   background-color: var(--color-off-white);
