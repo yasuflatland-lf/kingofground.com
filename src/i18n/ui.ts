@@ -60,7 +60,7 @@ const en: Record<UiKey, string> = {
   'home.latestResults': 'Latest results',
   'home.viewAll': 'View all',
   'home.heroLead':
-    "The BMX flatland contest series. History, results and a beginner's guide, all in one place.",
+    "The BMX flatland contest series. History, results and a beginner’s guide, all in one place.",
   'home.heroPrimary': 'Read the 101',
   'home.heroSecondary': 'See results',
   'home.featuresTitle': 'What is KING OF GROUND',
@@ -72,7 +72,7 @@ const en: Record<UiKey, string> = {
   'home.feature.results.body': 'Placements for every class, round by round.',
   'home.feature.guides.title': '101',
   'home.feature.guides.body':
-    "From choosing a bike to your first trick. A beginner's guide to flatland.",
+    "From choosing a bike to your first trick. A beginner’s guide to flatland.",
   'home.ctaTitle': 'Start riding flatland.',
   'home.ctaBody': 'All you need is a BMX and a bit of flat ground.',
   'home.ctaButton': 'Read the 101',
