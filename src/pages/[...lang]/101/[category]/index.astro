@@ -1,0 +1,69 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { t } from '../../../../i18n/ui';
+import { localePath, localePaths, localeStaticPaths } from '../../../../i18n/utils';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getGuideCategoriesFor, getGuideCategoryLocales } from '../../../../lib/collections';
+import { splitId } from '../../../../lib/content';
+
+export async function getStaticPaths() {
+  const perLocale = await Promise.all(
+    localeStaticPaths().map(async ({ params, props }) => {
+      const groups = await getGuideCategoriesFor(props.locale);
+      return Promise.all(
+        groups.map(async ({ category, guides }) => {
+          const path = `/101/${category.id}/`;
+          const translations = localePaths(await getGuideCategoryLocales(category.id), path);
+          return {
+            params: { ...params, category: category.id },
+            props: { locale: props.locale, category, guides, translations },
+          };
+        }),
+      );
+    }),
+  );
+  return perLocale.flat();
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale, category, guides, translations } = Astro.props as Props;
+---
+
+<BaseLayout
+  locale={locale}
+  title={category.data.title[locale]}
+  description={category.data.description[locale]}
+  translations={translations}
+  fallbackPath="/101/"
+>
+  <nav aria-label="breadcrumb" class="container-site pt-8">
+    <ol class="flex gap-2 font-ui text-sm text-medium">
+      <li><a href={localePath(locale, '/101/')} class="hover:underline">{t(locale, 'guides.breadcrumb')}</a></li>
+      <li aria-hidden="true">›</li>
+      <li>{category.data.title[locale]}</li>
+    </ol>
+  </nav>
+  <PageHeader
+    locale={locale}
+    title={category.data.title[locale]}
+    description={category.data.description[locale]}
+  />
+  <div class="container-site pb-16">
+    <ul class="divide-y divide-soft">
+      {
+        guides.map((guide) => (
+          <li class="py-4">
+            <a
+              href={localePath(locale, `/101/${splitId(guide.id).slug}/`)}
+              class="text-black hover:underline"
+            >
+              <span class="text-h6">{guide.data.title}</span>
+            </a>
+            <p class="mt-1">{guide.data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
