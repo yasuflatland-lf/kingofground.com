@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 // ID を「拡張子を除いた相対パス」にそろえる（既定の slug 化で文字が変わらないようにする）
 const stripExtension = ({ entry }: { entry: string }) => entry.replace(/\.[^.]+$/, '');
