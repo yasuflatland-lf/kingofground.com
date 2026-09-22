@@ -12,7 +12,6 @@ interface Props {
 
 const { locale, translations, fallbackPath } = Astro.props;
 
-// 101 はナビではなく右端のボタン（Astroship の "Sign up" に相当）
 const nav: Array<{ key: UiKey; path: string }> = [
   { key: 'nav.home', path: '/' },
   { key: 'nav.history', path: '/history/' },
@@ -78,10 +77,7 @@ const nav: Array<{ key: UiKey; path: string }> = [
           }
         </ul>
       </nav>
-      <div class="flex items-center gap-2">
-        <LanguageSwitcher locale={locale} translations={translations} fallbackPath={fallbackPath} />
-        <a href={localePath(locale, '/101/')} class="btn btn-sm">{t(locale, 'nav.guides')}</a>
-      </div>
+      <LanguageSwitcher locale={locale} translations={translations} fallbackPath={fallbackPath} />
     </div>
   </div>
   <noscript>

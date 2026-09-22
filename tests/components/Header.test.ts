@@ -14,13 +14,19 @@ async function renderHeader(locale: 'ja' | 'en') {
 }
 
 describe('Header', () => {
-  it('ナビ 4 件と 101 ボタンをロケール付きの URL で描画する', async () => {
+  it('ナビ 4 件をロケール付きの URL で描画し、101 へのボタンは置かない', async () => {
     const html = await renderHeader('en');
     for (const path of ['/en/', '/en/history/', '/en/blogs/', '/en/results/']) {
       expect(html).toContain(`href="${path}" class="nav-link"`);
     }
-    expect(html).toContain('href="/en/101/" class="btn btn-sm"');
-    expect(html).not.toMatch(/class="nav-link">\s*101\s*</);
+    expect(html).not.toContain('href="/en/101/"');
+    expect(html).not.toContain('class="btn');
+  });
+
+  it('ナビの右に言語の切り替えを置く', async () => {
+    const html = await renderHeader('ja');
+    expect(html).toContain('class="lang-switch"');
+    expect(html).toContain('href="/en/blogs/"');
   });
 
   it('ハンバーガーは aria で #site-nav を指し、ラベルはロケールの文言', async () => {

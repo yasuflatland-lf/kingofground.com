@@ -15,12 +15,19 @@
 - Hover: background `#262626`。Focus-visible: 2px の黒い outline（offset 2px）
 - 輪郭線（`.btn.btn-outline`）: background `#ffffff`、Text `#000000`、Border `#000000`、hover `#f8fafc`
 - 反転面（`.btn.btn-invert`）: background `#ffffff`、Text `#000000`、hover `#e2e8f0`
-- 小（`.btn.btn-sm`）: Padding 8px 16px（ヘッダーの 101 ボタン）
 
 ### Navigation links（`.nav-link`）
 
 - Text: `#475569`、Padding: 8px 12px、最小高さ 44px
 - Hover: Text `#000000`
+
+### Language switcher（`.lang-switch`）
+
+- `locales` の順に JA / EN の 2 セグメントを並べる。Border: 2px `#000000`、Border Radius: 4px（`--radius-sm`）
+- セグメント（`.lang-switch-item`）: Padding 8px 12px、最小幅 44px、枠線込みの高さ 44px、Font 16px / 1.5
+- 現在のロケール: `<span aria-current="page">`、background `#000000`、Text `#ffffff`。リンクにしない
+- もう一方: `<a hreflang lang data-locale>`、background `#ffffff`、Text `#000000`、hover `#f8fafc`。Focus-visible は内側 2px の黒い outline
+- 読み上げ名は `lang.name`（日本語 / English）、グループは `lang.switcher`
 
 ### Text links（`.text-link`）
 
@@ -101,12 +108,12 @@ Tailwind の既定スケールのうち、次を基本にする。
 
 ### ヘッダー
 
-- `lg` 以上: wordmark / ナビ / 言語スイッチャー＋101 ボタンの 1 行
+- `lg` 以上: wordmark / ナビ / 言語の切り替え（`.lang-switch`）の 1 行
 - `lg` 未満: wordmark とハンバーガー（44px）。ナビと右側の要素は `#site-nav` にまとめて開閉する。JS 無効時は常時表示
 
 ### タッチターゲット
 
-- 最小サイズ: 44px × 44px（`.btn`, `.nav-link`, ハンバーガー、一覧のリンク、「すべて見る」、キッカー）
+- 最小サイズ: 44px × 44px（`.btn`, `.nav-link`, `.lang-switch-item`, ハンバーガー、一覧のリンク、「すべて見る」、キッカー）
 
 ### フォントサイズとレイアウトの調整
 

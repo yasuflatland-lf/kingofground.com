@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* 配色（Astroship）: 白地に黒、補足は slate 系のグレー。Tailwind 既定のパレットは無効にする */
+  /* 配色: 白地に黒、補足は slate 系のグレー。Tailwind 既定のパレットは無効にする */
   --color-*: initial;
   --color-white: #ffffff;
   --color-black: #000000;
@@ -32,7 +32,7 @@
 }
 
 @layer base {
-  /* 見出しの段階（Astroship 実測）: mobile / tablet / desktop */
+  /* 見出しの段階: mobile / tablet / desktop */
   :root {
     --size-h1: 2.5rem;
     --size-h2: 2rem;
@@ -153,8 +153,38 @@
   .btn-invert:focus-visible {
     outline-color: var(--color-white);
   }
-  .btn-sm {
-    padding: 0.5rem 1rem;
+
+  /* 言語の切り替え: 罫線で囲んだセグメント。現在地だけ黒面にする */
+  .lang-switch {
+    display: inline-flex;
+    overflow: hidden;
+    border: 2px solid var(--color-black);
+    border-radius: var(--radius-sm);
+  }
+  .lang-switch-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.5rem; /* 枠線 2px を足して .btn と同じ 44px */
+    padding: 0.5rem 0.75rem;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-size: 1rem;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: background-color 150ms;
+  }
+  .lang-switch-item[aria-current] {
+    background-color: var(--color-black);
+    color: var(--color-white);
+  }
+  a.lang-switch-item:hover {
+    background-color: var(--color-off-white);
+  }
+  a.lang-switch-item:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: -2px;
   }
 
   .nav-link {
