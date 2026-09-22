@@ -12,6 +12,8 @@
   --color-soft: #e2e8f0;
   --color-off-white: #f8fafc;
   --color-accent: #2563eb;
+  /* 差し色の帯（橙寄りの山吹）。上に置ける文字色は black と ink だけ */
+  --color-highlight: #f5a623;
 
   /* フォント: Bricolage Grotesque を先頭に置き、Inter → 和文にフォールバックする */
   --font-sans:

@@ -39,6 +39,20 @@ describe('CtaBox', () => {
       props: { locale: 'en' },
     });
     expect(html).toContain('Start riding flatland.');
-    expect(html).toContain('href="/en/101/" class="btn btn-invert mt-8"');
+    expect(html).toContain('href="/en/101/" class="btn mt-8"');
+  });
+
+  it('highlight の全幅の帯で、文字は black / ink、ボタンは黒 1 つだけ', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(CtaBox, {
+      props: { locale: 'ja' },
+    });
+    expect(html).toMatch(/^<section class="bg-highlight py-16">\s*<div class="container-site">/);
+    expect(html).not.toContain('rounded-lg');
+    expect(html).not.toContain('bg-black');
+    expect(html).not.toContain('btn-invert');
+    expect(html).not.toContain('btn-outline');
+    expect(html).toMatch(/<p class="[^"]*text-ink[^"]*">/);
+    expect((html.match(/class="btn /g) ?? []).length).toBe(1);
   });
 });
