@@ -18,13 +18,28 @@ const nav: Array<{ key: UiKey; path: string }> = [
   { key: 'nav.blogs', path: '/blogs/' },
   { key: 'nav.results', path: '/results/' },
 ];
+
+// 現在ページ: ホームは完全一致、それ以外はセクションの前方一致
+const pathname = Astro.url.pathname;
+function isCurrent(path: string): boolean {
+  const href = localePath(locale, path);
+  return path === '/' ? pathname === href : pathname.startsWith(href);
+}
 ---
 
-<header class="container-site">
-  <div class="my-5 flex flex-col items-center lg:flex-row">
+{/* センチネルが画面から出たら（40px スクロールしたら）header に data-stuck が付く */}
+<div data-header-sentinel class="absolute top-0 h-10 w-full" aria-hidden="true"></div>
+<header
+  class="site-header group sticky top-0 z-10 max-h-dvh overflow-y-auto bg-white data-stuck:bg-black"
+>
+  <div class="container-site flex flex-col items-center py-3 lg:flex-row">
     <div class="flex w-full items-center justify-between lg:w-auto">
-      <a href={localePath(locale, '/')} lang="en" class="text-lg text-black">
-        <span class="font-bold">KING</span><span class="text-medium"> OF GROUND</span>
+      <a
+        href={localePath(locale, '/')}
+        lang="en"
+        class="text-lg text-black group-data-stuck:text-white"
+      >
+        <span class="font-bold">KING</span><span class="text-medium group-data-stuck:text-soft"> OF GROUND</span>
       </a>
       <button
         type="button"
@@ -32,7 +47,7 @@ const nav: Array<{ key: UiKey; path: string }> = [
         aria-label={t(locale, 'nav.toggle')}
         aria-expanded="false"
         aria-controls="site-nav"
-        class="flex size-11 items-center justify-center text-black lg:hidden"
+        class="flex size-11 items-center justify-center text-black group-data-stuck:text-white lg:hidden"
       >
         <svg
           data-icon="open"
@@ -69,7 +84,11 @@ const nav: Array<{ key: UiKey; path: string }> = [
           {
             nav.map(({ key, path }) => (
               <li>
-                <a href={localePath(locale, path)} class="nav-link">
+                <a
+                  href={localePath(locale, path)}
+                  class="nav-link"
+                  aria-current={isCurrent(path) ? 'page' : undefined}
+                >
                   {t(locale, key)}
                 </a>
               </li>
@@ -85,21 +104,21 @@ const nav: Array<{ key: UiKey; path: string }> = [
       #site-nav {
         display: flex;
       }
+      .site-header {
+        border-bottom: 1px solid var(--color-soft);
+      }
     </style>
   </noscript>
 </header>
 
 <script>
+  import { bindNavToggle, observeStuck } from '../scripts/header';
+
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const sentinel = document.querySelector('[data-header-sentinel]');
+  if (header && sentinel) observeStuck(header, sentinel);
+
   const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
   const nav = document.getElementById('site-nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.contains('hidden');
-      nav.classList.toggle('hidden', !open);
-      nav.classList.toggle('flex', open);
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.querySelector('[data-icon="open"]')?.classList.toggle('hidden', open);
-      toggle.querySelector('[data-icon="close"]')?.classList.toggle('hidden', !open);
-    });
-  }
+  if (toggle && nav) bindNavToggle(toggle, nav);
 </script>

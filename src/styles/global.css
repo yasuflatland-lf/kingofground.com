@@ -40,6 +40,8 @@
     --size-h4: 1.125rem;
     --size-h5: 1.125rem;
     --size-h6: 1rem;
+    /* ヘッダーの高さ（py-3 + 44px）。ページ内リンクの飛び先がヘッダーに隠れないように使う */
+    --header-height: 4.25rem;
   }
   @media (width >= 48rem) {
     :root {
@@ -62,6 +64,7 @@
     font-size: 16px;
     color: var(--color-body);
     background-color: var(--color-white);
+    scroll-padding-top: var(--header-height);
     /* 和文見出しを 700 にしても欧文フォントを合成ボールドにしない */
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
@@ -198,6 +201,11 @@
   .nav-link:hover {
     color: var(--color-black);
   }
+  .nav-link[aria-current="page"] {
+    color: var(--color-black);
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
 
   .text-link {
     color: var(--color-medium);
@@ -214,6 +222,44 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--color-accent);
+  }
+
+  /*
+   * スクロール後の黒いヘッダー（.site-header[data-stuck]）。
+   * utility で色を付けた要素（wordmark、ハンバーガー）は utility レイヤーの方が後ろで勝つので、
+   * マークアップ側の group-data-stuck: で切り替える。ここではコンポーネントクラスだけを扱う。
+   */
+  .site-header :focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+  }
+  .site-header[data-stuck] :focus-visible {
+    outline-color: var(--color-white);
+  }
+  .site-header[data-stuck] .nav-link {
+    color: var(--color-soft);
+  }
+  .site-header[data-stuck] .nav-link:hover,
+  .site-header[data-stuck] .nav-link[aria-current="page"] {
+    color: var(--color-white);
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+  .site-header[data-stuck] .lang-switch {
+    border-color: var(--color-white);
+  }
+  .site-header[data-stuck] .lang-switch-item {
+    background-color: transparent;
+    color: var(--color-white);
+  }
+  .site-header[data-stuck] .lang-switch-item[aria-current] {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+  .site-header[data-stuck] a.lang-switch-item:hover {
+    background-color: transparent;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
   }
 }
 
