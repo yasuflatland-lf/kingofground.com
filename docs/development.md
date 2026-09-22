@@ -11,14 +11,15 @@
 
 ## コマンド
 
-| コマンド                        | 内容                                                                      |
-| ------------------------------- | ------------------------------------------------------------------------- |
-| `pnpm dev`                      | 開発サーバー                                                              |
-| `pnpm build` / `pnpm preview`   | 本番ビルド / ビルド結果の確認                                             |
-| `pnpm check`                    | `astro check`（型と `.astro` の検査）                                     |
-| `pnpm lint` / `pnpm lint:fix`   | Biome                                                                     |
-| `pnpm test` / `pnpm test:watch` | Vitest                                                                    |
-| `pnpm verify`                   | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` |
+| コマンド                        | 内容                                                                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `pnpm dev`                      | 開発サーバー                                                                                                                   |
+| `pnpm build` / `pnpm preview`   | 本番ビルド / ビルド結果の確認                                                                                                  |
+| `pnpm build:maintenance`        | メンテナンス中画面だけをビルドする（`astro.maintenance.config.ts`。`pnpm preview` で確認できる）                               |
+| `pnpm check`                    | `astro check`（型と `.astro` の検査）                                                                                          |
+| `pnpm lint` / `pnpm lint:fix`   | Biome                                                                                                                          |
+| `pnpm test` / `pnpm test:watch` | Vitest                                                                                                                         |
+| `pnpm verify`                   | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` → `astro build --config astro.maintenance.config.ts` |
 
 変更を終えたら `pnpm verify` を通してからコミットする。
 
@@ -38,8 +39,10 @@ src/
   pages/[...lang]/    全ページ（lang: undefined = ja、'en' = en）
   pages/404.astro
   styles/global.css   デザイントークン（docs/design.md を参照）
+src-maintenance/      メンテナンス中画面（astro.maintenance.config.ts の srcDir。global.css と ui.ts は src/ から相対パスで読む）
 tests/                Vitest（tests/docs/ はドキュメントの行数とリンクを検査する）
 docs/                 L2 / L3 のドキュメント（階層の規則は AGENTS.md）
+astro.maintenance.config.ts  メンテナンス中画面のビルド設定（deploy.yml の MAINTENANCE_WINDOW が true のとき使う）
 ```
 
 ## テスト
