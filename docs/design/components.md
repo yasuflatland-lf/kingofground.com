@@ -115,7 +115,7 @@ Tailwind の既定スケールのうち、次を基本にする。
 
 ### ヘッダー
 
-- `sticky top-0`、高さ 68px（`py-3` + 44px）。`--header-height`（4.25rem）を `scroll-padding-top` に使う
+- `sticky top-0`、高さ 68px（`py-3` + 44px）。`--header-height`（4.25rem）を `:target` の `scroll-margin-top` に使う（`scroll-padding-top` にするとヘッダー内のリンクにフォーカスしたときページが跳ぶ）
 - 最上部は白面。上端の 40px センチネル（`[data-header-sentinel]`）が画面から出ると `data-stuck` が付き、黒面・白文字に即時に切り替わる（トランジション無し）。1px ではなく 40px なのは、慣性スクロールで 0〜2px を往復しても点滅させないため
 - `lg` 以上: wordmark / ナビ / 言語の切り替え（`.lang-switch`）の 1 行
 - `lg` 未満: wordmark とハンバーガー（44px）。ナビと言語の切り替えは `#site-nav` にまとめて開閉する。開いている間は `html` に `overflow-hidden`、Escape で閉じる。ヘッダーは `max-h-dvh overflow-y-auto`。JS 無効時は常時表示で、`soft` の下罫線が付く

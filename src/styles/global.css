@@ -42,7 +42,7 @@
     --size-h4: 1.125rem;
     --size-h5: 1.125rem;
     --size-h6: 1rem;
-    /* ヘッダーの高さ（py-3 + 44px）。ページ内リンクの飛び先がヘッダーに隠れないように使う */
+    /* ヘッダーの高さ（py-3 + 44px）。ページ内リンクの飛び先を :target の scroll-margin-top で下げるのに使う */
     --header-height: 4.25rem;
   }
   @media (width >= 48rem) {
@@ -66,10 +66,14 @@
     font-size: 16px;
     color: var(--color-body);
     background-color: var(--color-white);
-    scroll-padding-top: var(--header-height);
     /* 和文見出しを 700 にしても欧文フォントを合成ボールドにしない */
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* ページ内リンクの飛び先だけをヘッダーの高さぶん下げる（ヘッダー内のフォーカスには影響しない） */
+  :target {
+    scroll-margin-top: var(--header-height);
   }
 
   h1,
