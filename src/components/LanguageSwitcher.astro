@@ -1,7 +1,7 @@
 ---
-import type { Locale } from '../i18n/config';
+import { type Locale, locales } from '../i18n/config';
 import { t } from '../i18n/ui';
-import { localePath, otherLocales } from '../i18n/utils';
+import { localePath } from '../i18n/utils';
 
 interface Props {
   locale: Locale;
@@ -11,26 +11,36 @@ interface Props {
 
 const { locale, translations, fallbackPath = '/' } = Astro.props;
 
-const targets = otherLocales(locale).map((target) => ({
+// config の順（ja, en）で全ロケールを並べる。現在地はリンクにしない
+const segments = locales.map((target) => ({
   locale: target,
+  current: target === locale,
   href: translations[target] ?? localePath(target, fallbackPath),
-  label: t(target, 'lang.name'),
+  code: t(target, 'lang.code'),
+  name: t(target, 'lang.name'),
 }));
 ---
 
-<ul class="flex gap-1">
+<ul class="lang-switch" aria-label={t(locale, 'lang.switcher')}>
   {
-    targets.map((target) => (
+    segments.map((segment) => (
       <li>
-        <a
-          href={target.href}
-          hreflang={target.locale}
-          lang={target.locale}
-          data-locale={target.locale}
-          class="nav-link"
-        >
-          {target.label}
-        </a>
+        {segment.current ? (
+          <span class="lang-switch-item" aria-current="page" aria-label={segment.name}>
+            {segment.code}
+          </span>
+        ) : (
+          <a
+            href={segment.href}
+            hreflang={segment.locale}
+            lang={segment.locale}
+            data-locale={segment.locale}
+            aria-label={segment.name}
+            class="lang-switch-item"
+          >
+            {segment.code}
+          </a>
+        )}
       </li>
     ))
   }

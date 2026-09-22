@@ -29,6 +29,18 @@ describe('ui', () => {
     expect(t('en', 'lang.name')).toBe('English');
   });
 
+  it('lang.code は切り替えに出す 2 文字のコード、lang.switcher はそのグループ名', () => {
+    expect(t('ja', 'lang.code')).toBe('JA');
+    expect(t('en', 'lang.code')).toBe('EN');
+    expect(t('ja', 'lang.switcher')).toBe('言語');
+    expect(t('en', 'lang.switcher')).toBe('Language');
+  });
+
+  it('ヘッダーの 101 ボタンの文言は無い', () => {
+    expect('nav.guides' in ui.ja).toBe(false);
+    expect('nav.guides' in ui.en).toBe(false);
+  });
+
   it('ホームとヘッダーの新しい文言がある', () => {
     expect(t('ja', 'nav.toggle')).toBe('メニュー');
     expect(t('en', 'home.heroPrimary')).toBe('Read the 101');
