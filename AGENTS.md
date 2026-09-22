@@ -1,115 +1,41 @@
 # AGENTS.md
 
-kingofground.com（KING OF GROUND — BMX フラットランドのコンテストシリーズ）のサイト。Astro 7 の静的サイトで、GitHub Pages に GitHub Actions でデプロイする。この文書は、このリポジトリで作業する AI エージェントと開発者向けの作業指針である。
+kingofground.com（KING OF GROUND — BMX フラットランドのコンテストシリーズ）のサイト。Astro 7 の静的サイトで、GitHub Actions から GitHub Pages に配信する。この文書は、このリポジトリで作業する AI エージェントと開発者の入口であり、規則と索引だけを置く。
 
-## 技術スタック
+## ドキュメントの階層
 
-- Astro 7 / TypeScript 6（7 は `@astrojs/check` が対応するまで使わない）
-- pnpm 10（`package.json` の `packageManager` で固定）、Node 24（`.node-version`）
-- Tailwind CSS 4（`@tailwindcss/vite`、`@tailwindcss/typography`）
-- Biome 2（lint / format）、Vitest 5（`astro/config` の `getViteConfig` 経由）
-- `@astrojs/sitemap`、`@fontsource-variable`（Bricolage Grotesque / Inter）
-- Renovate（`renovate.json`）
+| 層  | 場所               | 上限   | 役割                 |
+| --- | ------------------ | ------ | -------------------- |
+| L1  | `AGENTS.md`        | 50 行  | 入口。規則と索引だけ |
+| L2  | `docs/*.md`        | 300 行 | 主題ごとの指針       |
+| L3  | `docs/<主題>/*.md` | なし   | L2 に収まらない詳細  |
 
-## コマンド
+- 行数の上限と相対リンクの実在は `tests/docs/limits.test.ts` が検査し、違反すると CI が落ちる。
+- 新しい規則は該当する L2 に書く。L2 が 300 行を超えそうなら細部を L3 に移し、L2 からリンクする。L1 には索引だけを足す。
 
-| コマンド | 内容 |
-|---|---|
-| `pnpm dev` | 開発サーバー |
-| `pnpm build` / `pnpm preview` | 本番ビルド / ビルド結果の確認 |
-| `pnpm build:maintenance` | メンテナンス中画面だけをビルドする（`astro.maintenance.config.ts`。`pnpm preview` で確認できる） |
-| `pnpm check` | `astro check`（型と `.astro` の検査） |
-| `pnpm lint` / `pnpm lint:fix` | Biome |
-| `pnpm test` / `pnpm test:watch` | Vitest |
-| `pnpm verify` | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` → `astro build --config astro.maintenance.config.ts` |
+## 索引
 
-変更を終えたら `pnpm verify` を通してからコミットする。
+| 知りたいこと                                    | 文書                                         |
+| ----------------------------------------------- | -------------------------------------------- |
+| スタック、コマンド、ディレクトリ、テスト、Biome | [docs/development.md](./docs/development.md) |
+| ロケール、UI 文言、URL、翻訳ペア                | [docs/i18n.md](./docs/i18n.md)               |
+| ブログ・リザルト・101・単発ページの追加         | [docs/content.md](./docs/content.md)         |
+| 色、タイポグラフィ、Do / Don't（寸法は L3）     | [docs/design.md](./docs/design.md)           |
+| デプロイ、外部設定、Renovate                    | [docs/operations.md](./docs/operations.md)   |
 
-## ディレクトリ
+## 作業の手順
 
-```
-src/
-  content.config.ts   コレクション定義（Zod スキーマ）
-  content/            Markdown / YAML のコンテンツ
-  i18n/               ロケール定数、UI 文言、URL ヘルパー、日付表記（Astro 非依存）
-  lib/content.ts      エントリ ID の分解、翻訳ペア検索、並べ替え（Astro 非依存）
-  lib/validate.ts     ビルドを失敗させる整合性チェック（Astro 非依存）
-  lib/collections.ts  getCollection を呼ぶ唯一の層（ページは本文描画用の render だけを astro:content から import する）
-  layouts/            BaseLayout
-  assets/             ヒーローの線画（hero.svg）
-  components/         Header, Footer, LanguageSwitcher, EntryList, PageHeader, ResultsTable, Hero, FeatureGrid, CtaBox
-  pages/[...lang]/    全ページ（lang: undefined = ja、'en' = en）
-  pages/404.astro
-  styles/global.css   デザイントークン（DESIGN.md を参照）
-src-maintenance/      メンテナンス中画面（astro.maintenance.config.ts の srcDir。global.css と ui.ts は src/ から相対パスで読む）
-tests/                Vitest
-```
+変更を終えたら `pnpm verify`（`biome ci` → `astro check` → `vitest run` → 本サイトとメンテナンス中画面の `astro build`）を通してからコミットする。
 
-## i18n の約束事
+## Git の規約
 
-- ロケールは `ja`（デフォルト、URL プレフィックスなし）と `en`（`/en/`）。
-- UI 文言は `src/i18n/ui.ts` にだけ書く。`.astro` に日本語・英語を直書きしない。キーは ja 辞書から型を取るので、en に追加し忘れると `astro check` で落ちる。
-- URL は `localePath(locale, '/blogs/')` で作る。文字列連結で `/en/` を付けない。
-- 各ページは `BaseLayout` に `translations`（存在する翻訳の URL パス。自分自身を含む）を渡す。hreflang と言語スイッチャーはこれから作られる。翻訳が無いロケールへは `fallbackPath`（セクションのトップ）に飛ばす。
-- 英語版が無いコンテンツの英語ページは生成しない。英語の一覧には英語版のあるエントリだけ並ぶ。
+- コミットメッセージは 1 行に収める。本文もトレーラーも付けない。
+- `Co-Authored-By` や「Generated with …」のような AI の帰属を、コミットメッセージにも PR 本文にも書かない。
 
-## コンテンツの追加
+## 必ず守る約束
 
-| 種類 | 置き場所 | 必須 frontmatter |
-|---|---|---|
-| ブログ | `src/content/blogs/{ja,en}/<slug>.md` | `title`, `description`, `pubDate`（任意: `updatedDate`, `draft`） |
-| リザルト | `src/content/results/{ja,en}/<slug>.md` | `title`, `date`, `classes[]`（任意: `venue`） |
-| 101 の記事 | `src/content/guides/{ja,en}/<category>/<slug>.md` | `title`, `description`（任意: `order`） |
-| 101 のカテゴリ | `src/content/guide-categories/<category>.yaml` | `order`, `title.{ja,en}`, `description.{ja,en}` |
-| 単発ページ | `src/content/pages/{ja,en}/<slug>.md` | `title`, `description` |
-
-- 翻訳ペアは「同じ相対パス」で決まる。frontmatter で紐付けない。
-- `draft: true` のブログは本番ビルドで除外される。
-- 101 の記事はカテゴリディレクトリの下に置き、そのカテゴリの YAML を `guide-categories/` に用意する。無いとビルドが失敗する。
-- `pages/history` は ja / en 両方必須（ナビからリンクされるため）。片方が無いとビルドが失敗する。
-- リザルトの `classes` はクラスごとの順位表。クラスが無い大会は要素 1 つにする。
-
-```yaml
-classes:
-  - name: "MASTER"
-    placements:
-      - { rank: 1, rider: "名前" }
-```
-
-## スタイル
-
-- `DESIGN.md` のトークンと utility だけを使う。任意値（`text-[13px]`）や `global.css` に無い色を書かない。
-- 見出しは `h1`〜`h6` 要素と `text-h*` で指定する。ウェイトは要素で、行間・字間は `text-h*` が言語ごとに決める。
-- 日本語ページでも欧文だけの見出し（wordmark、大会名）には `lang="en"` を付ける。
-- 白面が基本。黒面はホームの CTA ボックスとボタンだけ。影は使わない。角丸は `rounded-sm` / `rounded-md` / `rounded-lg` / `rounded-full` だけ。
-- ページタイトルは `PageHeader`、一覧は `EntryList` に任せる。
-
-## テスト
-
-- `src/i18n` と `src/lib/content.ts`、`src/lib/validate.ts` は純粋関数なので、Vitest で直接検証する。
-- `.astro` コンポーネントは Astro Container API（`astro/container`）で描画して検証する（`tests/components/`）。
-- コンテンツの整合性（未登録カテゴリ、欠けたロケール、スキーマ違反）はビルドで検出する。テストで二重に検証しない。
-
-## Biome の検査範囲
-
-Biome は `.ts` / `.json` と `.astro` のフロントマター（スクリプト部分）を検査する。`.astro` のテンプレート部分と `.md` / `.yaml` は対象外。
-
-## デプロイと外部設定（手動作業）
-
-`main` への push で `deploy.yml` が動き、`dist/` を GitHub Pages に配信する。
-
-配信内容は `deploy.yml` の `MAINTENANCE_WINDOW` で決まる。`true` ならメンテナンス中画面（`pnpm build:maintenance`）、それ以外なら本サイト（`pnpm build`）を配信する。`main` への push では `env:` に書いた既定値が使われるので、本サイトを公開するときは `env:` と `run-name` の 2 箇所の既定値を `false` にしてマージする（`run-name` は実行一覧と承認画面に配信モードを出すためのもので、`env` を参照できないので値を別に持つ）。Actions の「Run workflow」（`workflow_dispatch`）で `maintenance_window` を選ぶと、その 1 回だけ既定値を上書きして配信できる。手動実行で切り替えても次の push で既定値に戻る。
-
-初回だけ次の設定が必要。
-
-1. Settings → Pages → Source を **GitHub Actions** にし、Custom domain に `kingofground.com` を入れる（`public/CNAME` にも同じ値がある）
-2. DNS: `A @` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`。`CNAME www` → `yasuflatland-lf.github.io`
-3. DNS が伝播したら Enforce HTTPS を ON にする
-4. Mend Renovate の GitHub App をこのリポジトリにインストールする
-5. Settings → General で **Allow auto-merge** を ON にし、`main` のルールセットで `ci` チェックを必須にする（Renovate の automerge はこれが無いと動かない）
-
-## Renovate の方針
-
-- リリースから 3 日経っていない版は候補にしない（`minimumReleaseAge`）
-- minor / patch は automerge。major は手動。ただし GitHub Actions は major も automerge
-- TypeScript 7 の major PR は、`@astrojs/check` が対応してからマージする
+- UI 文言は `src/i18n/ui.ts` にだけ書く。en に無いキーは `astro check` で落ちる。
+- URL は `localePath()` で作る。`/en/` を文字列連結しない。
+- 色・サイズ・角丸は `global.css` のトークンと utility だけを使う。任意値（`text-[13px]`）と影は使わない。
+- 101 の記事はカテゴリディレクトリの下に置き、カテゴリ YAML を用意する。`pages/` は ja / en 両方必須。どちらもビルドで検査される。
+- 日本語ページでも欧文だけの見出しには `lang="en"` を付ける。
