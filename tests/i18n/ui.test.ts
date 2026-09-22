@@ -36,6 +36,11 @@ describe('ui', () => {
     expect(t('en', 'lang.switcher')).toBe('Language');
   });
 
+  it('nav.skip はスキップリンクの文言', () => {
+    expect(t('ja', 'nav.skip')).toBe('本文へ移動');
+    expect(t('en', 'nav.skip')).toBe('Skip to content');
+  });
+
   it('ヘッダーの 101 ボタンの文言は無い', () => {
     expect('nav.guides' in ui.ja).toBe(false);
     expect('nav.guides' in ui.en).toBe(false);
