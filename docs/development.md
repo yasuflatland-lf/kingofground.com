@@ -5,7 +5,7 @@
 - Astro 7 / TypeScript 6（7 は `@astrojs/check` が対応するまで使わない）
 - pnpm 10（`package.json` の `packageManager` で固定）、Node 24（`.node-version`）
 - Tailwind CSS 4（`@tailwindcss/vite`、`@tailwindcss/typography`）
-- Biome 2（lint / format）、Vitest 5（`astro/config` の `getViteConfig` 経由）
+- Biome 2（lint / format）、knip（未使用のファイル・export・依存の検出）、Vitest 5（`astro/config` の `getViteConfig` 経由）
 - `@astrojs/sitemap`、`@fontsource-variable`（Bricolage Grotesque / Inter。和文はシステムフォント）
 - Renovate（`renovate.json`。方針は [operations.md](./operations.md)）
 
@@ -18,8 +18,9 @@
 | `pnpm build:maintenance`        | メンテナンス中画面だけをビルドする（`astro.maintenance.config.ts`。`pnpm preview` で確認できる）                               |
 | `pnpm check`                    | `astro check`（型と `.astro` の検査）                                                                                          |
 | `pnpm lint` / `pnpm lint:fix`   | Biome                                                                                                                          |
+| `pnpm knip`                     | knip。未使用のファイル・export・依存があれば非ゼロで終わる（設定は `knip.json`）                                              |
 | `pnpm test` / `pnpm test:watch` | Vitest                                                                                                                         |
-| `pnpm verify`                   | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` → `astro build --config astro.maintenance.config.ts` |
+| `pnpm verify`                   | CI と同じ順序で `biome ci` → `knip` → `astro check` → `vitest run` → `astro build` → `astro build --config astro.maintenance.config.ts` |
 
 変更を終えたら `pnpm verify` を通してからコミットする。
 
