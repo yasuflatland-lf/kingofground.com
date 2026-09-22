@@ -10,7 +10,7 @@
 ## Visual Theme & Atmosphere
 
 - **デザイン方針**: 白地に黒の見出し、slate 系グレーの本文。要素は角丸 4〜8px の面と余白で区切り、影は使わない
-- **面の配置**: 基本は白面。大きな黒面はホームの CTA ボックスだけ。ボタンと特徴グリッドのアイコンの黒丸（`size-8 rounded-full bg-black`）は面として数えない。ヘッダー・フッターも白面
+- **面の配置**: 基本は白面。ホームは左右いっぱいの帯を並べ（white / off-white / highlight）、黒面はスクロール中のヘッダーとフッターだけ。ボタンと特徴グリッドのアイコンの黒丸（`size-8 rounded-full bg-black`）は面として数えない
 - **キーワード**: 明るい、読みやすい、スタートアップ的、日本語でも崩れない
 - **特徴**: 欧文を先頭に置いたフォールバックチェーン。和文は `:lang(ja)` で行間 1.6・字間 0.02em に切り替える
 
@@ -23,13 +23,14 @@
 | 役割                                             | トークン    | 値        |
 | ------------------------------------------------ | ----------- | --------- |
 | 背景                                             | `white`     | `#ffffff` |
-| 見出し、ボタン、CTA ボックス                     | `black`     | `#000000` |
+| 見出し、ボタン、スクロール中のヘッダー、フッター | `black`     | `#000000` |
 | 黒ボタンのホバー                                 | `ink`       | `#262626` |
 | 本文、リード文、ナビ                             | `body`      | `#475569` |
 | メタ情報、フッター                               | `medium`    | `#64748b` |
 | 罫線、黒面の補足文                               | `soft`      | `#e2e8f0` |
-| プレースホルダー面、表の縞、輪郭線ボタンのホバー | `off-white` | `#f8fafc` |
+| ホームの帯、表の縞、輪郭線ボタンのホバー         | `off-white` | `#f8fafc` |
 | キッカー                                         | `accent`    | `#2563eb` |
+| 差し色の帯（文字は `black` / `ink` だけ）        | `highlight` | `#f5a623` |
 
 Tailwind では `text-body`, `text-medium`, `bg-off-white`, `border-soft`, `divide-soft`, `text-accent` のように使う。Tailwind 既定のパレット（`gray-500` など）は無効にしてある。
 
@@ -127,7 +128,7 @@ font-feature-settings: normal; /* palt 未適用。字間は letter-spacing で�
 | -------------- | --- | ------------------------ |
 | `rounded-sm`   | 4px | ボタン                   |
 | `rounded-md`   | 6px | 画像、プレースホルダー面 |
-| `rounded-lg`   | 8px | CTA ボックス             |
+| `rounded-lg`   | 8px | —（現在は未使用）        |
 | `rounded-full` | —   | アイコンの黒丸           |
 
 ---
@@ -150,5 +151,5 @@ font-feature-settings: normal; /* palt 未適用。字間は letter-spacing で�
 - 見出し・ナビ・ボタンを uppercase にしない
 - 日本語本文の行間を 1.6 未満にしない
 - `font-family` から Hiragino / Meiryo のフォールバックを外さない
-- 大きな黒面を CTA ボックス以外に増やさない（ボタンとアイコンの黒丸は除く）
-
+- 帯の色は `white` / `off-white` / `highlight` / `black` から選ぶ。`highlight` は 1 ページに 1 帯まで、黒面はスクロール中のヘッダーとフッターだけ（ボタンとアイコンの黒丸は除く）
+- `highlight` の上に `black` / `ink` 以外の文字を置かない。`.btn-outline` も置かない（白地が 2.0:1 で面として浮く）
