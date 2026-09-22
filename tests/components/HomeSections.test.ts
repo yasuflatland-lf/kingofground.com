@@ -15,6 +15,10 @@ describe('Hero', () => {
     expect(html).toContain('href="/en/101/" class="btn"');
     expect(html).toContain('href="/en/results/" class="btn btn-outline"');
     expect(html).toMatch(/<svg[^>]*aria-hidden="true"/);
+    expect(html).toMatch(
+      /^<section class="bg-white">\s*<div class="container-site [^"]*pt-16 pb-16 md:pt-12 md:pb-24[^"]*"/,
+    );
+    expect(html).not.toContain('pb-8 ');
   });
 });
 
@@ -29,6 +33,12 @@ describe('FeatureGrid', () => {
     expect(html).toContain('href="/results/"');
     expect(html).toContain('href="/101/"');
     expect(html).toContain('KING OF GROUND とは');
+    expect(html).toMatch(
+      /^<section class="bg-off-white py-10 md:py-16">\s*<div class="container-site">/,
+    );
+    expect(html).not.toContain('mt-16 md:mt-0');
+    expect(html).not.toContain('text-medium');
+    expect((html.match(/<p class="mt-2 text-body">/g) ?? []).length).toBe(3);
   });
 });
 

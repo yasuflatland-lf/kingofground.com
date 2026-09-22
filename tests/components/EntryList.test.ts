@@ -25,6 +25,7 @@ describe('EntryList', () => {
     expect(html).toContain('2026年9月21日');
     expect(html).toContain('説明 A');
     expect((html.match(/<p /g) ?? []).length).toBe(1);
+    expect(html).toContain('<p class="mt-2 text-body">説明 A</p>');
   });
 
   it('プレースホルダー面は装飾なので aria-hidden', async () => {
@@ -37,6 +38,8 @@ describe('EntryList', () => {
     });
     expect(html).toContain('aria-hidden="true"');
     expect(html).toMatch(/lang="en"[^>]*>\s*KOG\s*</);
+    expect(html).toMatch(/class="[^"]*rounded-md border border-soft"[^>]*aria-hidden="true"/);
+    expect(html).not.toContain('bg-off-white');
   });
 
   it('headingLevel="h2" と item.lang="en" を渡すと h2 に lang="en" が付く', async () => {

@@ -29,37 +29,41 @@ const results = (await getResults(locale)).slice(0, 3);
   <Hero locale={locale} />
   <FeatureGrid locale={locale} />
 
-  <section class="container-site mt-20">
-    <div class="mx-auto flex max-w-4xl items-baseline justify-between gap-4">
-      <h2 class="text-h2">{t(locale, 'home.latestBlogs')}</h2>
-      <a href={localePath(locale, '/blogs/')} class="text-link inline-flex min-h-11 items-center">{t(locale, 'home.viewAll')}</a>
+  <section class="bg-white py-10 md:py-16">
+    <div class="container-site">
+      <div class="mx-auto flex max-w-4xl items-baseline justify-between gap-4">
+        <h2 class="text-h2">{t(locale, 'home.latestBlogs')}</h2>
+        <a href={localePath(locale, '/blogs/')} class="text-link inline-flex min-h-11 items-center">{t(locale, 'home.viewAll')}</a>
+      </div>
+      <EntryList
+        locale={locale}
+        items={blogs.map((entry) => ({
+          title: entry.data.title,
+          date: entry.data.pubDate,
+          description: entry.data.description,
+          href: localePath(locale, `/blogs/${splitId(entry.id).slug}/`),
+        }))}
+      />
     </div>
-    <EntryList
-      locale={locale}
-      items={blogs.map((entry) => ({
-        title: entry.data.title,
-        date: entry.data.pubDate,
-        description: entry.data.description,
-        href: localePath(locale, `/blogs/${splitId(entry.id).slug}/`),
-      }))}
-    />
   </section>
 
-  <section class="container-site mt-20">
-    <div class="mx-auto flex max-w-4xl items-baseline justify-between gap-4">
-      <h2 class="text-h2">{t(locale, 'home.latestResults')}</h2>
-      <a href={localePath(locale, '/results/')} class="text-link inline-flex min-h-11 items-center">{t(locale, 'home.viewAll')}</a>
+  <section class="bg-off-white py-10 md:py-16">
+    <div class="container-site">
+      <div class="mx-auto flex max-w-4xl items-baseline justify-between gap-4">
+        <h2 class="text-h2">{t(locale, 'home.latestResults')}</h2>
+        <a href={localePath(locale, '/results/')} class="text-link inline-flex min-h-11 items-center">{t(locale, 'home.viewAll')}</a>
+      </div>
+      <EntryList
+        locale={locale}
+        items={results.map((entry) => ({
+          title: entry.data.title,
+          date: entry.data.date,
+          description: entry.data.venue,
+          href: localePath(locale, `/results/${splitId(entry.id).slug}/`),
+          lang: 'en',
+        }))}
+      />
     </div>
-    <EntryList
-      locale={locale}
-      items={results.map((entry) => ({
-        title: entry.data.title,
-        date: entry.data.date,
-        description: entry.data.venue,
-        href: localePath(locale, `/results/${splitId(entry.id).slug}/`),
-        lang: 'en',
-      }))}
-    />
   </section>
 
   <CtaBox locale={locale} />

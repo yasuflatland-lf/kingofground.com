@@ -14,6 +14,7 @@ describe('Footer', () => {
     expect(html).toContain('© KING OF GROUND');
     expect(html).toContain('BMX フラットランド コンテストシリーズ');
     expect(html).not.toContain('mt-20');
+    expect(html).not.toContain('mb-10');
     expect(html).not.toContain('text-medium');
   });
 });
