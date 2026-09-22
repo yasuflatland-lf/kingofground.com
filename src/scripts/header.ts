@@ -1,12 +1,11 @@
 /** 上端のセンチネルが画面から出たら header に data-stuck を付け、戻ったら外す */
-export function observeStuck(header: HTMLElement, sentinel: Element): IntersectionObserver {
+export function observeStuck(header: HTMLElement, sentinel: Element): void {
   const observer = new IntersectionObserver((entries) => {
     // 1 回の通知に複数の entry が届くことがあるので、最新のものだけを見る
     const latest = entries.at(-1);
     if (latest) header.toggleAttribute('data-stuck', !latest.isIntersecting);
   });
   observer.observe(sentinel);
-  return observer;
 }
 
 /** lg 以上ではハンバーガーが消えてナビが常時表示になる（global.css の --breakpoint-lg と同じ値） */

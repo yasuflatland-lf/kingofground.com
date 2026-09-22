@@ -10,52 +10,49 @@ function required<T>(value: T | null): T {
   return value;
 }
 
+/** IntersectionObserver を差し替え、observe のスパイと、登録されたコールバックを呼ぶ notify を返す */
+function stubIntersectionObserver() {
+  let callback: Callback = () => {};
+  const observe = vi.fn();
+  vi.stubGlobal(
+    'IntersectionObserver',
+    class {
+      observe = observe;
+      constructor(cb: Callback) {
+        callback = cb;
+      }
+    },
+  );
+  return { observe, notify: (entries: Entry[]) => callback(entries) };
+}
+
 describe('observeStuck', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
   });
 
   it('センチネルが画面から出ると data-stuck が付き、戻ると外れる', () => {
-    let callback: Callback = () => {};
-    const observe = vi.fn();
-    vi.stubGlobal(
-      'IntersectionObserver',
-      class {
-        observe = observe;
-        constructor(cb: Callback) {
-          callback = cb;
-        }
-      },
-    );
+    const { observe, notify } = stubIntersectionObserver();
     const header = document.createElement('header');
     const sentinel = document.createElement('div');
 
     observeStuck(header, sentinel);
 
     expect(observe).toHaveBeenCalledWith(sentinel);
-    callback([{ isIntersecting: false }]);
+    notify([{ isIntersecting: false }]);
     expect(header.hasAttribute('data-stuck')).toBe(true);
-    callback([{ isIntersecting: true }]);
+    notify([{ isIntersecting: true }]);
     expect(header.hasAttribute('data-stuck')).toBe(false);
   });
 
   it('1 回の通知に複数の entry が届いたら最後の entry で判定する', () => {
-    let callback: Callback = () => {};
-    vi.stubGlobal(
-      'IntersectionObserver',
-      class {
-        observe = vi.fn();
-        constructor(cb: Callback) {
-          callback = cb;
-        }
-      },
-    );
+    const { notify } = stubIntersectionObserver();
     const header = document.createElement('header');
     observeStuck(header, document.createElement('div'));
 
-    callback([{ isIntersecting: false }, { isIntersecting: true }]);
+    notify([{ isIntersecting: false }, { isIntersecting: true }]);
     expect(header.hasAttribute('data-stuck')).toBe(false);
-    callback([{ isIntersecting: true }, { isIntersecting: false }]);
+    notify([{ isIntersecting: true }, { isIntersecting: false }]);
     expect(header.hasAttribute('data-stuck')).toBe(true);
   });
 });

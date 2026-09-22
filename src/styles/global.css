@@ -202,6 +202,7 @@
     padding: 0.5rem 0.75rem;
     color: var(--color-body);
     text-decoration: none;
+    text-underline-offset: 0.25rem;
   }
   .nav-link:hover {
     color: var(--color-black);
@@ -209,7 +210,6 @@
   .nav-link[aria-current="page"] {
     color: var(--color-black);
     text-decoration: underline;
-    text-underline-offset: 0.25rem;
   }
 
   .text-link {
@@ -238,33 +238,34 @@
     outline: 2px solid var(--color-black);
     outline-offset: 2px;
   }
-  .site-header[data-stuck] :focus-visible {
-    outline-color: var(--color-white);
-  }
-  .site-header[data-stuck] .nav-link {
-    color: var(--color-soft);
-  }
-  .site-header[data-stuck] .nav-link:hover,
-  .site-header[data-stuck] .nav-link[aria-current="page"] {
-    color: var(--color-white);
-    text-decoration: underline;
-    text-underline-offset: 0.25rem;
-  }
-  .site-header[data-stuck] .lang-switch {
-    border-color: var(--color-white);
-  }
-  .site-header[data-stuck] .lang-switch-item {
-    background-color: transparent;
-    color: var(--color-white);
-  }
-  .site-header[data-stuck] .lang-switch-item[aria-current] {
-    background-color: var(--color-white);
-    color: var(--color-black);
-  }
-  .site-header[data-stuck] a.lang-switch-item:hover {
-    background-color: transparent;
-    text-decoration: underline;
-    text-underline-offset: 0.25rem;
+  .site-header[data-stuck] {
+    :focus-visible {
+      outline-color: var(--color-white);
+    }
+    .nav-link {
+      color: var(--color-soft);
+    }
+    .nav-link:hover,
+    .nav-link[aria-current="page"] {
+      color: var(--color-white);
+      text-decoration: underline;
+    }
+    .lang-switch {
+      border-color: var(--color-white);
+    }
+    .lang-switch-item {
+      background-color: transparent;
+      color: var(--color-white);
+    }
+    .lang-switch-item[aria-current] {
+      background-color: var(--color-white);
+      color: var(--color-black);
+    }
+    a.lang-switch-item:hover {
+      background-color: transparent;
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+    }
   }
 }
 
