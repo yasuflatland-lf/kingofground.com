@@ -27,6 +27,25 @@ describe('PageHeader', () => {
     expect(html.indexOf('class="kicker"')).toBeLessThan(html.indexOf('<h1'));
   });
 
+  it('kicker.lang="en" はキッカーのリンクに付く', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(PageHeader, {
+      props: {
+        locale: 'ja',
+        title: 'KING OF GROUND 2025 ROUND 1',
+        titleLang: 'en',
+        kicker: {
+          label: 'KING OF GROUND 2025',
+          href: '/results/2025/',
+          lang: 'en',
+        },
+      },
+    });
+    expect(html).toMatch(
+      /<a href="\/results\/2025\/"[^>]*lang="en"[^>]*>\s*KING OF GROUND 2025\s*<\/a>/,
+    );
+  });
+
   it('titleLang="en" は h1 に付き、description は p で出る', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(PageHeader, {

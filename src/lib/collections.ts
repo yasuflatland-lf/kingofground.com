@@ -4,8 +4,10 @@ import {
   filterByLocale,
   findTranslations,
   groupGuidesByCategory,
+  groupResultsByYear,
   guideCategoryOf,
   isPublished,
+  resultParts,
   sortByDateDesc,
   splitId,
 } from './content';
@@ -39,6 +41,21 @@ export async function getResultTranslations(
   slug: string,
 ): Promise<Partial<Record<Locale, Result>>> {
   return findTranslations(await getCollection('results'), slug);
+}
+
+/** そのロケールのリザルトを年ごとにまとめる。年は降順、年内はラウンド番号の昇順 */
+export async function getResultsByYear(
+  locale: Locale,
+): Promise<Array<{ year: number; results: Result[] }>> {
+  return groupResultsByYear(filterByLocale(await getCollection('results'), locale));
+}
+
+/** その年にリザルトが 1 件以上あるロケール */
+export async function getResultYearLocales(year: number): Promise<Locale[]> {
+  const all = await getCollection('results');
+  return locales.filter((locale) =>
+    all.some((entry) => splitId(entry.id).locale === locale && resultParts(entry.id).year === year),
+  );
 }
 
 export async function getGuideCategories(): Promise<GuideCategory[]> {

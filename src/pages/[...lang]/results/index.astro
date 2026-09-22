@@ -1,20 +1,20 @@
 ---
 import type { InferGetStaticPropsType } from 'astro';
-import EntryList from '../../../components/EntryList.astro';
 import PageHeader from '../../../components/PageHeader.astro';
 import { locales } from '../../../i18n/config';
 import { t } from '../../../i18n/ui';
 import { localePath, localePaths, localeStaticPaths } from '../../../i18n/utils';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getResults } from '../../../lib/collections';
-import { splitId } from '../../../lib/content';
+import { getResultsByYear } from '../../../lib/collections';
+import { resultParts } from '../../../lib/content';
 
 export const getStaticPaths = () => localeStaticPaths();
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { locale } = Astro.props as Props;
 
-const results = await getResults(locale);
+const years = await getResultsByYear(locale);
+const roundLabel = (id: string) => `${t(locale, 'results.round')} ${resultParts(id).round}`;
 ---
 
 <BaseLayout
@@ -30,16 +30,21 @@ const results = await getResults(locale);
     description={t(locale, 'results.description')}
   />
   <div class="container-site">
-    <EntryList
-      locale={locale}
-      headingLevel="h2"
-      items={results.map((entry) => ({
-        title: entry.data.title,
-        date: entry.data.date,
-        description: entry.data.venue,
-        href: localePath(locale, `/results/${splitId(entry.id).slug}/`),
-        lang: 'en',
-      }))}
-    />
+    <ul class="mx-auto mt-16 max-w-4xl divide-y divide-soft">
+      {
+        years.map(({ year, results }) => (
+          <li>
+            <a href={localePath(locale, `/results/${year}/`)} class="group block py-6">
+              <h2 class="text-h3 group-hover:underline" lang="en">
+                {year}
+              </h2>
+              <p class="mt-1 text-medium" lang="en">
+                {results.map((entry) => roundLabel(entry.id)).join(' / ')}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </BaseLayout>
