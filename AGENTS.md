@@ -25,7 +25,7 @@ kingofground.com（KING OF GROUND — BMX フラットランドのコンテス�
 
 ## 作業の手順
 
-変更を終えたら `pnpm verify`（`biome ci` → `astro check` → `vitest run` → 本サイトとメンテナンス中画面の `astro build`）を通してからコミットする。
+変更を終えたら `pnpm verify`（`biome ci` → `knip` → `astro check` → `vitest run` → 本サイトとメンテナンス中画面の `astro build`）を通してからコミットする。
 
 ## Git の規約
 
