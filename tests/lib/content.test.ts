@@ -4,9 +4,11 @@ import {
   filterByLocale,
   findTranslations,
   groupGuidesByCategory,
+  groupResultsByYear,
   guideCategoryOf,
   guideSlugOf,
   isPublished,
+  resultParts,
   sortByDateDesc,
   splitId,
 } from '../../src/lib/content';
@@ -41,7 +43,10 @@ describe('filterByLocale', () => {
 describe('findTranslations', () => {
   const entries = [{ id: 'ja/a' }, { id: 'en/a' }, { id: 'ja/b' }];
   it('両方あるときは ja と en', () => {
-    expect(findTranslations(entries, 'a')).toEqual({ ja: { id: 'ja/a' }, en: { id: 'en/a' } });
+    expect(findTranslations(entries, 'a')).toEqual({
+      ja: { id: 'ja/a' },
+      en: { id: 'en/a' },
+    });
   });
   it('en が無いときは en キー自体が無い', () => {
     const found = findTranslations(entries, 'b');
@@ -97,7 +102,10 @@ describe('guideCategoryOf / guideSlugOf', () => {
 });
 
 describe('groupGuidesByCategory', () => {
-  const guide = (id: string, order: number, title: string) => ({ id, data: { order, title } });
+  const guide = (id: string, order: number, title: string) => ({
+    id,
+    data: { order, title },
+  });
   it('カテゴリごとにまとめ、order 昇順・同値はタイトル順', () => {
     const grouped = groupGuidesByCategory([
       guide('ja/tricks/b', 2, 'B'),
@@ -111,5 +119,41 @@ describe('groupGuidesByCategory', () => {
   });
   it('空なら空の Map', () => {
     expect(groupGuidesByCategory([]).size).toBe(0);
+  });
+});
+
+describe('resultParts', () => {
+  it('ロケール/西暦/round<n> を年とラウンド番号に分ける', () => {
+    expect(resultParts('ja/2025/round1')).toEqual({ year: 2025, round: 1 });
+    expect(resultParts('en/2024/round12')).toEqual({ year: 2024, round: 12 });
+  });
+  it('年ディレクトリが無いリザルトは throw', () => {
+    expect(() => resultParts('ja/2025-round-1')).toThrow(/<year>\/round<n>/);
+  });
+  it('round<n> 以外のファイル名は throw', () => {
+    expect(() => resultParts('ja/2025/final')).toThrow(/<year>\/round<n>/);
+    expect(() => resultParts('ja/2025/round01')).toThrow(/<year>\/round<n>/);
+    expect(() => resultParts('ja/2025/round0')).toThrow(/<year>\/round<n>/);
+  });
+  it('西暦が 4 桁でなければ throw', () => {
+    expect(() => resultParts('ja/25/round1')).toThrow(/<year>\/round<n>/);
+    expect(() => resultParts('ja/season/round1')).toThrow(/<year>\/round<n>/);
+  });
+});
+
+describe('groupResultsByYear', () => {
+  it('年の降順にまとめ、年内はラウンド番号の昇順', () => {
+    const grouped = groupResultsByYear([
+      { id: 'ja/2024/round2' },
+      { id: 'ja/2025/round10' },
+      { id: 'ja/2025/round2' },
+      { id: 'ja/2024/round1' },
+    ]);
+    expect(grouped.map((g) => g.year)).toEqual([2025, 2024]);
+    expect(grouped[0]?.results.map((r) => r.id)).toEqual(['ja/2025/round2', 'ja/2025/round10']);
+    expect(grouped[1]?.results.map((r) => r.id)).toEqual(['ja/2024/round1', 'ja/2024/round2']);
+  });
+  it('空なら空の配列', () => {
+    expect(groupResultsByYear([])).toEqual([]);
   });
 });
