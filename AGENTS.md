@@ -98,7 +98,7 @@ Biome は `.ts` / `.json` と `.astro` のフロントマター（スクリプ�
 
 `main` への push で `deploy.yml` が動き、`dist/` を GitHub Pages に配信する。
 
-配信内容は `deploy.yml` の `MAINTENANCE_WINDOW` で決まる。`true` ならメンテナンス中画面（`pnpm build:maintenance`）、それ以外なら本サイト（`pnpm build`）を配信する。`main` への push では `env:` に書いた既定値が使われるので、本サイトを公開するときはその値を `false` にしてマージする。Actions の「Run workflow」（`workflow_dispatch`）で `maintenance_window` を選ぶと、その 1 回だけ既定値を上書きして配信できる。手動実行で切り替えても次の push で既定値に戻る。
+配信内容は `deploy.yml` の `MAINTENANCE_WINDOW` で決まる。`true` ならメンテナンス中画面（`pnpm build:maintenance`）、それ以外なら本サイト（`pnpm build`）を配信する。`main` への push では `env:` に書いた既定値が使われるので、本サイトを公開するときは `env:` と `run-name` の 2 箇所の既定値を `false` にしてマージする（`run-name` は実行一覧と承認画面に配信モードを出すためのもので、`env` を参照できないので値を別に持つ）。Actions の「Run workflow」（`workflow_dispatch`）で `maintenance_window` を選ぶと、その 1 回だけ既定値を上書きして配信できる。手動実行で切り替えても次の push で既定値に戻る。
 
 初回だけ次の設定が必要。
 
