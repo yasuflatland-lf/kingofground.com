@@ -38,9 +38,39 @@ describe('observeStuck', () => {
     callback([{ isIntersecting: true }]);
     expect(header.hasAttribute('data-stuck')).toBe(false);
   });
+
+  it('1 回の通知に複数の entry が届いたら最後の entry で判定する', () => {
+    let callback: Callback = () => {};
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        observe = vi.fn();
+        constructor(cb: Callback) {
+          callback = cb;
+        }
+      },
+    );
+    const header = document.createElement('header');
+    observeStuck(header, document.createElement('div'));
+
+    callback([{ isIntersecting: false }, { isIntersecting: true }]);
+    expect(header.hasAttribute('data-stuck')).toBe(false);
+    callback([{ isIntersecting: true }, { isIntersecting: false }]);
+    expect(header.hasAttribute('data-stuck')).toBe(true);
+  });
 });
 
 describe('bindNavToggle', () => {
+  type MediaListener = (event: { matches: boolean }) => void;
+  let mediaListener: MediaListener = () => {};
+  const matchMedia = vi.fn((query: string) => ({
+    media: query,
+    matches: false,
+    addEventListener: (_type: string, listener: MediaListener) => {
+      mediaListener = listener;
+    },
+  }));
+
   function setup() {
     document.body.innerHTML = `
       <button data-nav-toggle aria-expanded="false">
@@ -50,6 +80,7 @@ describe('bindNavToggle', () => {
       <div id="site-nav" class="hidden"></div>`;
     const toggle = required(document.querySelector<HTMLButtonElement>('[data-nav-toggle]'));
     const nav = required(document.getElementById('site-nav'));
+    vi.stubGlobal('matchMedia', matchMedia);
     bindNavToggle(toggle, nav);
     return { toggle, nav };
   }
@@ -57,6 +88,7 @@ describe('bindNavToggle', () => {
   afterEach(() => {
     document.documentElement.classList.remove('overflow-hidden');
     document.body.innerHTML = '';
+    vi.unstubAllGlobals();
   });
 
   it('クリックで開き、aria-expanded とアイコンと html の overflow-hidden が切り替わる', () => {
@@ -96,5 +128,37 @@ describe('bindNavToggle', () => {
     expect(nav.classList.contains('hidden')).toBe(true);
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
     expect(document.documentElement.classList.contains('overflow-hidden')).toBe(false);
+  });
+
+  it('lg 以上の幅を監視し、open のまま広がったら閉じてスクロールを解放する', () => {
+    const { toggle, nav } = setup();
+    expect(matchMedia).toHaveBeenCalledWith('(width >= 64.0625rem)');
+    toggle.click();
+
+    mediaListener({ matches: true });
+
+    expect(nav.classList.contains('hidden')).toBe(true);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(document.documentElement.classList.contains('overflow-hidden')).toBe(false);
+  });
+
+  it('閉じているときに lg 以上へ広がっても何もしない', () => {
+    const { toggle } = setup();
+    mediaListener({ matches: true });
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('Escape で閉じたらフォーカスをボタンに戻す', () => {
+    const { toggle, nav } = setup();
+    const link = document.createElement('a');
+    link.href = '/blogs/';
+    nav.append(link);
+    toggle.click();
+    link.focus();
+    expect(document.activeElement).toBe(link);
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+    expect(document.activeElement).toBe(toggle);
   });
 });
