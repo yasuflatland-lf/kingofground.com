@@ -29,7 +29,7 @@ const groups = await getGuideCategoriesFor(locale);
     description={t(locale, 'guides.description')}
     titleLang="en"
   />
-  <div class="container-site">
+  <div class="container-site pb-16">
     {
       groups.map(({ category, guides }) => (
         <section class="mx-auto mt-16 max-w-4xl">

@@ -43,7 +43,7 @@ const { locale, category, guides, translations } = Astro.props as Props;
     description={category.data.description[locale]}
     kicker={{ label: t(locale, 'guides.title'), href: localePath(locale, '/101/') }}
   />
-  <div class="container-site">
+  <div class="container-site pb-16">
     <ul class="mx-auto mt-16 max-w-4xl divide-y divide-soft">
       {
         guides.map((guide) => (
