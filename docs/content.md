@@ -13,6 +13,7 @@
 | 単発ページ     | `src/content/pages/{ja,en}/<slug>.md`             | `title`, `description`                          | —                       |
 
 - 翻訳ペアは「同じ相対パス」で決まる。frontmatter で紐付けない。
+- Markdown 本文の見出しは `##`（20px）と `###`（16px）まで。`####` は `###` と同じ大きさになる。
 - エントリ ID は拡張子を除いた相対パス（`ja/hello-kog`、`ja/2025/round1`、`ja/basics/what-is-flatland`）。slug 化で文字は変わらない。
 
 ## 種類ごとの決まり
