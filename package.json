@@ -14,9 +14,10 @@
     "check": "astro check",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
+    "knip": "knip",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "biome ci . && astro check && vitest run && astro build && astro build --config astro.maintenance.config.ts"
+    "verify": "biome ci . && knip && astro check && vitest run && astro build && astro build --config astro.maintenance.config.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@biomejs/biome": "2.5.14",
+    "knip": "6.37.0",
     "typescript": "6.0.3",
     "vitest": "5.0.1"
   }
