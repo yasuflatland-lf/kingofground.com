@@ -55,7 +55,7 @@
 
 ### Home sections（帯）
 
-各セクションは、背景色と上下余白を持つ外側の `<section>` と、内側の `.container-site` の 2 層。帯は `container-site` の外まで左右いっぱいに広がる。
+各セクションは、背景色と上下余白を持つ外側の `<section>` と、内側の `.container-site` の 2 層。帯は `container-site` の外まで左右いっぱいに広がる。Hero だけは余白を内側のグリッドに置く。
 
 | 帯                      | 背景                  | 余白                            | 構成                                                                                                                                                  |
 | ----------------------- | --------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -118,7 +118,8 @@ Tailwind の既定スケールのうち、次を基本にする。
 - `sticky top-0`、高さ 68px（`py-3` + 44px）。`--header-height`（4.25rem）を `:target` の `scroll-margin-top` に使う（`scroll-padding-top` にするとヘッダー内のリンクにフォーカスしたときページが跳ぶ）
 - 最上部は白面。上端の 40px センチネル（`[data-header-sentinel]`）が画面から出ると `data-stuck` が付き、黒面・白文字に即時に切り替わる（トランジション無し）。1px ではなく 40px なのは、慣性スクロールで 0〜2px を往復しても点滅させないため
 - `lg` 以上: wordmark / ナビ / 言語の切り替え（`.lang-switch`）の 1 行
-- `lg` 未満: wordmark とハンバーガー（44px）。ナビと言語の切り替えは `#site-nav` にまとめて開閉する。開いている間は `html` に `overflow-hidden`、Escape で閉じる。ヘッダーは `max-h-dvh overflow-y-auto`。JS 無効時は常時表示で、`soft` の下罫線が付く
+- `lg` 未満: wordmark とハンバーガー（44px）。ナビと言語の切り替えは `#site-nav` にまとめて開閉する。開いている間は `html` に `overflow-hidden`、Escape で閉じる。ヘッダーは `max-h-dvh overflow-y-auto`。JS 無効時は常時表示で、`soft` の下罫線が付き、`lg` 未満では sticky にしない
+- Escape で閉じたときはハンバーガーにフォーカスを戻す。開いたまま `lg` 以上に広がったら閉じてスクロールを解放する
 - スキップリンク（`nav.skip`）が `body` の先頭にあり、フォーカスすると `.btn` として現れて `#main` へ飛ぶ
 
 ### タッチターゲット
@@ -151,7 +152,7 @@ Button: black, white text, radius 4px, 10px 20px, no uppercase
 
 ```
 KING OF GROUND のデザインシステム（docs/design.md）に従って、大会一覧ページを作成してください。
-- 色は global.css のトークンだけ（white / black / ink / body / medium / soft / off-white / accent）
+- 色は global.css のトークンだけ（white / black / ink / body / medium / soft / off-white / accent / highlight）
 - 見出しは h1〜h6 要素 + text-h* utility。欧文だけの見出しには lang="en"
 - ページタイトルは PageHeader、一覧は EntryList を使う
 - 帯は外側の section に bg-* と py-10 md:py-16、内側に .container-site

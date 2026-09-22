@@ -47,7 +47,7 @@ describe('Header', () => {
   it('上端の 40px センチネルと、sticky で data-stuck に黒くなる header を描画する', async () => {
     const html = await renderHeader('ja');
     expect(html).toMatch(
-      /<div data-header-sentinel class="absolute top-0 h-10 w-full" aria-hidden="true">/,
+      /<div data-header-sentinel class="pointer-events-none absolute top-0 h-10 w-full" aria-hidden="true">/,
     );
     expect(html).toContain(
       '<header class="site-header group sticky top-0 z-10 max-h-dvh overflow-y-auto bg-white data-stuck:bg-black">',
@@ -61,6 +61,7 @@ describe('Header', () => {
     expect(html).toMatch(
       /<noscript>[\s\S]*\.site-header\s*\{[^}]*border-bottom: 1px solid var\(--color-soft\)/,
     );
+    expect(html).toMatch(/@media \(width < 64\.0625rem\)[\s\S]*position: static/);
   });
 
   it('URL に一致するナビ項目だけに aria-current="page" が付く', async () => {
@@ -77,5 +78,10 @@ describe('Header', () => {
     const blog = await renderHeader('ja', 'https://kingofground.com/blogs/');
     expect(blog).not.toContain('href="/" class="nav-link" aria-current');
     expect(blog).toContain('href="/blogs/" class="nav-link" aria-current="page"');
+  });
+
+  it('前方一致は末尾のスラッシュ込みなので、似た名前のパスは現在ページにならない', async () => {
+    const html = await renderHeader('ja', 'https://kingofground.com/blogs-archive/');
+    expect(html).not.toContain('href="/blogs/" class="nav-link" aria-current');
   });
 });
