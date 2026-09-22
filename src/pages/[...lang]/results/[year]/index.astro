@@ -47,7 +47,7 @@ const title = `${t(locale, 'site.title')} ${year}`;
     titleLang="en"
     kicker={{ label: t(locale, 'results.title'), href: localePath(locale, '/results/') }}
   />
-  <div class="container-site">
+  <div class="container-site pb-16">
     <ul class="mx-auto mt-16 max-w-4xl divide-y divide-soft">
       {
         results.map((entry) => (
@@ -56,11 +56,11 @@ const title = `${t(locale, 'site.title')} ${year}`;
               href={localePath(locale, `/results/${splitId(entry.id).slug}/`)}
               class="group block py-6"
             >
-              <h2 class="text-h3 group-hover:underline" lang="en">
+              <h2 class="text-h2 group-hover:underline" lang="en">
                 {t(locale, 'results.round')} {resultParts(entry.id).round}
               </h2>
               {entry.data.venue && <p class="mt-2 text-body">{entry.data.venue}</p>}
-              <time datetime={entry.data.date.toISOString()} class="mt-3 block text-sm text-medium">
+              <time datetime={entry.data.date.toISOString()} class="mt-3 block text-xs text-medium">
                 {formatDate(entry.data.date, locale)}
               </time>
             </a>

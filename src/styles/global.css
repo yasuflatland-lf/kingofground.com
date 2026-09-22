@@ -15,17 +15,31 @@
   /* 差し色の帯（橙寄りの山吹）。上に置ける文字色は black と ink だけ */
   --color-highlight: #f5a623;
 
-  /* フォント: Bricolage Grotesque を先頭に置き、Inter → 和文にフォールバックする */
+  /*
+   * フォント: 欧文はシステムフォント、和文は Hiragino → Meiryo。Web フォントは読み込まない。
+   * system-ui は和文フォントより後ろに置く。前に置くと日本語版 Windows で和文が Yu Gothic UI になり Meiryo に届かない。
+   */
   --font-sans:
-    "Bricolage Grotesque Variable", "Inter Variable", "Hiragino Kaku Gothic ProN", Meiryo,
-    sans-serif;
+    "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, system-ui, sans-serif;
   --font-mono: SFMono-Regular, Consolas, Menlo, monospace;
+
+  /* 文字サイズの utility は Caption（12px）だけ。本文は html の 16px、見出しは text-h1〜h3。行間は全体と同じ 1.5 */
+  --text-*: initial;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
 
   /* 角丸: 3 段だけ（rounded-full は Tailwind の固定値なので残る） */
   --radius-*: initial;
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
+
+  /* 影: 3 段だけ。1 = サムネイル、2 = ドロップダウン（開いたモバイルナビ）、3 = モーダル */
+  --shadow-*: initial;
+  --shadow-1: 0 2px 8px rgb(0 0 0 / 0.08);
+  --shadow-2: 0 4px 16px rgb(0 0 0 / 0.12);
+  --shadow-3: 0 8px 32px rgb(0 0 0 / 0.16);
 
   /* ブレークポイント: ≤767 mobile / 768–1024 tablet / ≥1025 desktop */
   --breakpoint-*: initial;
@@ -34,41 +48,30 @@
 }
 
 @layer base {
-  /* 見出しの段階: mobile / tablet / desktop */
+  /* 見出しの段階: Display 40px / H2 20px / H3 16px。Display だけモバイルで 70%（28px）に縮める */
   :root {
-    --size-h1: 2.5rem;
-    --size-h2: 2rem;
-    --size-h3: 1.5rem;
-    --size-h4: 1.125rem;
-    --size-h5: 1.125rem;
-    --size-h6: 1rem;
+    --size-h1: 1.75rem;
+    --size-h2: 1.25rem;
+    --size-h3: 1rem;
     /* ヘッダーの高さ（py-3 + 44px）。ページ内リンクの飛び先を :target の scroll-margin-top で下げるのに使う */
     --header-height: 4.25rem;
   }
   @media (width >= 48rem) {
     :root {
-      --size-h1: 3.5rem;
-      --size-h2: 2.5rem;
-      --size-h3: 1.75rem;
-      --size-h4: 1.25rem;
-    }
-  }
-  @media (width >= 64.0625rem) {
-    :root {
-      --size-h1: 4.5rem;
-      --size-h2: 3rem;
-      --size-h3: 1.875rem;
+      --size-h1: 2.5rem;
     }
   }
 
   html {
     font-family: var(--font-sans);
     font-size: 16px;
+    /* 行間 1.5 と字間 0.04em を ja / en 共通で全体に掛ける。字間は px で継承されるので、見出しの utility と .prose の見出しで再宣言する */
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    /* palt 未適用。字間は letter-spacing で調整する */
+    font-feature-settings: normal;
     color: var(--color-body);
     background-color: var(--color-white);
-    /* 和文見出しを 700 にしても欧文フォントを合成ボールドにしない */
-    font-synthesis-weight: none;
-    -webkit-font-smoothing: antialiased;
   }
 
   /* ページ内リンクの飛び先だけをヘッダーの高さぶん下げる（ヘッダー内のフォーカスには影響しない） */
@@ -83,40 +86,26 @@
   h5,
   h6 {
     color: var(--color-black);
-  }
-  h1,
-  h2 {
     font-weight: 700;
-  }
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: 600;
   }
 
   /* en */
   :lang(en) {
-    line-height: 1.5;
-    letter-spacing: 0;
     overflow-wrap: break-word;
   }
 
-  /* ja */
+  /* ja: 禁則。break-all は和文中の欧文単語（BMX など）を途中で割るので使わない */
   :lang(ja) {
-    line-height: 1.6;
-    letter-spacing: 0.02em;
     word-break: normal;
     line-break: strict;
     overflow-wrap: anywhere;
-    font-feature-settings: normal;
   }
 }
 
 @layer components {
   .container-site {
     width: 100%;
-    max-width: 80rem;
+    max-width: 75rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
@@ -221,10 +210,10 @@
     text-decoration: underline;
   }
 
+  /* キッカー: Caption の 12px。字間は html の 0.64px を継承する（12px では 0.053em） */
   .kicker {
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
     color: var(--color-accent);
   }
@@ -237,6 +226,10 @@
   .site-header :focus-visible {
     outline: 2px solid var(--color-black);
     outline-offset: 2px;
+  }
+  /* lg 未満で開いたナビ: 白いヘッダーと本文の境界を Level 2 の影で示す。lg 以上に広がるとナビは閉じるので影も消える */
+  .site-header:has([data-nav-toggle][aria-expanded="true"]) {
+    box-shadow: var(--shadow-2);
   }
   .site-header[data-stuck] {
     :focus-visible {
@@ -269,57 +262,18 @@
   }
 }
 
-/* 見出しの utility。行間と字間も持ち、ja では和文フォントに合う値に切り替える */
+/* 見出しの utility。行間 1.5 は html から継承する。字間は px で継承されるので em で再宣言する */
 @utility text-h1 {
   font-size: var(--size-h1);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  &:lang(ja) {
-    line-height: 1.25;
-    letter-spacing: 0.02em;
-  }
+  letter-spacing: 0.04em;
 }
 @utility text-h2 {
   font-size: var(--size-h2);
-  line-height: 1;
-  letter-spacing: -0.025em;
-  &:lang(ja) {
-    line-height: 1.25;
-    letter-spacing: 0.02em;
-  }
+  letter-spacing: 0.04em;
 }
 @utility text-h3 {
   font-size: var(--size-h3);
-  line-height: 1.375;
-  letter-spacing: -0.025em;
-  &:lang(ja) {
-    line-height: 1.4;
-    letter-spacing: 0.02em;
-  }
-}
-@utility text-h4 {
-  font-size: var(--size-h4);
-  line-height: 1.5;
-  letter-spacing: 0;
-  &:lang(ja) {
-    letter-spacing: 0.02em;
-  }
-}
-@utility text-h5 {
-  font-size: var(--size-h5);
-  line-height: 1.5;
-  letter-spacing: 0;
-  &:lang(ja) {
-    letter-spacing: 0.02em;
-  }
-}
-@utility text-h6 {
-  font-size: var(--size-h6);
-  line-height: 1.5;
-  letter-spacing: 0;
-  &:lang(ja) {
-    letter-spacing: 0.02em;
-  }
+  letter-spacing: 0.04em;
 }
 
 /* 和文見出しは文節で折る（Chrome 119+ の BudouX）。未対応ブラウザは :lang(ja) の word-break: normal のまま */
@@ -340,14 +294,17 @@
   --tw-prose-td-borders: var(--color-soft);
   line-height: inherit;
 }
+/* 見出しはプラグインの既定（h2 は 800 / 1.33、h3 は 1.6）ではなく、サイトの階層に合わせる */
+.prose :is(h2, h3, h4) {
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
 .prose h2 {
+  font-size: var(--size-h2);
+}
+.prose :is(h3, h4) {
   font-size: var(--size-h3);
-}
-.prose h3 {
-  font-size: var(--size-h4);
-}
-.prose h4 {
-  font-size: var(--size-h5);
 }
 .prose tbody tr:nth-child(even) {
   background-color: var(--color-off-white);

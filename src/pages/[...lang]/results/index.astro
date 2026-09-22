@@ -29,13 +29,13 @@ const roundLabel = (id: string) => `${t(locale, 'results.round')} ${resultParts(
     title={t(locale, 'results.title')}
     description={t(locale, 'results.description')}
   />
-  <div class="container-site">
+  <div class="container-site pb-16">
     <ul class="mx-auto mt-16 max-w-4xl divide-y divide-soft">
       {
         years.map(({ year, results }) => (
           <li>
             <a href={localePath(locale, `/results/${year}/`)} class="group block py-6">
-              <h2 class="text-h3 group-hover:underline" lang="en">
+              <h2 class="text-h2 group-hover:underline" lang="en">
                 {year}
               </h2>
               <p class="mt-1 text-medium" lang="en">

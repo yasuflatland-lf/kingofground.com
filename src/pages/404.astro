@@ -8,9 +8,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout locale="ja" title="404" description={t('ja', 'notFound.title')} translations={{}}>
   {
     locales.map((locale) => (
-      <section lang={locale} class="container-site mt-16 text-center">
-        <h1 class="text-h2">{t(locale, 'notFound.title')}</h1>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-body">{t(locale, 'notFound.body')}</p>
+      <section lang={locale} class="container-site mt-16 pb-16 text-center">
+        <h1 class="text-h1">{t(locale, 'notFound.title')}</h1>
+        <p class="mx-auto mt-4 max-w-2xl text-body">{t(locale, 'notFound.body')}</p>
         <a href={localePath(locale, '/')} class="btn mt-8">
           {t(locale, 'notFound.home')}
         </a>
