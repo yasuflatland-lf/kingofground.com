@@ -9,7 +9,7 @@ describe('Footer', () => {
       props: { locale: 'ja' },
     });
     expect(html).toMatch(
-      /^<footer class="bg-black py-10 text-center text-sm text-soft">\s*<div class="container-site">/,
+      /^<footer class="bg-black py-10 text-center text-xs text-soft">\s*<div class="container-site">/,
     );
     expect(html).toContain('© KING OF GROUND');
     expect(html).toContain('BMX フラットランド コンテストシリーズ');

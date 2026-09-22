@@ -49,7 +49,7 @@ const { locale, category, guides, translations } = Astro.props as Props;
         guides.map((guide) => (
           <li>
             <a href={localePath(locale, `/101/${splitId(guide.id).slug}/`)} class="group block py-4">
-              <span class="block text-h6 font-semibold text-black group-hover:underline">
+              <span class="block text-h3 font-bold text-black group-hover:underline">
                 {guide.data.title}
               </span>
               <span class="mt-1 block text-medium">{guide.data.description}</span>

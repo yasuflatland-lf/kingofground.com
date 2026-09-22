@@ -35,8 +35,8 @@ const features: Array<{ title: UiKey; body: UiKey; path: string; icon: string }>
 <section class="bg-off-white py-10 md:py-16">
   <div class="container-site">
     <h2 class="text-h2">{t(locale, 'home.featuresTitle')}</h2>
-    <p class="mt-4 max-w-3xl text-lg text-body">{t(locale, 'home.featuresLead')}</p>
-    <ul class="mt-16 grid gap-16 md:grid-cols-3">
+    <p class="mt-4 max-w-3xl text-body">{t(locale, 'home.featuresLead')}</p>
+    <ul class="mt-16 grid gap-x-10 gap-y-16 md:grid-cols-3">
       {
         features.map((feature) => (
           <li class="flex items-start gap-4">
@@ -55,7 +55,7 @@ const features: Array<{ title: UiKey; body: UiKey; path: string; icon: string }>
               </svg>
             </span>
             <div>
-              <h3 class="text-h4">
+              <h3 class="text-h3">
                 <a
                   href={localePath(locale, feature.path)}
                   class="inline-flex items-center py-2.5 -my-2.5 hover:underline"

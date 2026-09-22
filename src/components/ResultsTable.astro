@@ -12,10 +12,10 @@ const { locale, name, placements } = Astro.props;
 ---
 
 <section class="mt-10 first:mt-0">
-  <h2 class="text-h5" lang="en">{name}</h2>
+  <h2 class="text-h3" lang="en">{name}</h2>
   <table class="mt-4 w-full border-collapse text-left">
     <thead>
-      <tr class="border-b border-soft text-sm text-medium">
+      <tr class="border-b border-soft text-xs text-medium">
         <th class="w-20 py-2 pr-4 font-normal">{t(locale, 'results.rank')}</th>
         <th class="py-2 font-normal">{t(locale, 'results.rider')}</th>
       </tr>

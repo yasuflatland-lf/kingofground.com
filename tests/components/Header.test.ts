@@ -42,6 +42,7 @@ describe('Header', () => {
   it('wordmark は lang="en" でホームへリンクし、stuck では白になる', async () => {
     const html = await renderHeader('ja');
     expect(html).toMatch(/<a href="\/" lang="en" class="[^"]*group-data-stuck:text-white[^"]*"/);
+    expect(html).not.toContain('text-lg');
   });
 
   it('上端の 40px センチネルと、sticky で data-stuck に黒くなる header を描画する', async () => {

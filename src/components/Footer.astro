@@ -10,7 +10,7 @@ const { locale } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-black py-10 text-center text-sm text-soft">
+<footer class="bg-black py-10 text-center text-xs text-soft">
   <div class="container-site">
     <p>{t(locale, 'footer.copyright')} {year}</p>
     <p class="mt-1 text-xs">{t(locale, 'site.tagline')}</p>

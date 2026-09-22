@@ -13,7 +13,8 @@ describe('ResultsTable', () => {
     const html = await container.renderToString(ResultsTable, {
       props: { locale: 'ja', name: 'MASTER', placements },
     });
-    expect(html).toContain('MASTER');
+    expect(html).toMatch(/<h2 class="text-h3" lang="en">MASTER<\/h2>/);
+    expect(html).toMatch(/<tr class="border-b border-soft text-xs text-medium">/);
     expect(html).toMatch(/順位\s*<\/th>/);
     expect(html).toMatch(/ライダー\s*<\/th>/);
     expect(html).toContain('ライダー A');

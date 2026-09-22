@@ -21,7 +21,9 @@ describe('EntryList', () => {
     });
     expect(html).toContain('href="/blogs/a/"');
     expect(html).toContain('href="/blogs/b/"');
-    expect(html).toMatch(/<h3[^>]*>記事 A<\/h3>/);
+    expect(html).toMatch(/<h3 class="text-h2 group-hover:underline">記事 A<\/h3>/);
+    expect(html).toMatch(/<time[^>]*class="mt-3 block text-xs text-medium">/);
+    expect(html).not.toContain('text-h3');
     expect(html).toContain('2026年9月21日');
     expect(html).toContain('説明 A');
     expect((html.match(/<p /g) ?? []).length).toBe(1);
