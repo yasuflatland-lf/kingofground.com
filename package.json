@@ -9,13 +9,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:maintenance": "astro build --config astro.maintenance.config.ts",
     "preview": "astro preview",
     "check": "astro check",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "biome ci . && astro check && vitest run && astro build"
+    "verify": "biome ci . && astro check && vitest run && astro build && astro build --config astro.maintenance.config.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
