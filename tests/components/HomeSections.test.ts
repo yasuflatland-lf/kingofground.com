@@ -15,6 +15,10 @@ describe('Hero', () => {
     expect(html).toContain('href="/en/101/" class="btn"');
     expect(html).toContain('href="/en/results/" class="btn btn-outline"');
     expect(html).toMatch(/<svg[^>]*aria-hidden="true"/);
+    expect(html).toMatch(
+      /^<section class="bg-white">\s*<div class="container-site [^"]*pt-16 pb-16 md:pt-12 md:pb-24[^"]*"/,
+    );
+    expect(html).not.toContain('pb-8 ');
   });
 });
 
@@ -29,6 +33,12 @@ describe('FeatureGrid', () => {
     expect(html).toContain('href="/results/"');
     expect(html).toContain('href="/101/"');
     expect(html).toContain('KING OF GROUND とは');
+    expect(html).toMatch(
+      /^<section class="bg-off-white py-10 md:py-16">\s*<div class="container-site">/,
+    );
+    expect(html).not.toContain('mt-16 md:mt-0');
+    expect(html).not.toContain('text-medium');
+    expect((html.match(/<p class="mt-2 text-body">/g) ?? []).length).toBe(3);
   });
 });
 
@@ -39,6 +49,20 @@ describe('CtaBox', () => {
       props: { locale: 'en' },
     });
     expect(html).toContain('Start riding flatland.');
-    expect(html).toContain('href="/en/101/" class="btn btn-invert mt-8"');
+    expect(html).toContain('href="/en/101/" class="btn mt-8"');
+  });
+
+  it('highlight の全幅の帯で、文字は black / ink、ボタンは黒 1 つだけ', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(CtaBox, {
+      props: { locale: 'ja' },
+    });
+    expect(html).toMatch(/^<section class="bg-highlight py-16">\s*<div class="container-site">/);
+    expect(html).not.toContain('rounded-lg');
+    expect(html).not.toContain('bg-black');
+    expect(html).not.toContain('btn-invert');
+    expect(html).not.toContain('btn-outline');
+    expect(html).toMatch(/<p class="[^"]*text-ink[^"]*">/);
+    expect((html.match(/class="btn /g) ?? []).length).toBe(1);
   });
 });

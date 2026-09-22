@@ -47,9 +47,10 @@ const xDefault = translations[defaultLocale];
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={ogLocale} />
   </head>
-  <body class="flex min-h-screen flex-col bg-white">
+  <body class="relative flex min-h-screen flex-col bg-white">
+    <a href="#main" class="btn sr-only focus:not-sr-only">{t(locale, 'nav.skip')}</a>
     <Header locale={locale} translations={translations} fallbackPath={fallbackPath} />
-    <main class="flex-1">
+    <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer locale={locale} />
