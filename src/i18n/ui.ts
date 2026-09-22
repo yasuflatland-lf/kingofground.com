@@ -43,6 +43,8 @@ const ja = {
   'notFound.body': 'お探しのページは移動または削除された可能性があります。',
   'notFound.home': 'ホームへ戻る',
   'meta.updated': '更新',
+  'maintenance.title': 'メンテナンス中',
+  'maintenance.body': 'サイトは現在メンテナンス中です。しばらくしてからもう一度お越しください。',
 } as const;
 
 export type UiKey = keyof typeof ja;
@@ -91,6 +93,8 @@ const en: Record<UiKey, string> = {
   'notFound.body': 'The page you are looking for may have been moved or removed.',
   'notFound.home': 'Back to home',
   'meta.updated': 'Updated',
+  'maintenance.title': 'Under maintenance',
+  'maintenance.body': 'The site is under maintenance. Please check back in a little while.',
 };
 
 export const ui: Record<Locale, Record<UiKey, string>> = { ja, en };
