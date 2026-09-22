@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* 配色（Astroship）: 白地に黒、補足は slate 系のグレー。Tailwind 既定のパレットは無効にする */
+  /* 配色: 白地に黒、補足は slate 系のグレー。Tailwind 既定のパレットは無効にする */
   --color-*: initial;
   --color-white: #ffffff;
   --color-black: #000000;
@@ -32,7 +32,7 @@
 }
 
 @layer base {
-  /* 見出しの段階（Astroship 実測）: mobile / tablet / desktop */
+  /* 見出しの段階: mobile / tablet / desktop */
   :root {
     --size-h1: 2.5rem;
     --size-h2: 2rem;
