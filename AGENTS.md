@@ -8,7 +8,7 @@ kingofground.com（KING OF GROUND — BMX フラットランドのコンテス�
 - pnpm 10（`package.json` の `packageManager` で固定）、Node 24（`.node-version`）
 - Tailwind CSS 4（`@tailwindcss/vite`、`@tailwindcss/typography`）
 - Biome 2（lint / format）、Vitest 5（`astro/config` の `getViteConfig` 経由）
-- `@astrojs/sitemap`、`@fontsource`（Anton / Inter Tight / Space Grotesk）
+- `@astrojs/sitemap`、`@fontsource-variable`（Bricolage Grotesque / Inter）
 - Renovate（`renovate.json`）
 
 ## コマンド
@@ -17,10 +17,11 @@ kingofground.com（KING OF GROUND — BMX フラットランドのコンテス�
 |---|---|
 | `pnpm dev` | 開発サーバー |
 | `pnpm build` / `pnpm preview` | 本番ビルド / ビルド結果の確認 |
+| `pnpm build:maintenance` | メンテナンス中画面だけをビルドする（`astro.maintenance.config.ts`。`pnpm preview` で確認できる） |
 | `pnpm check` | `astro check`（型と `.astro` の検査） |
 | `pnpm lint` / `pnpm lint:fix` | Biome |
 | `pnpm test` / `pnpm test:watch` | Vitest |
-| `pnpm verify` | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` |
+| `pnpm verify` | CI と同じ順序で `biome ci` → `astro check` → `vitest run` → `astro build` → `astro build --config astro.maintenance.config.ts` |
 
 変更を終えたら `pnpm verify` を通してからコミットする。
 
@@ -40,6 +41,7 @@ src/
   pages/[...lang]/    全ページ（lang: undefined = ja、'en' = en）
   pages/404.astro
   styles/global.css   デザイントークン（DESIGN.md を参照）
+src-maintenance/      メンテナンス中画面（astro.maintenance.config.ts の srcDir。global.css と ui.ts は src/ から相対パスで読む）
 tests/                Vitest
 ```
 
@@ -94,7 +96,11 @@ Biome は `.ts` / `.json` と `.astro` のフロントマター（スクリプ�
 
 ## デプロイと外部設定（手動作業）
 
-`main` への push で `deploy.yml` が動き、`dist/` を GitHub Pages に配信する。初回だけ次の設定が必要。
+`main` への push で `deploy.yml` が動き、`dist/` を GitHub Pages に配信する。
+
+配信内容は `deploy.yml` の `MAINTENANCE_WINDOW` で決まる。`true` ならメンテナンス中画面（`pnpm build:maintenance`）、それ以外なら本サイト（`pnpm build`）を配信する。`main` への push では `env:` に書いた既定値が使われるので、本サイトを公開するときはその値を `false` にしてマージする。Actions の「Run workflow」（`workflow_dispatch`）で `maintenance_window` を選ぶと、その 1 回だけ既定値を上書きして配信できる。手動実行で切り替えても次の push で既定値に戻る。
+
+初回だけ次の設定が必要。
 
 1. Settings → Pages → Source を **GitHub Actions** にし、Custom domain に `kingofground.com` を入れる（`public/CNAME` にも同じ値がある）
 2. DNS: `A @` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`。`CNAME www` → `yasuflatland-lf.github.io`

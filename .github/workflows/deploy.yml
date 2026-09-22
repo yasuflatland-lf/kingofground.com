@@ -4,6 +4,14 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      maintenance_window:
+        description: "メンテナンス中画面を配信する（true）か、本サイトを配信する（false）か"
+        type: choice
+        options:
+          - "true"
+          - "false"
+        default: "true"
 
 permissions:
   contents: read
@@ -13,6 +21,12 @@ permissions:
 concurrency:
   group: pages
   cancel-in-progress: false
+
+env:
+  # メンテナンス中画面を配信するかどうかの既定値。main への push ではこの値が使われる。
+  # 本サイトを公開するときは 'true' を 'false' にしてマージする。
+  # workflow_dispatch で手動実行したときは入力値がこの既定値を上書きする（次の push で既定値に戻る）。
+  MAINTENANCE_WINDOW: ${{ github.event.inputs.maintenance_window || 'true' }}
 
 jobs:
   build:
@@ -26,7 +40,12 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - uses: actions/configure-pages@v6
-      - run: pnpm build
+      - name: Build maintenance page
+        if: env.MAINTENANCE_WINDOW == 'true'
+        run: pnpm build:maintenance
+      - name: Build site
+        if: env.MAINTENANCE_WINDOW != 'true'
+        run: pnpm build
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
