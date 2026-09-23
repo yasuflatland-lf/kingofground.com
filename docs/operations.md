@@ -5,6 +5,7 @@
 - `ci.yml`: PR と `main` への push で、`pnpm install --frozen-lockfile` → `biome ci` → `astro check` → `vitest run` → `astro build` → `pnpm build:maintenance` を実行する。ローカルの `pnpm verify` と同じ順序。
 - `deploy.yml`: `main` への push（または手動実行）で `dist/` をビルドし、`actions/deploy-pages` で GitHub Pages に配信する。Node は `.node-version`、pnpm は `packageManager` の版を使う。
 - サイトの URL は `astro.config.ts` の `site`（`https://kingofground.com`）。カスタムドメインは `public/CNAME` にも同じ値がある。
+- 依存のビルドスクリプトを走らせるかどうかは `pnpm-workspace.yaml` の `allowBuilds` で宣言する。承認も拒否もしていないビルドが残っていると、pnpm 12 は `ERR_PNPM_IGNORED_BUILDS` で install を失敗させる。pnpm 11 以降は `allowBuilds` だけが効き、`onlyBuiltDependencies` などの旧設定は書いても無視される。
 
 ## 配信内容の切り替え（`MAINTENANCE_WINDOW`）
 
