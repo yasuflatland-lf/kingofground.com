@@ -11,7 +11,7 @@ classes:
       - { rank: 4, rider: "Hiroya Morisaki" }
       - { rank: 5, rider: "Ryoji Yamamoto" }
       - { rank: 6, rider: "Akira Okamura" }
-      - { rank: 7, rider: "Mike S" }
+      - { rank: 7, rider: "Michael Steingräber" }
       - { rank: 8, rider: "Ufo Azuma" }
       - { rank: 9, rider: "Takasi Ito" }
       - { rank: 10, rider: "Jimmy Petitet" }

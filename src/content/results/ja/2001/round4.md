@@ -11,7 +11,7 @@ classes:
       - { rank: 4, rider: "森崎　弘也" }
       - { rank: 5, rider: "山本　亮二" }
       - { rank: 6, rider: "岡村　旭" }
-      - { rank: 7, rider: "Mike S" }
+      - { rank: 7, rider: "Michael Steingräber" }
       - { rank: 8, rider: "東　右峰" }
       - { rank: 9, rider: "伊東　高志" }
       - { rank: 10, rider: "Jimmy Petitet" }
