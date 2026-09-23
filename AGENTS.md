@@ -36,6 +36,7 @@ kingofground.com（KING OF GROUND — BMX フラットランドのコンテス�
 
 - UI 文言は `src/i18n/ui.ts` にだけ書く。en に無いキーは `astro check` で落ちる。
 - URL は `localePath()` で作る。`/en/` を文字列連結しない。
-- 色・サイズ・角丸は `global.css` のトークンと utility だけを使う。任意値（`text-[13px]`）と影は使わない。
+- 色・サイズ・角丸・影は `global.css` のトークンと utility だけを使う。任意値（`text-[13px]`）は使わない。
 - 101 の記事はカテゴリディレクトリの下に置き、カテゴリ YAML を用意する。`pages/` は ja / en 両方必須。どちらもビルドで検査される。
+- リザルトは `results/{ja,en}/<西暦>/round<n>.md` に置く。URL の `/results/<西暦>/round<n>/` はこのパスから決まり、外れた置き方はビルドで落ちる。
 - 日本語ページでも欧文だけの見出しには `lang="en"` を付ける。

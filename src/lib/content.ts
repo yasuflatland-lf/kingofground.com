@@ -89,3 +89,49 @@ export function groupGuidesByCategory<T extends GuideLike>(entries: T[]): Map<st
   for (const list of grouped.values()) list.sort(byOrderThenTitle);
   return grouped;
 }
+
+export interface ResultParts {
+  year: number;
+  round: number;
+}
+
+/** リザルトの ID は `<locale>/<西暦>/round<n>`。そのまま `/results/<西暦>/round<n>/` の URL になる */
+export function resultParts(id: string): ResultParts {
+  const { slug } = splitId(id);
+  const match = /^(\d{4})\/round([1-9]\d*)$/.exec(slug);
+  if (!match) {
+    throw new Error(
+      `Result "${id}" must be results/<locale>/<year>/round<n>.md (for example ja/2025/round1)`,
+    );
+  }
+  return { year: Number(match[1]), round: Number(match[2]) };
+}
+
+/** 年間ランキングの ID は `<locale>/<西暦>`。そのまま `/results/<西暦>/standings/` の URL になる */
+export function standingsYear(id: string): number {
+  const { slug } = splitId(id);
+  const match = /^(\d{4})$/.exec(slug);
+  if (!match) {
+    throw new Error(`Standings "${id}" must be standings/<locale>/<year>.md (for example ja/2001)`);
+  }
+  return Number(match[1]);
+}
+
+/** 年の降順にまとめ、年内はラウンド番号の昇順に並べる */
+export function groupResultsByYear<T extends Localized>(
+  entries: T[],
+): Array<{ year: number; results: T[] }> {
+  const grouped = new Map<number, T[]>();
+  for (const entry of entries) {
+    const { year } = resultParts(entry.id);
+    const list = grouped.get(year);
+    if (list) list.push(entry);
+    else grouped.set(year, [entry]);
+  }
+  return [...grouped]
+    .sort(([a], [b]) => b - a)
+    .map(([year, results]) => ({
+      year,
+      results: results.sort((a, b) => resultParts(a.id).round - resultParts(b.id).round),
+    }));
+}

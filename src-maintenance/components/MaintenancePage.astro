@@ -2,8 +2,6 @@
 // メンテナンス中画面。deploy.yml の MAINTENANCE_WINDOW が true のときは、
 // 本サイトの代わりにこの 1 ページだけを astro.maintenance.config.ts でビルドして配信する。
 // ナビやフッターはリンク先がビルドに含まれないので出さない。
-import '@fontsource-variable/bricolage-grotesque';
-import '@fontsource-variable/inter';
 import '../../src/styles/global.css';
 import { locales } from '../../src/i18n/config';
 import { t } from '../../src/i18n/ui';
@@ -28,7 +26,7 @@ const siteTitle = t('ja', 'site.title');
         locales.map((locale) => (
           <section lang={locale} class="mt-10">
             <h1 class="text-h2">{t(locale, 'maintenance.title')}</h1>
-            <p class="mx-auto mt-4 max-w-2xl text-lg text-body">{t(locale, 'maintenance.body')}</p>
+            <p class="mx-auto mt-4 max-w-2xl text-body">{t(locale, 'maintenance.body')}</p>
           </section>
         ))
       }

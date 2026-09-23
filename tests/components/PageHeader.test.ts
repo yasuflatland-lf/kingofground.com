@@ -10,6 +10,8 @@ describe('PageHeader', () => {
     });
     expect(html).toContain('2026年9月21日');
     expect(html.indexOf('</h1>')).toBeLessThan(html.indexOf('<time'));
+    expect(html).toMatch(/<h1 class="text-h1">/);
+    expect(html).toMatch(/<time[^>]*class="mt-3 block text-xs text-medium">/);
   });
 
   it('kicker は h1 の前にリンクで出る', async () => {
@@ -27,6 +29,25 @@ describe('PageHeader', () => {
     expect(html.indexOf('class="kicker"')).toBeLessThan(html.indexOf('<h1'));
   });
 
+  it('kicker.lang="en" はキッカーのリンクに付く', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(PageHeader, {
+      props: {
+        locale: 'ja',
+        title: 'KING OF GROUND 2025 ROUND 1',
+        titleLang: 'en',
+        kicker: {
+          label: 'KING OF GROUND 2025',
+          href: '/results/2025/',
+          lang: 'en',
+        },
+      },
+    });
+    expect(html).toMatch(
+      /<a href="\/results\/2025\/"[^>]*lang="en"[^>]*>\s*KING OF GROUND 2025\s*<\/a>/,
+    );
+  });
+
   it('titleLang="en" は h1 に付き、description は p で出る', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(PageHeader, {
@@ -38,6 +59,8 @@ describe('PageHeader', () => {
       },
     });
     expect(html).toMatch(/<h1[^>]*lang="en"/);
-    expect(html).toMatch(/<p[^>]*>会場: 東京<\/p>/);
+    expect(html).toMatch(
+      /<p class="mx-auto mt-4 max-w-2xl text-balance text-body">会場: 東京<\/p>/,
+    );
   });
 });

@@ -1,0 +1,136 @@
+---
+title: "KING OF GROUND 2001 ROUND 4"
+date: 2001-11-11
+venue: "ROX3, Asakusa, Tokyo"
+classes:
+  - name: "PRO"
+    placements:
+      - { rank: 1, rider: "Viki Gomez" }
+      - { rank: 2, rider: "Alex Jumerin" }
+      - { rank: 3, rider: "Phill Dolan" }
+      - { rank: 4, rider: "Hiroya Morisaki" }
+      - { rank: 5, rider: "Ryoji Yamamoto" }
+      - { rank: 6, rider: "Akira Okamura" }
+      - { rank: 7, rider: "Michael Steingräber" }
+      - { rank: 8, rider: "Ufo Azuma" }
+      - { rank: 9, rider: "Takasi Ito" }
+      - { rank: 10, rider: "Jimmy Petitet" }
+      - { rank: 11, rider: "Yoshihiro Sinde" }
+      - { rank: 12, rider: "York Uno" }
+      - { rank: 13, rider: "Eiichirou Watanabe" }
+      - { rank: 14, rider: "Tomoaki Nakatuzi" }
+      - { rank: 15, rider: "Alexis Desolneux" }
+      - { rank: 16, rider: "Genyou Ninomiya" }
+      - { rank: 17, rider: "Kotaro Tanaka" }
+      - { rank: 18, rider: "Shinichiro Hara" }
+      - { rank: 19, rider: "Alain Massabova" }
+      - { rank: 20, rider: "Kazuma Nakjima" }
+      - { rank: 21, rider: "Kenji Horikawa" }
+      - { rank: 22, rider: "Takahiro Enoki" }
+      - { rank: 23, rider: "Makoto Sezaki" }
+      - { rank: 24, rider: "Yosuke Suzuki" }
+      - { rank: 25, rider: "Hirosi Uehara" }
+  - name: "EXPERT"
+    placements:
+      - { rank: 1, rider: "Yutaka Tamaki" }
+      - { rank: 2, rider: "Masataka Yamamoto" }
+      - { rank: 3, rider: "Kenji Fukumori" }
+      - { rank: 4, rider: "Yuki Maehata" }
+      - { rank: 5, rider: "Hiroki Tuboi" }
+      - { rank: 6, rider: "Takuma Kawamura" }
+      - { rank: 7, rider: "Yasuhiro Kawabata" }
+      - { rank: 8, rider: "Yasusi Tanabe" }
+      - { rank: 9, rider: "Tosiki Onizuka" }
+      - { rank: 10, rider: "Kouhei Fukami" }
+      - { rank: 11, rider: "Mikihito Okabe" }
+      - { rank: 12, rider: "Yukinobu Kamura" }
+      - { rank: 13, rider: "Takuma Mori" }
+      - { rank: 14, rider: "Kenta Yuri" }
+      - { rank: 15, rider: "Daisuke Manabe" }
+      - { rank: 16, rider: "Osamu Hamaguchi" }
+      - { rank: 17, rider: "Yuuji Shirai" }
+      - { rank: 18, rider: "Tatuya Hori" }
+      - { rank: 19, rider: "Tetuya Minoura" }
+      - { rank: 20, rider: "Sintarou Misawa" }
+      - { rank: 21, rider: "Masayuki Nagasima" }
+      - { rank: 22, rider: "Takahisa Mitaki" }
+      - { rank: 23, rider: "Kazaru Tanabe" }
+      - { rank: 24, rider: "Nobuaki Kawamoto" }
+      - { rank: 25, rider: "Yoshihiro Nisikawa" }
+      - { rank: 26, rider: "Takesi Imaoka" }
+      - { rank: 27, rider: "Syuuzou Tunematu" }
+      - { rank: 28, rider: "Yasusi Tomita" }
+      - { rank: 29, rider: "Tokunori Kawai" }
+      - { rank: 30, rider: "Sukenori Nisiuti" }
+      - { rank: 31, rider: "Yuuichi Akamatu" }
+      - { rank: 32, rider: "Kensuke Hamai" }
+      - { rank: 33, rider: "Ikeda Ailton" }
+  - name: "NOVICE"
+    placements:
+      - { rank: 1, rider: "Fumiaki Okayama" }
+      - { rank: 2, rider: "Yukihiro Kurasima" }
+      - { rank: 3, rider: "Sinitiro Minematu" }
+      - { rank: 4, rider: "Hirokazu Sone" }
+      - { rank: 5, rider: "Ittkou Tanaka" }
+      - { rank: 6, rider: "Takahiro Higaki" }
+      - { rank: 7, rider: "You Suzuki" }
+      - { rank: 8, rider: "Masaya Sanno" }
+      - { rank: 8, rider: "Akimitu Nisiki" }
+      - { rank: 9, rider: "Yoshiki Tabuse" }
+      - { rank: 10, rider: "Kazuya Yokobaba" }
+      - { rank: 11, rider: "Kouji Kataoka" }
+      - { rank: 12, rider: "Kenta Okamoto" }
+      - { rank: 13, rider: "Masasige Matuura" }
+      - { rank: 14, rider: "Syuuichi Sai" }
+      - { rank: 14, rider: "Takayuki Iwa" }
+      - { rank: 15, rider: "Kenjirou Okada" }
+      - { rank: 16, rider: "Yutaka Morioka" }
+      - { rank: 17, rider: "Tomoya Taniguti" }
+      - { rank: 18, rider: "Naoki Moriyama" }
+      - { rank: 19, rider: "Kenji Hara" }
+      - { rank: 20, rider: "Kouiti Hori" }
+      - { rank: 21, rider: "Yasusu Morioka" }
+      - { rank: 22, rider: "Mizuki Takahata" }
+      - { rank: 23, rider: "Yoshiyuki Nichikawa" }
+      - { rank: 24, rider: "Kaname Kondou" }
+      - { rank: 25, rider: "Katutosi Mitusaka" }
+      - { rank: 26, rider: "Kousuke Moriguti" }
+      - { rank: 27, rider: "Kousuke Tugita" }
+      - { rank: 27, rider: "Atusi Maeda" }
+      - { rank: 27, rider: "Tuyosi Hattori" }
+      - { rank: 28, rider: "You Hamada" }
+      - { rank: 29, rider: "Hidetaka Sindou" }
+      - { rank: 30, rider: "Syuuichi Morinaka" }
+      - { rank: 31, rider: "Tosiyuki Simomura" }
+      - { rank: 32, rider: "Kousei Iwata" }
+      - { rank: 33, rider: "Yuugo Kasiwabara" }
+      - { rank: 34, rider: "Singo Hirono" }
+      - { rank: 34, rider: "Fumiaki Hirose" }
+      - { rank: 34, rider: "Keitarou Daimon" }
+      - { rank: 35, rider: "Ayumu Yasue" }
+      - { rank: 36, rider: "Yosinobu Syukube" }
+      - { rank: 37, rider: "Daisuke Okaba" }
+      - { rank: 38, rider: "Keiichi Nanba" }
+      - { rank: 39, rider: "Takasi Takeuti" }
+      - { rank: 40, rider: "Syuusaku Ikegami" }
+      - { rank: 41, rider: "Daisuke Kimura" }
+      - { rank: 41, rider: "Masanari Noze" }
+      - { rank: 42, rider: "Tomoya Matuda" }
+      - { rank: 43, rider: "Katuzi Takagi" }
+      - { rank: 44, rider: "Yasunori Handa" }
+      - { rank: 45, rider: "Minoru Fukai" }
+      - { rank: 46, rider: "Takaaki Okada" }
+      - { rank: 47, rider: "Jyunya Obi" }
+      - { rank: 47, rider: "Tomoki Sugimoto" }
+      - { rank: 48, rider: "Tosihiro Isi" }
+      - { rank: 49, rider: "Tutomu Miyai" }
+      - { rank: 50, rider: "Makoto Kuroki" }
+      - { rank: 51, rider: "Masakatu Sato" }
+      - { rank: 52, rider: "Yuuta Takahasi" }
+      - { rank: 53, rider: "Atusi Yamasita" }
+      - { rank: 54, rider: "Syogo Kinomoto" }
+      - { rank: 55, rider: "Tadanobu Kagawa" }
+      - { rank: 56, rider: "Mituhiro Izumi" }
+      - { rank: 57, rider: "Syogo Hanawa" }
+      - { rank: 58, rider: "Yuuhei Harada" }
+---

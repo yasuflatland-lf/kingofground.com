@@ -6,7 +6,7 @@
 - pnpm 10（`package.json` の `packageManager` で固定）、Node 24（`.node-version`）
 - Tailwind CSS 4（`@tailwindcss/vite`、`@tailwindcss/typography`）
 - Biome 2（lint / format）、knip（未使用のファイル・export・依存の検出）、Vitest 5（`astro/config` の `getViteConfig` 経由）
-- `@astrojs/sitemap`、`@fontsource-variable`（Bricolage Grotesque / Inter。和文はシステムフォント）
+- `@astrojs/sitemap`。フォントは欧文・和文ともシステムフォントで、Web フォントの依存は持たない
 - Renovate（`renovate.json`。方針は [operations.md](./operations.md)）
 
 ## コマンド
