@@ -35,6 +35,30 @@ const results = defineCollection({
   }),
 });
 
+const standings = defineCollection({
+  loader: glob({ base: './src/content/standings', pattern: '**/*.md', generateId: stripExtension }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    classes: z
+      .array(
+        z.object({
+          name: z.string(),
+          placements: z
+            .array(
+              z.object({
+                rank: z.number().int().positive(),
+                rider: z.string(),
+                points: z.number().int().nonnegative(),
+              }),
+            )
+            .min(1),
+        }),
+      )
+      .min(1),
+  }),
+});
+
 const guides = defineCollection({
   loader: glob({ base: './src/content/guides', pattern: '**/*.md', generateId: stripExtension }),
   schema: z.object({
@@ -60,4 +84,4 @@ const pages = defineCollection({
   schema: z.object({ title: z.string(), description: z.string() }),
 });
 
-export const collections = { blogs, results, guides, guideCategories, pages };
+export const collections = { blogs, results, standings, guides, guideCategories, pages };

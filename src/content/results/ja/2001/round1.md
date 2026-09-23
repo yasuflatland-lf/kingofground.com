@@ -1,0 +1,102 @@
+---
+title: "KING OF GROUND 2001 ROUND 1"
+date: 2001-04-14
+venue: "東京・浅草 ROX3"
+classes:
+  - name: "PRO"
+    placements:
+      - { rank: 1, rider: "森崎　弘也" }
+      - { rank: 2, rider: "山本　亮二" }
+      - { rank: 3, rider: "Alex Jumerin" }
+      - { rank: 4, rider: "渡辺　英一郎" }
+      - { rank: 5, rider: "東　右峰" }
+      - { rank: 6, rider: "榎　貴広" }
+      - { rank: 7, rider: "岡村　旭" }
+      - { rank: 8, rider: "伊東　高志" }
+      - { rank: 9, rider: "宇野　陽介" }
+      - { rank: 10, rider: "船木　泰志" }
+      - { rank: 11, rider: "新出　佳弘" }
+      - { rank: 12, rider: "田中　光太郎" }
+      - { rank: 13, rider: "小谷　明生" }
+      - { rank: 14, rider: "堀川　賢治" }
+      - { rank: 15, rider: "鈴木　陽介" }
+      - { rank: 16, rider: "原　真一郎" }
+      - { rank: 17, rider: "二ノ宮　玄洋" }
+      - { rank: 18, rider: "中島　和麻" }
+      - { rank: 19, rider: "仲辻　智昭" }
+      - { rank: 20, rider: "佐久間　陽介" }
+      - { rank: 21, rider: "上原　洋" }
+  - name: "EXPERT"
+    placements:
+      - { rank: 1, rider: "河合　秀樹" }
+      - { rank: 2, rider: "藤井　道宏" }
+      - { rank: 3, rider: "白井　祐二" }
+      - { rank: 4, rider: "山本　正隆" }
+      - { rank: 5, rider: "田邊　泰志" }
+      - { rank: 6, rider: "真鍋　ダイスケ" }
+      - { rank: 7, rider: "瀬崎　誠" }
+      - { rank: 8, rider: "荒井　考太郎" }
+      - { rank: 9, rider: "濱井　謙輔" }
+      - { rank: 10, rider: "近藤　篤史" }
+      - { rank: 11, rider: "河本　伸明" }
+      - { rank: 12, rider: "濱口　修" }
+      - { rank: 13, rider: "河合　徳崇" }
+      - { rank: 14, rider: "田辺　彩" }
+      - { rank: 15, rider: "坂元　潤一郎" }
+      - { rank: 16, rider: "鈴木　大介" }
+      - { rank: 17, rider: "西内　右典" }
+      - { rank: 18, rider: "河端　康弘" }
+      - { rank: 19, rider: "和田　直也" }
+      - { rank: 20, rider: "須藤　耕太" }
+      - { rank: 21, rider: "三沢　慎太朗" }
+      - { rank: 22, rider: "深海　幸平" }
+      - { rank: 23, rider: "西川　佳宏" }
+      - { rank: 24, rider: "林　和久" }
+      - { rank: 25, rider: "由利　賢太" }
+      - { rank: 26, rider: "河村　卓馬" }
+      - { rank: 27, rider: "森　琢磨" }
+      - { rank: 28, rider: "岡元　高志" }
+      - { rank: 29, rider: "吉野　孝則" }
+      - { rank: 30, rider: "坂井　巧" }
+      - { rank: 31, rider: "竹内　竜男" }
+      - { rank: 32, rider: "岡部　幹人" }
+      - { rank: 33, rider: "寺岡　大介" }
+      - { rank: 34, rider: "江田　和幸" }
+      - { rank: 35, rider: "樋口　良樹" }
+      - { rank: 36, rider: "唐鎌　知実" }
+      - { rank: 37, rider: "中村　光俊" }
+      - { rank: 38, rider: "阿部　真之介" }
+      - { rank: 39, rider: "渡邊　博幸" }
+      - { rank: 40, rider: "赤松　雄一" }
+      - { rank: 41, rider: "三沢　宗太朗" }
+  - name: "NOVICE"
+    placements:
+      - { rank: 1, rider: "桧垣　貴大" }
+      - { rank: 2, rider: "高木　勝司" }
+      - { rank: 3, rider: "木村　大介" }
+      - { rank: 4, rider: "林　達也" }
+      - { rank: 5, rider: "樋口　健太郎" }
+      - { rank: 6, rider: "松浦　正慈" }
+      - { rank: 7, rider: "原田　高広" }
+      - { rank: 8, rider: "前田　真心" }
+      - { rank: 9, rider: "次田　浩介" }
+      - { rank: 10, rider: "倉島　幸広" }
+      - { rank: 11, rider: "奥出　拓馬" }
+      - { rank: 12, rider: "横馬場　和也" }
+      - { rank: 13, rider: "堀　弘一" }
+      - { rank: 14, rider: "西尾　しげゆき" }
+      - { rank: 15, rider: "原田　悠平" }
+      - { rank: 16, rider: "泉　充洋" }
+      - { rank: 17, rider: "大場　和樹" }
+      - { rank: 18, rider: "廣野　信五" }
+      - { rank: 19, rider: "香川　唯信" }
+      - { rank: 20, rider: "斎藤　祐二" }
+      - { rank: 21, rider: "阿部　貴洋" }
+      - { rank: 22, rider: "池上　周作" }
+      - { rank: 23, rider: "半田　泰規" }
+      - { rank: 24, rider: "広瀬　ひさきよ" }
+      - { rank: 25, rider: "萬代　亨平" }
+      - { rank: 26, rider: "岡崎　康正" }
+      - { rank: 27, rider: "中根　章雄" }
+      - { rank: 28, rider: "下村　俊之" }
+---
