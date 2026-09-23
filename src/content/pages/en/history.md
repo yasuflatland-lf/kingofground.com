@@ -3,7 +3,7 @@ title: "History"
 description: "Ten years of KING OF GROUND, year by year, from the first contest at ROX3 in Asakusa in 1998 through 2008."
 ---
 
-This page is compiled from the KOG 10th anniversary book and covers 1998 through 2008. Later years will be added here as the records are put together.
+This page is compiled from the KOG 10th anniversary book and covers 1998 through 2008. The list of series champions at the end runs through 2016, based on the year-end standings kept by the organizers. The year-by-year record from 2009 on will be added here as the materials are put together.
 
 ## Before KOG — how BMX took root in Japan
 
@@ -95,5 +95,13 @@ Yohei Uchino won Voodoo Jam in the United States, beating the rider then conside
 | 2006 | York Uno        |
 | 2007 | Yoshiki Uchino  |
 | 2008 | Hiroya Morizaki |
+| 2009 | Shinichi Kiba   |
+| 2010 | Moto Sasaki     |
+| 2011 | Moto Sasaki     |
+| 2012 | Moto Sasaki     |
+| 2013 | Shinichi Kiba   |
+| 2014 | Moto Sasaki     |
+| 2015 | Moto Sasaki     |
+| 2016 | Shinichi Kiba   |
 
-The 1998 contest was a one-off exhibition rather than a series, and it was won by Nathan Penonzek.
+The 1998 contest was a one-off exhibition rather than a series, and it was won by Nathan Penonzek. From 2009 on, the champion is the rider at the top of the Pro class year-end standings. In 2016 Shinichi Kiba finished on 1,796 points and Takahiro Ito on 1,794, a margin of just two points.
