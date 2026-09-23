@@ -11,6 +11,11 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["major"],
       "automerge": true
+    },
+    {
+      "description": "astro check が使う programmatic API を TypeScript 7 がまだ持たないので 6 系に留める（withastro/roadmap#1321）",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
     }
   ]
 }
