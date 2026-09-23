@@ -1,0 +1,6 @@
+# 依存のビルドスクリプトを走らせるかどうかの宣言。pnpm 11 以降このキーだけが効き、
+# onlyBuiltDependencies / ignoredBuiltDependencies は黙って無視される。
+# esbuild の postinstall は走らせない。バイナリは @esbuild/<platform> が供給するので不要で、
+# pnpm 10 でも一度も走っていない（未承認のビルドが残っていると pnpm 12 は install を失敗させる）。
+allowBuilds:
+  esbuild: false
