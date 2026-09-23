@@ -30,4 +30,4 @@
 
 - リリースから 3 日経っていない版は候補にしない（`minimumReleaseAge`）。
 - minor / patch は automerge。major は手動。ただし GitHub Actions は major も automerge。
-- TypeScript 7 の major PR は、`@astrojs/check` が対応してからマージする。
+- `typescript` は `allowedVersions: "<7"` で 6 系に留める。ネイティブ実装の TypeScript 7 が、`astro check`（`@astrojs/language-server`）の使う programmatic API をまだ公開していないため。TypeScript 側は 7.1 で新しい API を出すとしているが時期は未公表。Astro が対応したら外す（[withastro/roadmap#1321](https://github.com/withastro/roadmap/discussions/1321)）。
