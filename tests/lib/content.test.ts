@@ -11,6 +11,7 @@ import {
   resultParts,
   sortByDateDesc,
   splitId,
+  standingsYear,
 } from '../../src/lib/content';
 
 describe('splitId', () => {
@@ -155,5 +156,19 @@ describe('groupResultsByYear', () => {
   });
   it('空なら空の配列', () => {
     expect(groupResultsByYear([])).toEqual([]);
+  });
+});
+
+describe('standingsYear', () => {
+  it('`<locale>/<西暦>` から年を取り出す', () => {
+    expect(standingsYear('ja/2001')).toBe(2001);
+    expect(standingsYear('en/2025')).toBe(2025);
+  });
+  it('ラウンドのパスは受け付けない', () => {
+    expect(() => standingsYear('ja/2001/round1')).toThrow(/<locale>\/<year>/);
+  });
+  it('4 桁でない年は受け付けない', () => {
+    expect(() => standingsYear('ja/01')).toThrow(/<locale>\/<year>/);
+    expect(() => standingsYear('ja/yearend')).toThrow(/<locale>\/<year>/);
   });
 });

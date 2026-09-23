@@ -5,7 +5,7 @@ import { formatDate } from '../../../../i18n/format';
 import { t } from '../../../../i18n/ui';
 import { localePath, localePaths, localeStaticPaths } from '../../../../i18n/utils';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { getResultsByYear, getResultYearLocales } from '../../../../lib/collections';
+import { getResultsByYear, getResultYearLocales, getStandings } from '../../../../lib/collections';
 import { resultParts, splitId } from '../../../../lib/content';
 
 export async function getStaticPaths() {
@@ -16,9 +16,10 @@ export async function getStaticPaths() {
         years.map(async ({ year, results }) => {
           const path = `/results/${year}/`;
           const translations = localePaths(await getResultYearLocales(year), path);
+          const hasStandings = (await getStandings(props.locale, year)) !== undefined;
           return {
             params: { ...params, year: String(year) },
-            props: { locale: props.locale, year, results, translations },
+            props: { locale: props.locale, year, results, translations, hasStandings },
           };
         }),
       );
@@ -28,7 +29,7 @@ export async function getStaticPaths() {
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-const { locale, year, results, translations } = Astro.props as Props;
+const { locale, year, results, translations, hasStandings } = Astro.props as Props;
 
 // 大会名の「KING OF GROUND 2025 ROUND 1」に合わせて、年のページは「KING OF GROUND 2025」
 const title = `${t(locale, 'site.title')} ${year}`;
@@ -66,6 +67,18 @@ const title = `${t(locale, 'site.title')} ${year}`;
             </a>
           </li>
         ))
+      }
+      {
+        hasStandings && (
+          <li>
+            <a
+              href={localePath(locale, `/results/${year}/standings/`)}
+              class="group block py-6"
+            >
+              <h2 class="text-h2 group-hover:underline">{t(locale, 'results.standings')}</h2>
+            </a>
+          </li>
+        )
       }
     </ul>
   </div>

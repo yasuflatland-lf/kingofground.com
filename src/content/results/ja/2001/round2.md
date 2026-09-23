@@ -1,0 +1,105 @@
+---
+title: "KING OF GROUND 2001 ROUND 2"
+date: 2001-06-25
+venue: "名古屋 LOFT（愛知）"
+classes:
+  - name: "PRO"
+    placements:
+      - { rank: 1, rider: "山本　亮二" }
+      - { rank: 2, rider: "森崎　弘也" }
+      - { rank: 3, rider: "伊東　高志" }
+      - { rank: 4, rider: "堀川　賢治" }
+      - { rank: 5, rider: "宇野　陽介" }
+      - { rank: 6, rider: "田中　光太郎" }
+      - { rank: 7, rider: "原　真一郎" }
+      - { rank: 8, rider: "岡村　旭" }
+      - { rank: 9, rider: "榎　貴広" }
+      - { rank: 10, rider: "中島　和麻" }
+      - { rank: 11, rider: "仲辻　智昭" }
+      - { rank: 12, rider: "鈴木　陽介" }
+      - { rank: 13, rider: "渡辺　英一郎" }
+      - { rank: 14, rider: "二ノ宮　玄洋" }
+      - { rank: 15, rider: "船木　泰志" }
+      - { rank: 16, rider: "小谷　明生" }
+      - { rank: 17, rider: "上原　洋" }
+  - name: "EXPERT"
+    placements:
+      - { rank: 1, rider: "瀬崎　誠" }
+      - { rank: 2, rider: "山本　正隆" }
+      - { rank: 3, rider: "田邊　泰志" }
+      - { rank: 4, rider: "白井　祐二" }
+      - { rank: 5, rider: "森　琢磨" }
+      - { rank: 6, rider: "玉木　豊" }
+      - { rank: 7, rider: "坂元　潤一郎" }
+      - { rank: 8, rider: "濱口　修" }
+      - { rank: 9, rider: "河合　徳崇" }
+      - { rank: 10, rider: "藤井　道宏" }
+      - { rank: 11, rider: "鷲見　俊介" }
+      - { rank: 12, rider: "堀　竜也" }
+      - { rank: 13, rider: "植田　真輔" }
+      - { rank: 14, rider: "真鍋　ダイスケ" }
+      - { rank: 15, rider: "濱井　謙輔" }
+      - { rank: 16, rider: "前畑　悠樹" }
+      - { rank: 17, rider: "三沢　慎太朗" }
+      - { rank: 18, rider: "三滝　隆久" }
+      - { rank: 19, rider: "鈴木　大介" }
+      - { rank: 20, rider: "田辺　彩" }
+      - { rank: 21, rider: "瀬尾　直秀" }
+      - { rank: 22, rider: "由利　賢太" }
+      - { rank: 23, rider: "河本　伸明" }
+      - { rank: 24, rider: "赤松　雄一" }
+      - { rank: 25, rider: "寺岡　大介" }
+      - { rank: 26, rider: "大橋　史和" }
+      - { rank: 27, rider: "中村　光俊" }
+      - { rank: 28, rider: "八木　良介" }
+      - { rank: 29, rider: "中太　理貴" }
+      - { rank: 30, rider: "須藤　耕太" }
+      - { rank: 31, rider: "深海　幸平" }
+      - { rank: 32, rider: "常松　周三" }
+  - name: "NOVICE"
+    placements:
+      - { rank: 1, rider: "岡山　文昭" }
+      - { rank: 2, rider: "峰松　慎一郎" }
+      - { rank: 3, rider: "木村　大介" }
+      - { rank: 4, rider: "上運天　賢" }
+      - { rank: 5, rider: "福森　健二" }
+      - { rank: 6, rider: "倉島　幸広" }
+      - { rank: 7, rider: "催　秀一" }
+      - { rank: 8, rider: "タイソン" }
+      - { rank: 9, rider: "小澤　勝宏" }
+      - { rank: 10, rider: "岩木　宏之" }
+      - { rank: 11, rider: "横馬場　和也" }
+      - { rank: 12, rider: "奥出　拓馬" }
+      - { rank: 13, rider: "桧垣　貴大" }
+      - { rank: 14, rider: "高木　勝司" }
+      - { rank: 15, rider: "西尾　しげゆき" }
+      - { rank: 16, rider: "次田　浩介" }
+      - { rank: 17, rider: "原田　悠平" }
+      - { rank: 18, rider: "松浦　正慈" }
+      - { rank: 19, rider: "堀　弘一" }
+      - { rank: 20, rider: "大眉　潤哉" }
+      - { rank: 21, rider: "原田　高広" }
+      - { rank: 22, rider: "森口　幸祐" }
+      - { rank: 23, rider: "近藤　要" }
+      - { rank: 24, rider: "飯沼　貴" }
+      - { rank: 25, rider: "広瀬　ひさきよ" }
+      - { rank: 26, rider: "廣野　信五" }
+      - { rank: 27, rider: "前田　真心" }
+      - { rank: 28, rider: "服部　孝哉" }
+      - { rank: 29, rider: "岡庭　大祐" }
+      - { rank: 30, rider: "山口　陽輔" }
+      - { rank: 31, rider: "近藤　雄一郎" }
+      - { rank: 32, rider: "若井　武範" }
+      - { rank: 33, rider: "池上　周作" }
+      - { rank: 34, rider: "泉　充洋" }
+      - { rank: 35, rider: "半田　泰規" }
+      - { rank: 36, rider: "新藤　英貴" }
+      - { rank: 37, rider: "下村　俊之" }
+      - { rank: 38, rider: "高橋　正喜" }
+      - { rank: 39, rider: "杉本　祐樹" }
+      - { rank: 40, rider: "青木　宏明" }
+      - { rank: 41, rider: "伊師　利洋" }
+      - { rank: 42, rider: "丹羽　紀文" }
+      - { rank: 43, rider: "榎田　伸稔" }
+      - { rank: 44, rider: "山本　純也" }
+---

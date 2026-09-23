@@ -107,6 +107,16 @@ export function resultParts(id: string): ResultParts {
   return { year: Number(match[1]), round: Number(match[2]) };
 }
 
+/** 年間ランキングの ID は `<locale>/<西暦>`。そのまま `/results/<西暦>/standings/` の URL になる */
+export function standingsYear(id: string): number {
+  const { slug } = splitId(id);
+  const match = /^(\d{4})$/.exec(slug);
+  if (!match) {
+    throw new Error(`Standings "${id}" must be standings/<locale>/<year>.md (for example ja/2001)`);
+  }
+  return Number(match[1]);
+}
+
 /** 年の降順にまとめ、年内はラウンド番号の昇順に並べる */
 export function groupResultsByYear<T extends Localized>(
   entries: T[],

@@ -8,6 +8,7 @@
 | -------------- | ------------------------------------------------- | ----------------------------------------------- | ----------------------- |
 | ブログ         | `src/content/blogs/{ja,en}/<slug>.md`             | `title`, `description`, `pubDate`               | `updatedDate`, `draft`  |
 | リザルト       | `src/content/results/{ja,en}/<西暦>/round<n>.md`  | `title`, `date`, `classes[]`                    | `venue`                 |
+| 年間ランキング | `src/content/standings/{ja,en}/<西暦>.md`         | `title`, `description`, `classes[]`             | —                       |
 | 101 の記事     | `src/content/guides/{ja,en}/<category>/<slug>.md` | `title`, `description`                          | `order`（既定 0、昇順） |
 | 101 のカテゴリ | `src/content/guide-categories/<category>.yaml`    | `order`, `title.{ja,en}`, `description.{ja,en}` | —                       |
 | 単発ページ     | `src/content/pages/{ja,en}/<slug>.md`             | `title`, `description`                          | —                       |
@@ -36,6 +37,13 @@ classes:
     placements:
       - { rank: 1, rider: "名前" }
 ```
+
+### 年間ランキング
+
+- ファイルは `standings/{ja,en}/<西暦>.md`。URL は `/results/<西暦>/standings/` になる。`<西暦>.md` 以外の名前（`2001-yearend.md`、`yearend.md`）はビルドが失敗する。
+- `classes[].placements[]` はリザルトと同じ形に `points`（0 以上の整数）が加わる。`ResultsTable` は `points` を持つ要素が 1 つでもあればポイント列を足す。リザルト側は `points` を持たないので 2 列のまま。
+- 年のページ `/results/<西暦>/` は、そのロケールに年間ランキングがあるときだけラウンド一覧の末尾にリンクを出す。
+- 年間ランキングだけがあってリザルトが 1 件も無い年は、年のページが作られないのでリンクの入口も無い。リザルトと対で置く。
 
 ### 101（ガイド）
 
